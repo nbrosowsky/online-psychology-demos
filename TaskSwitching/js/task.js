@@ -250,6 +250,36 @@ function summarizeData() {
             response: (summary.ACCRepeat*100)
         }
     ];
+    
+    
+        // For Google Form //
+    var googleURL = "https://docs.google.com/forms/d/e/1FAIpQLSeY44t8gZOb5BdPwleaZYThzNPKjAkhYExg9cu6dW-aILNwww/formResponse"
+    var data = {
+
+        // subject ID //
+        "entry.106542103": trialArray[0].subject,
+
+        // Age //
+        "entry.2141639151": document.getElementsByName("age")[0].value,
+        // gender //
+        "entry.1866430447": document.getElementsByName("gender")[0].value,
+        // handedness //
+        "entry.1750504755": document.getElementsByName("hand")[0].value,
+        
+        // switch RT //
+        "entry.734194035": summary.RTSwitch,
+        // repeat RT //
+        "entry.1603213747": summary.RTRepeat,
+       
+        // switch error rate //
+        "entry.702986443": summary.ACCSwitch*100,
+        // repeat error rate //
+        "entry.1231541435": summary.ACCRepeat*100
+
+
+    }
+    // send to google form ///
+    postToGoogle(googleURL, data);
 }
 
 
