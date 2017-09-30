@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
+
+<head>
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="N.P. Brosowsky" content="Reaction Time Game" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Stylesheets
+	============================================= -->
+    <link rel="stylesheet" href="css/task.css" type="text/css" />
+
+
+    <!-- Document Title
+	============================================= -->
+    <title>Reaction Time Game</title>
+
+</head>
+
+<body>
+    <!-- Header & Footer
+		============================================= -->
+    <div class="top initHidden" style="width: 100%">
+        <h1 style="float: left; width: 16.66%" class="countDisplay">1 /27 trials</h1>
+        <h3 style="float: left; width: 66.66%; text-align: center" id="reminder"></h3>
+        <div style="width: 16.66%; clear: left"></div>
+        <button id="showInstructions" class="smallButton">Show Instructions</button>
+        <div style="max-width: 125px">
+            <h3>Reminder:</h3>
+            <ul style="list-style-type:none; padding: 5px">
+                <li><strong>SHAPE: </strong></li>
+                <li>diamond = "Z"</li>
+                <li>square = "M"</li>
+            </ul>
+            <ul style="list-style-type:none; padding: 5px">
+                <li><strong>FILL: </strong></li>
+                <li>two = "Z"</li>
+                <li>three = "M"</li>
+            </ul>
+        </div>
+    </div>
+    <!-- Header & Footer End -->
+
+    <!-- pop-up instructions -->
+    <div id="popUpInstructions" class="modal initHidden">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="popUpText">
+                <h3>Instructions:</h3>
+
+                <p>
+                    When the image appears in the upper location, respond to the shape, and when it appears in the lower location respond to the fill (circles).
+                </p>
+
+                <div class="flexCenter flexRow">
+                    <div style="width:200px">
+                        <h3>Reminder:</h3>
+                        <ul style="list-style-type:none; padding: 5px">
+                            <li><strong>SHAPE: </strong></li>
+                            <li>diamond = "Z"</li>
+                            <li>square = "M"</li>
+                        </ul>
+                        <ul style="list-style-type:none; padding: 5px">
+                            <li><strong>FILL: </strong></li>
+                            <li>two = "Z"</li>
+                            <li>three = "M"</li>
+                        </ul>
+                    </div>
+                    <img src="images/example1.png" height="300px" />
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- Hidden content end -->
+
+    <!-- Main Content
+		============================================= -->
+    <div class="contentDisplay flexCenter noSelect">
+        <!-- Instruction display -->
+        <div class="instructionDisplay book">
+
+            <div id="pgDemo" class="page">
+                                <h2>
+                    Welcome to the experiment!
+                </h2>
+                <p>
+                    First, we will review the instructions for the experiment. Feel free to use the "next" and "back" buttons to move through the instructions. Once you hit "start" however, you will not be able to go back.
+                </p>
+                <p>
+                    Before we begin, we like to know some general demographic information:</p>
+                <ol >
+                    <li>
+                        <p>
+                            Age:
+                        </p>
+                        <input type="text" name="Age">
+                    </li>
+                    <li>
+                        <p>Gender</p>
+                        <input type="radio" name="gender" value="Female">Female
+                        <input type="radio" name="gender" value="Male">Male
+                    </li>
+                                        <li>
+                        <p>Handedness</p>
+                        <input type="radio" name="hand" value="Left">Left
+                        <input type="radio" name="hand" value="Right">Right
+                        <input type="radio" name="hand" value="Both">Both                  
+                    </li>
+
+                </ol>
+            </div>
+            <div id="pg1" class="page">
+
+                <h3>1. Instructions:</h3>
+                <p>
+                    On every trial you'll see an image of a shape (a square or diamond) with two or three circles inside.
+                </p>
+                <p>
+                    For example:
+                </p>
+                <div class="examples flexCenter flexRow" display="center">
+                    <img src="images/diamond3.png" width="150px" />
+                    <img src="images/diamond2.png" width="150px" />
+                    <img src="images/square3.png" width="150px" />
+                    <img src="images/square2.png" width="150px" />
+                </div>
+            </div>
+            <div id="pg2" class="initHidden page">
+                <h3>
+                    2. Instructions:
+                </h3>
+                <p>
+                    The image will appear in appear in one of two locations on the screen:
+                </p>
+                <div class="flexCenter">
+                    <img src="images/example1.png" height="300px" />
+                </div>
+            </div>
+            <div id="pg3" class="initHidden page">
+                <h3>
+                    3. Instructions
+                </h3>
+                <p>
+                    If the image appears in the upper location. Your task is to respond to the shape, and ignore the fill (dots).
+                </p>
+                <p>
+                    You will press "z" if the shape is a diamond, and "m" if it is a square
+                </p>
+                <div class="flexCenter flexRow">
+                    <img src="images/example2.png" height="300px" />
+                </div>
+            </div>
+            <div id="pg4" class="initHidden page">
+                <h3>
+                    4. Instructions
+                </h3>
+                <p>
+                    If the image appears in the lower location. Your task is to respond to the fill, and ignore the shape.
+                </p>
+                <p>
+                    You will press "z" if the fill has two circles, and "m" if it is has three circles.
+                </p>
+                <div class="flexCenter flexRow">
+                    <img src="images/example3.png" height="300px" />
+                </div>
+            </div>
+            <div id="pg5" class="initHidden page">
+                <h3>
+                    5. Instructions
+                </h3>
+                <p>
+                    Example #1
+                </p>
+                <p>
+                    Since it appears in the lower location and has two circles, the correct response is "z"
+                </p>
+                <div class="flexCenter flexRow">
+                    <img src="images/example4.png" height="300px" />
+                </div>
+            </div>
+            <div id="pg6" class="initHidden page">
+                <h3>
+                    6. Instructions
+                </h3>
+                <p>
+                    Example #2
+                </p>
+                <p>
+                    Since it appears in the upper location and has a square, the correct response is "m"
+                </p>
+                <div class="flexCenter flexRow">
+                    <img src="images/example5.png" height="300px" />
+                </div>
+            </div>
+            <div id="pg7" class="initHidden page">
+                <h3>
+                    7. Instructions
+                </h3>
+
+                <p>
+                    That's it!
+                </p>
+                <p>
+                    When it appears in the upper location, respond to the shape, and when it appears in the lower location respond to the fill (circles).
+
+                </p>
+
+                <div class="flexCenter flexRow">
+                    <div style="width:200px">
+                        <h3>Reminder:</h3>
+                        <ul style="list-style-type:none; padding: 5px">
+                            <li><strong>SHAPE: </strong></li>
+                            <li>diamond = "Z"</li>
+                            <li>square = "M"</li>
+                        </ul>
+                        <ul style="list-style-type:none; padding: 5px">
+                            <li><strong>FILL: </strong></li>
+                            <li>two = "Z"</li>
+                            <li>three = "M"</li>
+                        </ul>
+                    </div>
+                    <img src="images/example1.png" height="300px" />
+                </div>
+                <p>
+                    When you are ready to begin, hit "start"!
+                </p>
+
+            </div>
+            <button id="pageDown" class="button-blue initHidden" style="float: left;">BACK</button>
+            <button id="pageUp" class="button-blue" style="float: right;">NEXT</button>
+            <button id="beginExp" class="button-green initHidden" style="float: right">START</button>
+        </div>
+
+        <div class="targetDisplay initHidden">
+            <div class="upText">
+                <p class="noMargin">SHAPE</p>
+            </div>
+            <div id="up" class="up flexCenter">
+                <p style="font-size: 20px; margin: 20px">
+                    This will be the display for the remainder of the experiment. <br /><br /> Take a second to orient yourself, and when you are ready to begin the first trial hit the "start" button.
+                </p>
+                <!-- <img src="images/square3.png" width="200px" /> -->
+
+            </div>
+            <div id="down" class="down flexCenter">
+                <button id="firstTrial" class="button-green">START</button>
+                <!-- <img src="images/diamond2.png" width="200px" /> -->
+
+            </div>
+            <div class="downText">
+                <p class="noMargin">FILL</p>
+            </div>
+
+        </div>
+        <div class="resultsDisplay initHidden">
+            <h2>
+                Finished!
+            </h2>
+            <div id="containerChart" class="flexCenter flexRow">
+                <div id="RT"></div>
+                <div id="ACC"></div>
+            </div>
+            <p>
+                On average, your reaction time was <span id="switchRT"></span> ms with <span id="switchACC"></span>% errors for task-switch trials and <span id="repeatRT"></span> ms with <span id="repeatACC"></span>% errors for task-repeat trials.
+            </p>
+
+            <p>
+                Your data has been recorded and you can safely close this window. You can download your complete data set by clicking the button below.
+            </p>
+            <button class="smallButton" id="downloadCSV">Save Data as CSV</button>
+        </div>
+    </div>
+    <!-- #content end -->
+    <!--- Javascript on page load
+	============================================= -->
+    <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="js/Required.js"></script>
+    <script type="text/javascript" src="js/preLoader.js"></script>
+    <script type="text/javascript" src="js/eventTimer.js"></script>
+    <script type="text/javascript" src="js/postToGoogle.js"></script>
+    <script type="text/javascript" src="js/exportToCSV.js"></script>
+    <script type="text/javascript" src="js/task.js"></script>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script type="text/javascript" src="js/createChart.js"></script>
+
+    <script>
+        /*Modernizr: check for flexbox */
+        function checkFlex() {
+            if (Modernizr.flexbox) {
+                $(".flexPresent").show();
+                $(".flexAbsent").hide();
+            } else {
+                $(".flexPresent").hide();
+                $(".flexAbsent").show();
+            }
+        }
+    </script>
+</body>
+
+</html>
