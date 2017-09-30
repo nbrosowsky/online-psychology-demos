@@ -203,6 +203,7 @@ function endTrial() {
 
 
 
+
 function summarizeData() {
     var sRT = [];
     var sACC = [];
@@ -262,9 +263,9 @@ function summarizeData() {
         // Age //
         "entry.2141639151": document.getElementsByName("age")[0].value,
         // gender //
-        "entry.1866430447": document.getElementsByName("gender")[0].value,
+        "entry.1866430447": getCheckedRadioValue("gender"),
         // handedness //
-        "entry.1750504755": document.getElementsByName("hand")[0].value,
+        "entry.1750504755": getCheckedRadioValue("hand"),
         
         // switch RT //
         "entry.734194035": summary.RTSwitch,
@@ -451,4 +452,12 @@ function shuffle(array) {
         }
 
     return array;
+}
+
+/* find checked radio button */
+function getCheckedRadioValue(name) {
+    var elements = document.getElementsByName(name);
+
+    for (var i=0, len=elements.length; i<len; ++i)
+        if (elements[i].checked) return elements[i].value;
 }
