@@ -182,8 +182,6 @@ function rec_blank() {
 
 function rec_trial() {
     /* update counter display */
-    console.log(trialCount);
-    console.log(trialArray.length);
     $(".countDisplay").html((trialCount + 1) + " /" + trialArray.length + " trials");
 
     var trialWords = [trialArray[trialCount].word, trialArray[trialCount].newWord]
