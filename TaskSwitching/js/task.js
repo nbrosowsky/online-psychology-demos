@@ -24,25 +24,29 @@ var trialType = [
 var trialArray = [];
 
 
-var block = [];
-for (n = 0; n <= trialType.length - 1; n++) {
-    temp = {
-        date: new Date(),
-        subject: "",
-        trial: "",
-        task: trialType[n][0],
-        shape: trialType[n][1],
-        fill: trialType[n][2],
-        cResponse: trialType[n][3],
-        congruency: trialType[n][4],
-        location: trialType[n][5],
-        reactionTime: "",
-        response: "",
-        accuracy: ""
+
+for (b = 0; b <= 11; b++) {
+    var block = [];
+    for (n = 0; n <= trialType.length - 1; n++) {
+        temp = {
+            date: new Date(),
+            subject: "",
+            trial: "",
+            task: trialType[n][0],
+            shape: trialType[n][1],
+            fill: trialType[n][2],
+            cResponse: trialType[n][3],
+            congruency: trialType[n][4],
+            location: trialType[n][5],
+            reactionTime: "",
+            response: "",
+            accuracy: ""
+        }
+        block.push(temp)
     }
-    block.push(temp)
+    trialArray = trialArray.concat(shuffle(block));
 }
-trialArray = trialArray.concat(shuffle(block));
+
 
 for (n = 0; n <= trialArray.length - 1; n++) {
     trialArray[n].trial = n + 1;
@@ -244,16 +248,16 @@ function summarizeData() {
     ErrorData = [
         {
             condition: "Switch Trials",
-            response: (summary.ACCSwitch*100)
+            response: (summary.ACCSwitch * 100)
         },
         {
             condition: "Repeat Trials",
-            response: (summary.ACCRepeat*100)
+            response: (summary.ACCRepeat * 100)
         }
     ];
-    
-    
-        // For Google Form //
+
+
+    // For Google Form //
     var googleURL = "https://docs.google.com/forms/d/e/1FAIpQLSeY44t8gZOb5BdPwleaZYThzNPKjAkhYExg9cu6dW-aILNwww/formResponse"
     var data = {
 
@@ -266,16 +270,16 @@ function summarizeData() {
         "entry.1866430447": getCheckedRadioValue("gender"),
         // handedness //
         "entry.1750504755": getCheckedRadioValue("hand"),
-        
+
         // switch RT //
         "entry.734194035": summary.RTSwitch,
         // repeat RT //
         "entry.1603213747": summary.RTRepeat,
-       
+
         // switch error rate //
-        "entry.702986443": summary.ACCSwitch*100,
+        "entry.702986443": summary.ACCSwitch * 100,
         // repeat error rate //
-        "entry.1231541435": summary.ACCRepeat*100
+        "entry.1231541435": summary.ACCRepeat * 100
 
 
     }
@@ -458,6 +462,6 @@ function shuffle(array) {
 function getCheckedRadioValue(name) {
     var elements = document.getElementsByName(name);
 
-    for (var i=0, len=elements.length; i<len; ++i)
+    for (var i = 0, len = elements.length; i < len; ++i)
         if (elements[i].checked) return elements[i].value;
 }
