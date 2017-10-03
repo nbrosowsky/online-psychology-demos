@@ -75,9 +75,10 @@ for (i = 0; i <= 47; i++) {
 }
 
 
-var block = [];
+
 
 for (b = 0; b <= 11; b++) {
+    var block = [];
     for (n = 0; n <= trialType.length - 1; n++) {
         temp = {
             date: new Date(),
@@ -93,11 +94,11 @@ for (b = 0; b <= 11; b++) {
             memoryRT: ""
         }
         block.push(temp)
-    }
+    } 
+trialArray = trialArray.concat(shuffle(block));
 }
 
 
-trialArray = trialArray.concat(shuffle(block));
 
 
 for (n = 0; n <= trialArray.length - 1; n++) {
