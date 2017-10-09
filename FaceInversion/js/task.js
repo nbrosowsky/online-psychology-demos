@@ -118,7 +118,7 @@ function studyBlank() {
     $("#study").removeClass("up");
     $("#study").removeClass("down");
 
-    setTimeout(studyTarget, blankLength);
+    eventTimer.setTimeout(studyTarget, blankLength);
 }
 
 function studyTarget() {
@@ -127,9 +127,9 @@ function studyTarget() {
     $("#study").html("<img src='" + trialArray[trialCount].image + "'></img>");
     $("#study").show();
     if (trialCount != trialArray.length - 1) {
-        setTimeout(studyBlank, studyLength);
+        eventTimer.setTimeout(studyBlank, studyLength);
     } else {
-        setTimeout(endStudy, studyLength);
+        eventTimer.setTimeout(endStudy, studyLength);
     }
     trialCount++
 }
@@ -150,7 +150,7 @@ function testBlank() {
     $("#right").removeClass("up");
     $("#right").removeClass("down");
 
-    setTimeout(testTarget, blankLength);
+    eventTimer.setTimeout(testTarget, blankLength);
 }
 
 function testTarget() {
