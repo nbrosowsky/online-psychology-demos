@@ -72,5 +72,5 @@ function createChart() {
         .attr("x", 0 - (height / 2))
         .attr("dy", "1em")
         .style("text-anchor", "middle")
-        .text("Memory Accuracy (%)");
+        .text("Memory Errors (%)");
 }
