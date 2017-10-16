@@ -1,3 +1,8 @@
+<!-- 
+NP Brosowsky 
+nbrosowsky.github.io
+-->
+
 <!DOCTYPE html>
 <html dir="ltr" lang="en-US">
 
@@ -83,7 +88,7 @@
         <div class="instructionDisplay book">
 
             <div id="pgDemo" class="page">
-                                <h2>
+                <h2>
                     Welcome to the experiment!
                 </h2>
                 <p>
@@ -91,7 +96,7 @@
                 </p>
                 <p>
                     Before we begin, we like to know some general demographic information:</p>
-                <ol >
+                <ol>
                     <li>
                         <p>
                             Age:
@@ -103,11 +108,11 @@
                         <input type="radio" name="gender" value="Female">Female
                         <input type="radio" name="gender" value="Male">Male
                     </li>
-                                        <li>
+                    <li>
                         <p>Handedness</p>
                         <input type="radio" name="hand" value="Left">Left
                         <input type="radio" name="hand" value="Right">Right
-                        <input type="radio" name="hand" value="Both">Both                  
+                        <input type="radio" name="hand" value="Both">Both
                     </li>
 
                 </ol>
@@ -267,13 +272,13 @@
                 On average, your reaction time was <span id="switchRT"></span> ms with <span id="switchACC"></span>% errors for task-switch trials and <span id="repeatRT"></span> ms with <span id="repeatACC"></span>% errors for task-repeat trials.
             </p>
 
-<!--
+            <!--
             <p>
                 Your data has been recorded and you can safely close this window. 
             </p>
 -->
             <p>
-            You can download your complete data set by clicking the button below.
+                You can download your complete data set by clicking the button below.
             </p>
             <button class="smallButton" id="downloadCSV">Save Data as CSV</button>
         </div>
@@ -281,28 +286,19 @@
     <!-- #content end -->
     <!--- Javascript on page load
 	============================================= -->
+
+    <!-- non-specific js -->
     <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
-    <script type="text/javascript" src="js/Required.js"></script>
-    <script type="text/javascript" src="js/preLoader.js"></script>
     <script type="text/javascript" src="js/eventTimer.js"></script>
-    <script type="text/javascript" src="js/postToGoogle.js"></script>
     <script type="text/javascript" src="js/exportToCSV.js"></script>
+
+    <!-- task-specific js -->
     <script type="text/javascript" src="js/task.js"></script>
+
+    <!-- d3js create results charts -->
     <script src="https://d3js.org/d3.v4.min.js"></script>
     <script type="text/javascript" src="js/createChart.js"></script>
 
-    <script>
-        /*Modernizr: check for flexbox */
-        function checkFlex() {
-            if (Modernizr.flexbox) {
-                $(".flexPresent").show();
-                $(".flexAbsent").hide();
-            } else {
-                $(".flexPresent").hide();
-                $(".flexAbsent").show();
-            }
-        }
-    </script>
 </body>
 
 </html>
