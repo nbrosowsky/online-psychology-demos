@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
+    <title>Change Detection Test Site</title>
+
+    <!-- CSS  -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection" />
+    <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection" />
+</head>
+
+<body class="blue-grey lighten-5">
+    <nav class="blue darken-4" role="navigation">
+        <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Change Detection Test</a>
+        </div>
+    </nav>
+    <main>
+
+        <!--
+
+        <div id="p5_loading" class="container centerContent">
+
+            <div class="col s4">
+                <div class="preloader-wrapper active">
+                    <div class="spinner-layer spinner-red-only">
+                        <div class="circle-clipper left">
+                            <div class="circle"></div>
+                        </div>
+                        <div class="gap-patch">
+                            <div class="circle"></div>
+                        </div>
+                        <div class="circle-clipper right">
+                            <div class="circle"></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+-->
+
+        <div class="container">
+            <div id="buttonDisplay">
+                <div class="col s12">
+                    <div class="card horizontal">
+                        <div class="card-stacked">
+                            <div class="card-content">
+
+
+                                <p>Click below for a new trial.</p>
+
+                            </div>
+
+
+                            <button id="newTrial" class="waves-effect waves-light btn blue">LOAD NEW TRIAL </button>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col s12">
+                    <div class="card horizontal">
+                        <div class="card-stacked">
+                            <div class="card-content">
+                                <p>Play the track and pick a response</p>
+                                <p>The change will happen slowly over 30 seconds (if there is a change). The track will not stop after 30 seconds. Click play again to stop and reset the track. </p>
+                                <br />
+                                <button id="play" class="waves-effect waves-light btn green">PLAY TRACK</button>
+                                <br />
+                                <br/>
+                                <button id="pitch" class="waves-effect waves-light btn blue">PITCH</button>
+                                <button id="tempo" class="waves-effect waves-light btn blue">TEMPO</button>
+                                <button id="none" class="waves-effect waves-light btn blue">NO CHANGE</button>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col s12">
+                    <div class="card horizontal">
+                        <div class="card-stacked">
+                            <div class="card-content">
+
+                             <h4>Feedback:</h4>
+                                <h5 style="min-height: 50px" id="feedback"></h5>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                                <div class="col s12">
+                    <div class="card horizontal">
+                        <div class="card-stacked">
+                            <div class="card-content">
+
+                                <div>
+                                    <h4>Cheat:</h4>
+                                    <br />
+                                    <br />
+                                    <button id="play1" class="waves-effect waves-light btn grey">Play track 1</button>
+                                    <button id="play2" class="waves-effect waves-light btn grey">Play track 2</button>
+                                </div>
+                                <br />
+                                <br />
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <footer class="page-footer blue darken-4">
+    </footer>
+
+
+    <!--  Scripts-->
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="js/materialize.js"></script>
+    <script src="js/init.js"></script>
+    <script src="js/howler.min.js"></script>
+    <script src="js/howler.spatial.min.js"></script>
+    <script src="js/monkeypatch.js"></script>
+    <script src="js/createTracks.js"></script>
+    <script src="js/sequencer.js"></script>
+    <script>
+        var con = ["pitch", "tempo", "none"]
+        var tempC;
+        loadTrack(new Track(myShuffle(con)[0], "slow"))
+        tempC = sequencer.change;
+        $("#feedback").html("");
+        
+        $("#newTrial").click(function() {
+            if (isPlaying) {
+                play()
+            }
+
+            loadTrack(new Track(myShuffle(con)[0], "slow"))
+            tempC = sequencer.change;
+            $("#feedback").html("")
+
+        });
+
+        $("#play").click(function() {
+            sequencer.change = tempC;
+
+            setTimeout(play, 500)
+        })
+
+        $("#pitch").click(function() {
+            if (sequencer.change === this.id) {
+                $("#feedback").html("Correct!")
+            } else {
+                $("#feedback").html("Incorrect!")
+            }
+        });
+
+        $("#tempo").click(function() {
+            if (sequencer.change === this.id) {
+                $("#feedback").html("Correct!")
+            } else {
+                $("#feedback").html("Incorrect!")
+            }
+        });
+
+        $("#none").click(function() {
+            if (sequencer.change === this.id) {
+                $("#feedback").html("Correct!")
+            } else {
+                $("#feedback").html("Incorrect!")
+            }
+        });
+
+        $("#play1").click(function() {
+            if (isPlaying) {
+                play()
+                sequencer.change = tempC;
+            }
+            setTimeout(function() {
+                if (sequencer.change === "pitch") {
+                    sequencer.Rate_current = sequencer.Rate_start * 1;
+                    sequencer.change = "none";
+                    console.log(sequencer.Rate_current)
+                }
+                if (sequencer.change === "tempo") {
+                    tempo = sequencer.BPM_start;
+                    sequencer.change = "none";
+                    console.log(tempo)
+                }
+                tempPlay();
+            }, 500)
+
+
+
+        })
+
+        $("#play2").click(function() {
+            if (isPlaying) {
+                play()
+                sequencer.change = tempC;
+            }
+
+            setTimeout(function() {
+                if (sequencer.change === "pitch") {
+                    sequencer.Rate_current = (sequencer.Rate_start + sequencer.Rate_change) * 1;
+                    sequencer.change = "none";
+                    console.log(sequencer.Rate_current)
+                }
+
+                if (sequencer.change === "tempo") {
+                    tempo = (sequencer.BPM_start + sequencer.BPM_change) * 1;
+                    sequencer.change = "none";
+                    console.log(tempo)
+                }
+
+                tempPlay()
+
+            }, 500)
+        });
+    </script>
+
+
+</body>
+
+</html>
