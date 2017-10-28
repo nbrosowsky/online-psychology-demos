@@ -30,15 +30,15 @@ function resetTrack() {
     tempo = sequencer.BPM_start || sequencer.BPM_current;
     // reset pitch //
     sequencer.Rate_current = sequencer.Rate_start || sequencer.Rate_current
-    
+
     // reset locations //
     if (sequencer.change === "location_2" || sequencer.change === "location_1")
-    for (n = 0; n <= sequencer.Loc_current.length - 1; n++){
-        sequencer.Loc_current[n] = sequencer.Loc_start[n]
-    }
+        for (n = 0; n <= sequencer.Loc_current.length - 1; n++) {
+            sequencer.Loc_current[n] = sequencer.Loc_start[n]
+        }
 
-    
-    
+
+
     // reset instruments //
     for (n = 0; n <= sequencer.Vol_current.length - 1; n++) {
         if (sequencer.conditions[n] === "changeIn") {
@@ -50,7 +50,7 @@ function resetTrack() {
         }
     }
 
-    
+
 
     // reset counter and update Howls //
     counter = -1;
@@ -65,7 +65,7 @@ function stopAll() {
         for (i = 0; i < sequencer.phrases[n].length; i++) {
             //
             if (sequencer.phrases[n][i].sound.playing()) {
-//                console.log(sequencer.phrases[n][i].sound.id)
+                //                console.log(sequencer.phrases[n][i].sound.id)
                 sequencer.phrases[n][i].sound.stop();
             }
         }
@@ -79,12 +79,12 @@ function onTick() {
     updatePlayer();
 
     /// if a slow change trial, then make adjustment to sequencer parameters
-   if (sequencer.change != "none"){
-       if (sequencer.changeType === "slow") {
-        slowChange();
+    if (sequencer.change != "none") {
+        if (sequencer.changeType === "slow") {
+            slowChange();
+        }
     }
-   }
-    
+
 }
 
 
@@ -102,8 +102,8 @@ function slowChange() {
 
             sequencer.Vol_current[0] = sequencer.Vol_changeOut;
             sequencer.Vol_current[sequencer.Vol_current.length - 1] = sequencer.Vol_changeIn;
-//            console.log(sequencer.Vol_changeIn);
-//            console.log(sequencer.Vol_changeOut);
+            //            console.log(sequencer.Vol_changeIn);
+            //            console.log(sequencer.Vol_changeOut);
             break;
 
         case "pitch":
@@ -120,21 +120,21 @@ function slowChange() {
                     sequencer.Rate_current = sequencer.Rate_start + sequencer.Rate_change
                 }
             }
-//            console.log(sequencer.Rate_current)
-//            console.log(window.performance.now() - startTime)
-//            console.log(counter)
+                        console.log(sequencer.Rate_current)
+            //            console.log(window.performance.now() - startTime)
+            //            console.log(counter)
             break;
 
         case "location_2":
             if (Math.abs(sequencer.Loc_current[0] + (sequencer.Loc_change[0] / changeTicks)) >= Math.abs(sequencer.Loc_change[0])) {
-                sequencer.Loc_current[0] = sequencer.Loc_change[0] 
+                sequencer.Loc_current[0] = sequencer.Loc_change[0]
                 sequencer.Loc_current[1] = sequencer.Loc_change[1]
                 break;
             }
 
             sequencer.Loc_current[0] = sequencer.Loc_current[0] + ((sequencer.Loc_change[0] * 2) / changeTicks)
             sequencer.Loc_current[1] = sequencer.Loc_current[1] + ((sequencer.Loc_change[1] * 2) / changeTicks)
-//            console.log(sequencer.Loc_current)
+            //            console.log(sequencer.Loc_current)
             break;
         case "tempo":
             if (sequencer.BPM_change < 0) {
@@ -150,10 +150,10 @@ function slowChange() {
                     tempo = sequencer.BPM_start + sequencer.BPM_change
                 }
             }
-//
-//            console.log(tempo)
-//            console.log(window.performance.now() - startTime)
-//            console.log(counter)
+            //
+                        console.log(tempo)
+            //            console.log(window.performance.now() - startTime)
+            //            console.log(counter)
 
 
             break;
@@ -198,6 +198,30 @@ function scheduleNote(beatNumber, time) {
 
     if (beatNumber === 0) {
         counter++
+        if (sequencer.changeType === "abrupt") {
+            if (counter % 2 === 0) {
+                if (sequencer.change === "pitch") {
+                    sequencer.Rate_current = (sequencer.Rate_start + sequencer.Rate_change) * 1;
+                    console.log(sequencer.Rate_current)
+                }
+
+                if (sequencer.change === "tempo") {
+                    tempo = (sequencer.BPM_start + sequencer.BPM_change) * 1;
+                    console.log(tempo)
+                }
+            } else {
+                  if (sequencer.change === "pitch") {
+                    sequencer.Rate_current = (sequencer.Rate_start) * 1;
+                    console.log(sequencer.Rate_current)
+                }
+
+                if (sequencer.change === "tempo") {
+                    tempo = (sequencer.BPM_start) * 1;
+                    console.log(tempo)
+                }
+            }
+        }
+
     }
     //
     //    console.log(window.performance.now() - startTime)
@@ -279,7 +303,7 @@ function tempPlay() {
         return "stop";
     } else {
         timerWorker.postMessage("stop");
-        
+
         return "play";
     }
 }
