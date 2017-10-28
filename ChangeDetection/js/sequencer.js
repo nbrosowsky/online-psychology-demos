@@ -14,6 +14,8 @@ var timerWorker = null; // The Web Worker used to fire timer messages
 var mLength = 4; // number of quarter notes per measure
 var Nmeasures = 16; // number of measures to loop
 var counter = -1; // count measures 
+
+
 var changeTicks = (30 * 1000) / lookahead; // number of ticks needed for slow change over 30 seconds // 
 
 
@@ -23,6 +25,7 @@ var sequencer = new Object;
 function loadTrack(track) {
     sequencer = track;
     tempo = sequencer.BPM_start || sequencer.BPM_current;
+    changeTicks = (sequencer.timeChange * 1000) / lookahead
 }
 
 function resetTrack() {
@@ -254,7 +257,7 @@ function scheduleFade(beatNumber, time) {
         for (i = 0; i < sequencer.phrases[n].length; i++) {
             if (sequencer.phrases[n][i].endBeat === beatNumber) {
                 //                console.log(sequencer.phrases[n][i].sound.id)
-                sequencer.phrases[n][i].sound.fade(sequencer.Vol_current[n], 0, 50, sequencer.phrases[n][i].sound.id);
+                sequencer.phrases[n][i].sound.fade(sequencer.Vol_current[n], 0, 100, sequencer.phrases[n][i].sound.id);
             }
 
         }

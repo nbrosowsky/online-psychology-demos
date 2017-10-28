@@ -1,19 +1,26 @@
+
 var trackOptions = {
     // Default options for audio randomization //
-    instruments: ["bass-clarinet", "bassoon", "english-horn","cello", "violin", "guitar", "piano", "saxophone", "trombone", "trumpet"],
+    instCategories: [["bass-clarinet", "bassoon","english-horn"],
+                      ["cello", "violin"], 
+                      ["guitar", "piano"], 
+                      ["saxophone", "trombone", "trumpet"]
+                     ] ,
     beats: [4, 2, 1], // note: audio samples are only 1 second in length
     octave: [1, 2], //currently only two available for each instrument
     notes: [["E3", "Fs3", "Gs3", "A3", "B3", "Cs4", "Ds4", "E4"],
             ["E3", "Fs3", "Gs3", "A3", "B3", "Cs4", "Ds4", "E4"],
             ["E4", "Fs4", "Gs4", "A4", "B4", "Cs5", "Ds5", "E5"],
             ["E4", "Fs4", "Gs4", "A4", "B4", "Cs5", "Ds5", "E5"]
-           
             ],
     bpmRange: [80, 100],
+    bpmChange: 15,
     pitchRange: [(1 - 0.05943508), (1 + 0.05943508)],
+    pitchChange: 1,
+    timeChange: 30,
     nPhrases: 2, //number of unique audio phrases / limited by number of instruments available
     nChange: 1,
-    spatialLocation: [-1, 1, -1, 1], // default locations
+    spatialLocation: [-1, 1, -.5, .5], // default locations
     upDown: [1, -1] // helper to randomly change sign if needed
 }
 
@@ -21,9 +28,16 @@ var trackOptions = {
 function Track(change, changeType) {
     var b = randomIntFromInterval(trackOptions.bpmRange[0], trackOptions.bpmRange[1]);
     var c = Array(trackOptions.nChange).fill("changeOut").concat(Array(trackOptions.nPhrases - trackOptions.nChange).fill("noChange"));
-    var inst = myShuffle(trackOptions.instruments).slice(0, trackOptions.nPhrases);
+//    var inst = myShuffle(trackOptions.instruments).slice(0, trackOptions.nPhrases);
     var p = (Math.random() * (trackOptions.pitchRange[1] - trackOptions.pitchRange[0]) + trackOptions.pitchRange[0])
-
+    
+    var inst = [];
+    for (n = 0; n <= trackOptions.instCategories.length - 1; n++){
+        inst.push(myShuffle(trackOptions.instCategories[n])[0])
+    }
+    inst = myShuffle(inst);
+    
+    this.timeChange = trackOptions.timeChange;
     this.instruments = inst;
     this.change = change;
     this.changeType = changeType;
@@ -81,14 +95,14 @@ function Track(change, changeType) {
     /// if tempo change
     if (change === "tempo") {
         this.BPM_start = b;
-        this.BPM_change = 15 * myShuffle(trackOptions.upDown)[0]; // changing 10bpm // need to fix the -1 || 1
+        this.BPM_change = trackOptions.bpmChange * myShuffle(trackOptions.upDown)[0]; // changing 10bpm // need to fix the -1 || 1
 
     }
 
     /// if pitch change
     if (change === "pitch") {
         this.Rate_start = p;
-        this.Rate_change = (0.05943508) * myShuffle(trackOptions.upDown)[0]; // changing 1 semi-tone // need to fix the -1 || 1
+        this.Rate_change = (0.05943508*trackOptions.pitchChange) * myShuffle(trackOptions.upDown)[0]; // changing 1 semi-tone // need to fix the -1 || 1
 
     }
 

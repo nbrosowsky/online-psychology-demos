@@ -50,7 +50,29 @@
                             <div class="card-content">
 
 
-                                <p>Click below for a new trial.</p>
+                                <h5>Setup new trial</h5>
+                                <div style="width: 60%">
+                                    <p> Number of instruments:</p>
+                                    <p class="range-field">
+
+                                        <input type="range" value="2" id="nInst" min="1" max="4" oninput="trackOptions.nPhrases = Number(event.target.value);" />
+                                    </p>
+                                    <p> BPM change range (+/- N BPM):</p>
+                                    <p class="range-field">
+
+                                        <input type="range" value="15" id="tempoInput" min="0" max="50" oninput="trackOptions.bpmChange = Number(event.target.value);" />
+                                    </p>
+                                    <p>Pitch change (+/- N semi-tones)</p>
+                                    <p class="range-field">
+
+                                        <input type="range" value="1" id="pitchInput" min="0" max="10" oninput="trackOptions.pitchChange = Number(event.target.value);" />
+                                    </p>
+                                    <p>Length of slow change (seconds)</p>
+                                    <p class="range-field">
+                                        <input type="range" value="30" id="time" min="0" max="120" oninput="trackOptions.timeChange = Number(event.target.value);" />
+                                    </p>
+                                </div>
+
 
                             </div>
 
@@ -66,8 +88,7 @@
                         <div class="card-stacked">
                             <div class="card-content">
                                 <p>Play the track and pick a response</p>
-                                <p>The change will happen slowly over 30 seconds (if there is a change). The track will not stop after 30 seconds. Click play again to stop and reset the track. </p>
-                                <p>The change is either +/- 15 bpm or +/- 1 semi-tone </p>
+                                <p>The change will happen slowly over 30 seconds (default). The track will not stop after 30 seconds. Click play again to stop and reset the track. </p>
                                 <br />
                                 <button id="play" class="waves-effect waves-light btn green">PLAY TRACK</button>
                                 <br />
@@ -76,7 +97,7 @@
                                 <button id="tempo" class="waves-effect waves-light btn blue">TEMPO</button>
                                 <button id="none" class="waves-effect waves-light btn blue">NO CHANGE</button>
                             </div>
-                            
+
                         </div>
                     </div>
                 </div>
@@ -87,7 +108,7 @@
                         <div class="card-stacked">
                             <div class="card-content">
 
-                             <h4>Feedback:</h4>
+                                <h4>Feedback:</h4>
                                 <h5 style="min-height: 50px" id="feedback"></h5>
                             </div>
 
@@ -95,7 +116,7 @@
                     </div>
                 </div>
 
-                                <div class="col s12">
+                <div class="col s12">
                     <div class="card horizontal">
                         <div class="card-stacked">
                             <div class="card-content">
@@ -106,7 +127,7 @@
                                     <br />
                                     <br />
                                     <button id="play1" class="waves-effect waves-light btn grey">Play abrupt change</button>
-                                    
+
                                 </div>
                                 <br />
                                 <br />
@@ -142,7 +163,7 @@
         loadTrack(new Track(myShuffle(con)[0], "slow"))
         tempC = sequencer.change;
         $("#feedback").html("");
-        
+
         $("#newTrial").click(function() {
             if (isPlaying) {
                 play()
@@ -191,29 +212,27 @@
                 sequencer.change = tempC;
                 return;
             }
-//            setTimeout(function() {
-//                if (sequencer.change === "pitch") {
-//                    sequencer.Rate_current = sequencer.Rate_start * 1;
-//                    sequencer.change = "none";
-//                    console.log(sequencer.Rate_current)
-//                }
-//                if (sequencer.change === "tempo") {
-//                    tempo = sequencer.BPM_start;
-//                    sequencer.change = "none";
-//                    console.log(tempo)
-//                }
-//                tempPlay();
-//            }, 500)
+            //            setTimeout(function() {
+            //                if (sequencer.change === "pitch") {
+            //                    sequencer.Rate_current = sequencer.Rate_start * 1;
+            //                    sequencer.change = "none";
+            //                    console.log(sequencer.Rate_current)
+            //                }
+            //                if (sequencer.change === "tempo") {
+            //                    tempo = sequencer.BPM_start;
+            //                    sequencer.change = "none";
+            //                    console.log(tempo)
+            //                }
+            //                tempPlay();
+            //            }, 500)
 
             sequencer.changeType = "abrupt";
-            
+
             play();
-            
+
 
 
         })
-
-      
     </script>
 
 
