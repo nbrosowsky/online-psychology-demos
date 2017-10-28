@@ -81,7 +81,7 @@ function Track(change, changeType) {
     /// if tempo change
     if (change === "tempo") {
         this.BPM_start = b;
-        this.BPM_change = 10 * myShuffle(trackOptions.upDown)[0]; // changing 10bpm // need to fix the -1 || 1
+        this.BPM_change = 15 * myShuffle(trackOptions.upDown)[0]; // changing 10bpm // need to fix the -1 || 1
 
     }
 
