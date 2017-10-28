@@ -34,7 +34,7 @@ var trialType = [
 
 var trialArray = [];
 var block = [];
-for (b = 0; b <= 11; b++) {
+for (b = 0; b <= 1; b++) {
     block = [];
     for (n = 0; n <= trialType.length - 1; n++) {
         temp = {
@@ -42,14 +42,13 @@ for (b = 0; b <= 11; b++) {
             orientation: trialType[n][1],
             imageLocation: trialType[n][2],
             lureLocation: trialType[n][3],
-            cResponse: trialType[n][4],
             image: "",
             lure: "",
             reactionTime: "",
             response: "",
             accuracy: "",
             subject: "",
-            trial: "",
+            studyTrial: "",
             memoryTrial: ""
         }
         block.push(temp)
@@ -62,7 +61,7 @@ var imgArray = [];
 
 for (n = 0; n <= trialArray.length - 1; n++) {
 
-    trialArray[n].trial = n + 1;
+    trialArray[n].studyTrial = n + 1;
     if (trialArray[n].material === "face") {
         trialArray[n].image = "images/face_" + faceN.pop() + ".jpg"
         trialArray[n].lure = "images/face_" + faceN.pop() + ".jpg"
@@ -214,7 +213,7 @@ $("#startTest").click(function () {
 /* download data file */
 $("#downloadCSV").click(function () {
     /* adds header row to beginning of array and saves csv file */
-    exportToCsv('Stroop - ' + subject + '.csv', data);
+    exportObjectToCSV('FaceInversion - ' + subject + '.csv', trialArray);
 });
 
 
@@ -307,38 +306,38 @@ function getSummary() {
         }
     ];
 
-
-    // For Google Form //
-    var googleURL = "https://docs.google.com/forms/d/e/1FAIpQLScRBdUKmF3M4QBmwZCfCLWEyo36qMoZYQfqZbKlWibpB8TcOw/formResponse"
-    var data = {
-
-        // subject ID //
-        "entry.508578446": trialArray[0].subject,
-
-        // RTs //
-        // faces //
-        "entry.1339517662": calcAVG(summary.RTFaceUp),
-        "entry.464346576": calcAVG(summary.RTFaceDown),
-
-        // houses //
-        "entry.907587456": calcAVG(summary.RTHouseUp),
-        "entry.976557265": calcAVG(summary.RTHouseDown),
-        
-        // ACC //
-        // faces //
-        "entry.992061188": (1-calcAVG(summary.ACCFaceUp))*100,
-        "entry.739534827": (1-calcAVG(summary.ACCFaceDown))*100,
-
-        // houses //
-        "entry.468725422": (1-calcAVG(summary.ACCHouseUp))*100,
-        "entry.1567685492": (1-calcAVG(summary.ACCHouseDown))*100
-
-
-
-
-    }
-    // send to google form ///
-    postToGoogle(googleURL, data);
+//
+//    // For Google Form //
+//    var googleURL = "https://docs.google.com/forms/d/e/1FAIpQLScRBdUKmF3M4QBmwZCfCLWEyo36qMoZYQfqZbKlWibpB8TcOw/formResponse"
+//    var data = {
+//
+//        // subject ID //
+//        "entry.508578446": trialArray[0].subject,
+//
+//        // RTs //
+//        // faces //
+//        "entry.1339517662": calcAVG(summary.RTFaceUp),
+//        "entry.464346576": calcAVG(summary.RTFaceDown),
+//
+//        // houses //
+//        "entry.907587456": calcAVG(summary.RTHouseUp),
+//        "entry.976557265": calcAVG(summary.RTHouseDown),
+//        
+//        // ACC //
+//        // faces //
+//        "entry.992061188": (1-calcAVG(summary.ACCFaceUp))*100,
+//        "entry.739534827": (1-calcAVG(summary.ACCFaceDown))*100,
+//
+//        // houses //
+//        "entry.468725422": (1-calcAVG(summary.ACCHouseUp))*100,
+//        "entry.1567685492": (1-calcAVG(summary.ACCHouseDown))*100
+//
+//
+//
+//
+//    }
+//    // send to google form ///
+//    postToGoogle(googleURL, data);
 }
 
 
