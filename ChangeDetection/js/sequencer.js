@@ -199,7 +199,7 @@ function scheduleNote(beatNumber, time) {
     if (beatNumber === 0) {
         counter++
         if (sequencer.changeType === "abrupt") {
-            if (counter % 2 === 0) {
+            if (counter % 2 != 0) {
                 if (sequencer.change === "pitch") {
                     sequencer.Rate_current = (sequencer.Rate_start + sequencer.Rate_change) * 1;
                     console.log(sequencer.Rate_current)
