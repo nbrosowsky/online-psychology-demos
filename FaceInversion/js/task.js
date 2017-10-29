@@ -34,7 +34,7 @@ var trialType = [
 
 var trialArray = [];
 var block = [];
-for (b = 0; b <= 1; b++) {
+for (b = 0; b <= 11; b++) {
     block = [];
     for (n = 0; n <= trialType.length - 1; n++) {
         temp = {
