@@ -230,7 +230,7 @@ function findBeats() {
         var pickOne = myShuffle(trackOptions.beats)[0];
         if (count + pickOne <= 16) {
             if (count + pickOne === 16) {
-                tempBeats.push([count, 0]);
+                tempBeats.push([count, 16]);
                 count = count + pickOne;
             } else {
                 tempBeats.push([count, count + pickOne]);

@@ -26,6 +26,7 @@ function loadTrack(track) {
     sequencer = track;
     tempo = sequencer.BPM_start || sequencer.BPM_current;
     changeTicks = (sequencer.timeChange * 1000) / lookahead
+
 }
 
 function resetTrack() {
@@ -123,7 +124,7 @@ function slowChange() {
                     sequencer.Rate_current = sequencer.Rate_start + sequencer.Rate_change
                 }
             }
-                        console.log(sequencer.Rate_current)
+            console.log(sequencer.Rate_current)
             //            console.log(window.performance.now() - startTime)
             //            console.log(counter)
             break;
@@ -154,7 +155,7 @@ function slowChange() {
                 }
             }
             //
-                        console.log(tempo)
+            console.log(tempo)
             //            console.log(window.performance.now() - startTime)
             //            console.log(counter)
 
@@ -213,7 +214,7 @@ function scheduleNote(beatNumber, time) {
                     console.log(tempo)
                 }
             } else {
-                  if (sequencer.change === "pitch") {
+                if (sequencer.change === "pitch") {
                     sequencer.Rate_current = (sequencer.Rate_start) * 1;
                     console.log(sequencer.Rate_current)
                 }
@@ -261,6 +262,10 @@ function scheduleFade(beatNumber, time) {
             }
 
         }
+    }
+
+    if (beatNumber === 0) {
+       
     }
 
 }
