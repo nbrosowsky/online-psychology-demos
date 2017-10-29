@@ -24,6 +24,7 @@ var sequencer = new Object;
 
 function loadTrack(track) {
     sequencer = track;
+    mLength = track.mLength;
     tempo = sequencer.BPM_start || sequencer.BPM_current;
     changeTicks = (sequencer.timeChange * 1000) / lookahead
 

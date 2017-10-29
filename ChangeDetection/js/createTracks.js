@@ -13,7 +13,7 @@ var trackOptions = {
             ["E4", "Fs4", "Gs4", "A4", "B4", "Cs5", "Ds5", "E5"],
             ["E4", "Fs4", "Gs4", "A4", "B4", "Cs5", "Ds5", "E5"]
             ],
-    bpmRange: [80, 100],
+    bpmRange: [60, 80],
     bpmChange: 10,
     pitchRange: [(1 - 0.05943508), (1 + 0.05943508)],
     pitchChange: 1,
@@ -21,7 +21,8 @@ var trackOptions = {
     nPhrases: 2, //number of unique audio phrases / limited by number of instruments available
     nChange: 1,
     spatialLocation: [-1, 1, -.5, .5], // default locations
-    upDown: [1, -1] // helper to randomly change sign if needed
+    upDown: [1, -1], // helper to randomly change sign if needed
+    mLength: 4
 }
 
 
@@ -37,6 +38,7 @@ function Track(change, changeType) {
     }
     inst = myShuffle(inst);
     
+    this.mLength = trackOptions.mLength;
     this.timeChange = trackOptions.timeChange;
     this.instruments = inst;
     this.change = change;
@@ -226,11 +228,11 @@ function Track(change, changeType) {
 function findBeats() {
     var count = 0;
     var tempBeats = [];
-    while (count < 16) {
+    while (count < trackOptions.mLength*4) {
         var pickOne = myShuffle(trackOptions.beats)[0];
-        if (count + pickOne <= 16) {
-            if (count + pickOne === 16) {
-                tempBeats.push([count, 16]);
+        if (count + pickOne <= trackOptions.mLength*4) {
+            if (count + pickOne === trackOptions.mLength*4) {
+                tempBeats.push([count, 0]);
                 count = count + pickOne;
             } else {
                 tempBeats.push([count, count + pickOne]);

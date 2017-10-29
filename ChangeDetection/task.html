@@ -176,20 +176,24 @@
         });
 
         $("#play").click(function() {
-            sequencer.change = tempC;
-            sequencer.changeType = "slow";
 
-            mLength = 4;
-            for (n = 0; n < sequencer.phrases.length; n++) {
-                for (i = 0; i < sequencer.phrases[n].length; i++) {
-                    if (sequencer.phrases[n][i].endBeat === mLength * 4) {
-                        sequencer.phrases[n][i].endBeat = 0;
+            if (sequencer.changeType === "abrupt") {
+                sequencer.change = tempC;
+                sequencer.changeType = "slow";
+
+                mLength = mLength - 1;
+                for (n = 0; n < sequencer.phrases.length; n++) {
+                    for (i = 0; i < sequencer.phrases[n].length; i++) {
+                        if (sequencer.phrases[n][i].endBeat === mLength * 4) {
+                            sequencer.phrases[n][i].endBeat = 0;
+                        }
+
                     }
-
                 }
             }
-            
-            
+
+
+
             setTimeout(play, 500)
         })
 
@@ -224,16 +228,19 @@
                 return;
             }
 
-            for (n = 0; n < sequencer.phrases.length; n++) {
+            if (sequencer.changeType === "slow"){
+                  for (n = 0; n < sequencer.phrases.length; n++) {
                 for (i = 0; i < sequencer.phrases[n].length; i++) {
                     if (sequencer.phrases[n][i].endBeat === 0) {
-                        sequencer.phrases[n][i].endBeat = 16;
+                        sequencer.phrases[n][i].endBeat = mLength * 4;
                     }
 
                 }
             }
-            mLength = 5;
+            mLength = mLength + 1;
             sequencer.changeType = "abrupt";
+            }
+          
 
             play();
 
