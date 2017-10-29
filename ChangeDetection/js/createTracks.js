@@ -13,7 +13,7 @@ var trackOptions = {
             ["E4", "Fs4", "Gs4", "A4", "B4", "Cs5", "Ds5", "E5"],
             ["E4", "Fs4", "Gs4", "A4", "B4", "Cs5", "Ds5", "E5"]
             ],
-    bpmRange: [60, 80],
+    bpmRange: [70, 90],
     bpmChange: 10,
     pitchRange: [(1 - 0.05943508), (1 + 0.05943508)],
     pitchChange: 1,
