@@ -265,9 +265,9 @@ function scheduleFade(beatNumber, time) {
         }
     }
 
-    if (beatNumber === 0) {
-       
-    }
+//    if (beatNumber === 0) {
+//       
+//    }
 
 }
 

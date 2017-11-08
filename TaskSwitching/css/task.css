@@ -97,7 +97,7 @@ body {
 }
 
 .up {
-    width: 500px;
+    width: 400px;
     height: 250px;
     margin-bottom: -2.5px;
     border-width: 5px;
@@ -105,7 +105,7 @@ body {
 }
 
 .down {
-    width: 500px;
+    width: 400px;
     height: 250px;
     margin-top: -2.5px;
     border-width: 5px;
@@ -124,7 +124,7 @@ body {
 }
 
 .instructionDisplay {
-    width: 60%;
+    width: 75%;
     padding: 10px 20px;
     border: 2px #1e1e1e solid;
 }
@@ -241,4 +241,30 @@ body {
     cursor: pointer;
     text-decoration: none;
     color: black;
+}
+
+
+@media only screen and (max-width: 768px) {
+    /* For mobile phones: */
+   .instructionDisplay {
+       width: 100%;
+       border: none;
+    }
+    
+    #pageDown, #pageUp, #beginExp {
+        width: 45%;
+    }
+    
+    .top {
+        display: none !important;
+    }
+    
+    #up, #down{
+        width: 100%;
+    }
+    
+    .targetDisplay{
+        width: 100%;
+        margin: 2%;
+    }
 }
