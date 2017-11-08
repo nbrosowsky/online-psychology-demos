@@ -15,9 +15,9 @@ body {
   d3.js chart
 -----------------------------------------------------------------*/
 
-    .bar {
-        fill: steelblue;
-    }
+.bar {
+    fill: steelblue;
+}
 
 
 /* ----------------------------------------------------------------
@@ -118,6 +118,11 @@ body {
     text-align: center;
 }
 
+.finalInst {
+    font-size: 20px; 
+    margin: 20px;
+}
+
 .feedbackDisplay {
     font-size: 40pt;
     display: none;
@@ -127,8 +132,8 @@ body {
     width: 75%;
     padding: 10px 20px;
     border: 2px #1e1e1e solid;
-    position: relative; 
-    height: 70vh; 
+    position: relative;
+    height: 70vh;
     min-height: 500px
 }
 
@@ -174,13 +179,12 @@ body {
     background: #fff;
 }
 
-
-
 .pgButtons {
-    bottom: 0; 
-    position: absolute; 
+    bottom: 0;
+    position: absolute;
     width: 100%
 }
+
 
 /* ----------------------------------------------------------------
   Modal content
@@ -239,89 +243,87 @@ body {
 }
 
 @media only screen and (min-width: 768px) {
-
-.button-blue:hover,
-.smallButton:hover {
-    cursor: pointer;
-    color: #fff;
-    border: 2px #fff solid;
-    background: #06c;
+    .button-blue:hover,
+    .smallButton:hover {
+        cursor: pointer;
+        color: #fff;
+        border: 2px #fff solid;
+        background: #06c;
+    }
+    .button-green:hover {
+        cursor: pointer;
+        color: #fff;
+        border: 2px #fff solid;
+        background: green;
+    }
 }
-
-.button-green:hover {
-    cursor: pointer;
-    color: #fff;
-    border: 2px #fff solid;
-    background: green;
-}
-}
-
 
 @media only screen and (max-width: 768px) {
     /* For mobile phones: */
-   .instructionDisplay {
-       width: 100%;
-       min-height: 0;
-       border: none;
+    .instructionDisplay {
+        width: 100%;
+        min-height: 0;
+        border: none;
     }
-    
     .pgButtons {
         position: relative;
     }
-    
-    #pageDown, #pageUp, #beginExp {
+    #pageDown,
+    #pageUp,
+    #beginExp {
         width: 45%;
     }
-    
     .top {
         display: none !important;
     }
-    
-    .up, .down{
+    .up,
+    .down {
         width: 95%;
         height: 150px;
     }
+    .upText,
+    .downText {
+        font-size: 20px;
+        text-align: center;
+    }
     
-    .targetDisplay{
+    .finalInst {
+        font-size: 15px;
+    }
+    .targetDisplay {
         width: 100%;
         margin: 2%;
     }
-    
-    #mobileButtons{
-        display:block;
+    #mobileButtons {
+        display: block;
     }
-    
-  .button-blue:active {
-      font-size: 14px;
-      margin: 25px auto;
-      padding: 10px 30px 13px 30px;
-      text-decoration: none;
-      outline: none;
-      color: #fff;
-      border: 2px #fff solid;
-      background: #06c;
-  }
-  
-  .button-green:active {
-      font-size: 14px;
-      margin: 25px auto;
-      padding: 10px 30px 13px 30px;
-      text-decoration: none;
-      outline: none;
-      color: #fff;
-      border: 2px #fff solid;
-      background: green;
-  }
-  
-  .smallButton:active {
-      font-family: 'Helvetica', arial;
-      font-size: 14px;
-      text-decoration: none;
-      outline: none;
-      color: #fff;
-      border: 2px #fff solid;
-      background: #06c;
-  }
-
-
+    .button-blue:active {
+        font-size: 14px;
+        margin: 25px auto;
+        padding: 10px 30px 13px 30px;
+        text-decoration: none;
+        outline: none;
+        color: #fff;
+        border: 2px #fff solid;
+        background: #06c;
+    }
+    .button-green:active {
+        font-size: 14px;
+        margin: 25px auto;
+        padding: 10px 30px 13px 30px;
+        text-decoration: none;
+        outline: none;
+        color: #fff;
+        border: 2px #fff solid;
+        background: green;
+    }
+    .smallButton:active {
+        font-family: 'Helvetica', arial;
+        font-size: 14px;
+        text-decoration: none;
+        outline: none;
+        color: #fff;
+        border: 2px #fff solid;
+        background: #06c;
+    }
 }
