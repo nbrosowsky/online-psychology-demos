@@ -272,12 +272,17 @@ body {
         display: none !important;
     }
     
-    #up, #down{
-        width: 100%;
+    .up, .down{
+        width: 95%;
+        height: 150px;
     }
     
     .targetDisplay{
         width: 100%;
         margin: 2%;
+    }
+    
+    #mobileButtons{
+        display:block;
     }
 }
