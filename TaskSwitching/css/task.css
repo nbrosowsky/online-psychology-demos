@@ -127,6 +127,9 @@ body {
     width: 75%;
     padding: 10px 20px;
     border: 2px #1e1e1e solid;
+    position: relative; 
+    height: 70vh; 
+    min-height: 500px
 }
 
 .resultsDisplay {
@@ -186,6 +189,11 @@ body {
     background: green;
 }
 
+.pgButtons {
+    bottom: 0; 
+    position: absolute; 
+    width: 100%
+}
 
 /* ----------------------------------------------------------------
   Modal content
@@ -248,7 +256,12 @@ body {
     /* For mobile phones: */
    .instructionDisplay {
        width: 100%;
+       min-height: 0;
        border: none;
+    }
+    
+    .pgButtons {
+        position: relative;
     }
     
     #pageDown, #pageUp, #beginExp {
