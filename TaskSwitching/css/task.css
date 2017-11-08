@@ -174,20 +174,7 @@ body {
     background: #fff;
 }
 
-.button-blue:hover,
-.smallButton:hover {
-    cursor: pointer;
-    color: #fff;
-    border: 2px #fff solid;
-    background: #06c;
-}
 
-.button-green:hover {
-    cursor: pointer;
-    color: #fff;
-    border: 2px #fff solid;
-    background: green;
-}
 
 .pgButtons {
     bottom: 0; 
@@ -251,6 +238,24 @@ body {
     color: black;
 }
 
+@media only screen and (min-width: 768px) {
+
+.button-blue:hover,
+.smallButton:hover {
+    cursor: pointer;
+    color: #fff;
+    border: 2px #fff solid;
+    background: #06c;
+}
+
+.button-green:hover {
+    cursor: pointer;
+    color: #fff;
+    border: 2px #fff solid;
+    background: green;
+}
+}
+
 
 @media only screen and (max-width: 768px) {
     /* For mobile phones: */
@@ -285,4 +290,38 @@ body {
     #mobileButtons{
         display:block;
     }
+    
+  .button-blue:active {
+      font-size: 14px;
+      margin: 25px auto;
+      padding: 10px 30px 13px 30px;
+      text-decoration: none;
+      outline: none;
+      color: #fff;
+      border: 2px #fff solid;
+      background: #06c;
+  }
+  
+  .button-green:active {
+      font-size: 14px;
+      margin: 25px auto;
+      padding: 10px 30px 13px 30px;
+      text-decoration: none;
+      outline: none;
+      color: #fff;
+      border: 2px #fff solid;
+      background: green;
+  }
+  
+  .smallButton:active {
+      font-family: 'Helvetica', arial;
+      font-size: 14px;
+      text-decoration: none;
+      outline: none;
+      color: #fff;
+      border: 2px #fff solid;
+      background: #06c;
+  }
+
+
 }
