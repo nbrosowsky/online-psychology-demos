@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
+
+<head>
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="N.P. Brosowsky" content="Survival Processing" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Stylesheets
+	============================================= -->
+    <link rel="stylesheet" href="css/task.css" type="text/css" />
+
+
+    <!-- Document Title
+	============================================= -->
+    <title>Word Rating Game</title>
+
+</head>
+
+<body>
+    <!-- Header & Footer
+		============================================= -->
+    <div class="top initHidden" style="width: 100%">
+        <h1 style="float: left; width: 20%" class="countDisplay">1 /27 trials</h1>
+        <h3 style="float: left; width: 60%; text-align: center" id="reminder"></h3>
+        <div style="width: 20%; clear: left"></div>
+        <!--
+        <button id="showInstructions" class="smallButton">Show Instructions</button>
+
+        <div style="max-width: 125px">
+            <h3>Reminder:</h3>
+            <ul style="list-style-type:none; padding: 5px">
+                <li><strong>SHAPE: </strong></li>
+                <li>diamond = "Z"</li>
+                <li>square = "M"</li>
+            </ul>
+            <ul style="list-style-type:none; padding: 5px">
+                <li><strong>FILL: </strong></li>
+                <li>two = "Z"</li>
+                <li>three = "M"</li>
+            </ul>
+        </div>
+-->
+    </div>
+    <!-- Header & Footer End -->
+
+    <!-- Main Content
+		============================================= -->
+    <div class="contentDisplay flexCenter noSelect">
+
+        <div id="1-phase" class="container flexSpaceBetween">
+
+            <div id="1-instructions" class="instructionDisplay book">
+                <div id="pg1" class="page">
+
+                    <h2>
+                        Welcome to the experiment!
+                    </h2>
+                    <p>
+                        First, we will review the instructions for the experiment. Feel free to use the "next" and "back" buttons to move through the instructions. Once you hit "start" however, you will not be able to go back.
+                    </p>
+                    <h3>1. Instructions:</h3>
+                    <p>
+                        In this experiment you will have to make YES/NO judgments about words. On every trial you'll see the instructions first, followed by the word. 
+                    </p>
+                    <p>
+                        There will are four kinds of judgments you will have to make throughout the experiment:
+                    </p>
+                    <ol>
+                        <li>Decide whether the word is in UPPERCASE letters</li>
+                        <li>Decide whether the word rhymes with another word</li>
+                        <li>Decide whether the word belongs in a certain category</li>
+                        <li>Decide whether the word would fit in a sentence</li>
+                    </ol>
+
+                </div>
+                <div id="pg2" class="page initHidden">
+
+                    <h3>2. Instructions:</h3>
+                    <p>You will indicate your response by moving the slider to the appropriate number and pressing the "submit response" button</p>
+
+                    <h4>Survival Example</h4>
+                    <img src="images/eg_survival.png" style="width: 100%">
+
+
+                </div>
+                <div id="pg3" class="page initHidden">
+
+                    <h3>3. Instructions:</h3>
+                    <p>You will indicate your response by moving the slider to the appropriate number and pressing the "submit response" button</p>
+
+                    <h4>Imagery Example</h4>
+                    <img src="images/eg_imagery.png" style="width: 100%">
+
+
+                </div>
+                <div id="pg4" class="page initHidden">
+
+                    <h3>4. Instructions:</h3>
+                    <p>You will indicate your response by moving the slider to the appropriate number and pressing the "submit response" button</p>
+
+                    <h4>Pleasantness Example</h4>
+                    <img src="images/eg_pleasant.png" style="width: 100%">
+
+
+                </div>
+                <div id="pg5" class="page initHidden">
+
+                    <h3>5. Instructions:</h3>
+                    <p>You will indicate your response by moving the slider to the appropriate number and pressing the "submit response" button</p>
+
+                    <h4>Self-Reference Example</h4>
+                    <img src="images/eg_self.png" style="width: 100%">
+
+
+                </div>
+                <div id="pg6" class="page initHidden">
+
+                    <h3>6. Instructions:</h3>
+                    <p>That's it!</p>
+                    <p> When you are ready to begin, hit "Start"</p>
+                    <button id="beginExp" class="button-green" style="float: right">START</button>
+
+                </div>
+
+                <button id="pageDown" class="button-blue initHidden" style="float: left;">BACK</button>
+                <button id="pageUp" class="button-blue" style="float: right;">NEXT</button>
+            </div>
+
+            <div id="1-target" class="initHidden targetDisplay">
+                <div class="flexCenter">
+                    <p id="targetTask"></p>
+                
+                </div>
+               
+                <div class="flexCenter">
+                    <h1 id="targetWord">HOUSE</h1>
+                </div>
+               
+
+
+
+                <div class="flexCenter">
+                    <button id="yesResponse" class="button-green" style="align-self: flex-end">YES</button>
+                    <button id="noResponse" class="button-green" style="align-self: flex-end">NO</button>
+                </div>
+            </div>
+        </div>
+        <div id="2-phase" class="container initHidden">
+            <div id="2-instructions" class="instructionDisplay">
+                <div>
+                    <h2>Surprise Memory Test!</h2>
+                    <p>Now we'll test your memory for all the words you just saw.</p>
+                    <p>On each trial you'll be shown two words. One will be from the list you've seen, the other will be a new word you haven't seen yet. Your task will be to pick the <strong>old word</strong></p>
+                    <p>You will make your choice by click on the word. Remember: click the <strong>old word</strong></p>
+                    <p>When you are ready, press the start button</p>
+                    <button id="beginMemory" class="button-green">START</button>
+                </div>
+            </div>
+
+            <div id="2-target" class="flexCenter flexColumn" style="margin: auto">
+                <h2>Which word is the <strong>OLD</strong> word?</h2>
+                <div>
+                    <button id="left" class="memory-btn">PSYCHOLOGISTS</button>
+                    <button id="right" class="memory-btn">PSYCHOLOGISTSS</button>
+                </div>
+
+            </div>
+        </div>
+        <div id="phase3" class="">
+            <div id="3-instructions">
+
+            </div>
+
+
+        </div>
+
+
+
+
+
+
+        <div id="resultsDisplay" class="initHidden">
+            <h2>
+                Finished!
+            </h2>
+            <div id="containerChart" class="flexCenter flexRow">
+                <div id="chart"></div>
+            </div>
+            <p>
+                Your data has been recorded and you can safely close this window.
+            </p>
+            <!--
+            <p>
+            You can download your complete data set by clicking the button below.</p>
+            <button class="smallButton" id="downloadCSV">Save Data as CSV</button>
+-->
+        </div>
+    </div>
+    <!-- #content end -->
+    <!--- Javascript on page load
+	============================================= -->
+
+    <!-- JS components -->
+    <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="js/preLoader.js"></script>
+    <script type="text/javascript" src="js/ltdBattig.js"></script>
+    <script type="text/javascript" src="js/sentences.js"></script>
+    <script type="text/javascript" src="js/rita-full.min.js"></script>
+    <script type="text/javascript" src="js/eventTimer.js"></script>
+    <script type="text/javascript" src="js/postToGoogle.js"></script>
+    <script type="text/javascript" src="js/exportToCSV.js"></script>
+    <script type="text/javascript" src="js/pagination.js"></script>
+    <script type="text/javascript" src="https://d3js.org/d3.v4.min.js"></script>
+    <script type="text/javascript" src="js/createChart.js"></script>
+
+    <!-- task-specific JS -->
+    <script type="text/javascript" src="js/task.js"></script>
+
+
+    <script>
+
+        pagination.setup();
+        /*Modernizr: check for flexbox */
+        function checkFlex() {
+            if (Modernizr.flexbox) {
+                $(".flexPresent").show();
+                $(".flexAbsent").hide();
+            } else {
+                $(".flexPresent").hide();
+                $(".flexAbsent").show();
+            }
+        }
+       $( document ).ready(function() {
+            createTrialArray();
+       });
+
+    </script>
+</body>
+
+</html>
