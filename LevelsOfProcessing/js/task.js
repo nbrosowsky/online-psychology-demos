@@ -9,29 +9,55 @@
 //console.log('Battig words loaded.');
 //
 
-    //////////////// Stim & Trial Array Creation //////////////////////////////////
-    /* Creates the trial array for study phase */
-    var trialType = ["capital", "rhyme", "category", "sentence"];
-    var nTrials = 10; // # of trials per trialType
-    var trialArray = [];
+//cats = [];
+//for (i = 0; i<= Battig.length-1; i++){
+//    if (cats.indexOf(Battig[i].catname) <= -1){
+//        cats.push(Battig.[i].catname)
+//    }
+//}
 
-    var wordList = Battig;
-    var words = [];
-    var studyWords = [];
-    var conditions = ["yes", "no"];
-    var counter = 0;
+// List of Categories //
+var categoryNames = ["four-footed animal", "kitchen utensil", "alcoholic beverage", "insect", "musical instrument", "type of ship", "occupation or profession", "chemical element", "snake", "bldg for religious servic", "type of fuel", "metal", "carpenters tool", "city", "country", "part of a building", "kind of cloth", "substance to flavor food", "science", "college or university", "girls first name", "type of music", "nonalcoholic beverage", "weapon", "color", "fish", "type of reading material", "type of vehicle", "natural earth formation", "article of furniture", "sport", "toy", "kind of money", "fruit", "type of footgear", "tree", "military title", "article of clothing", "flower", "crime", "weather phenomenon", "relative", "member of the clergy", "bird", "disease", "type of dance", "males first name", "vegetable", "type of human dwelling", "elective office", "precious stone", "part of the human body", "unit of time", "unit of distance", "state", "part of speech"]
 
-    function createTrialArray(){
-         for (n = 0; n <= trialType.length - 1; n++) {
+var omitCategory = ["college or university", "girls first name", "elective office", "males first name"]
+
+
+//////////////// Stim & Trial Array Creation //////////////////////////////////
+/* Creates the trial array for study phase */
+var trialType = ["capital", "rhyme", "category", "sentence"];
+var nTrials = 8; // # of trials per trialType
+var trialArray = [];
+var memoryArray = [];
+
+var wordList = Battig;
+var words = [];
+var studyWords = [];
+var conditions = ["yes", "no"];
+var counter = 0;
+
+var oldCapital = [];
+var oldRhyme = [];
+var oldCategory = [];
+var oldSentence = [];
+var newWords = [];
+var allWords = [];
+
+function createTrialArray() {
+    var r = [0, 1];
+    for (n = 0; n <= trialType.length - 1; n++) {
         for (t = 0; t <= (nTrials / 2 - 1); t++) {
             for (c = 0; c <= 1; c++) {
                 var w, nw, temp
 
                 w = newShuffle(Battig)[0]
-                w.word = w.word.replace("-"," ")
-                while (RiTa.getSyllables(w.word.replace("-"," ")).split("/").length != 2 || words.indexOf(w) > -1) {
+                w.word = w.word.replace("-", " ")
+                while (RiTa.getSyllables(w.word.replace("-", " ")).split("/").length != 2 || //only 2-syllable words
+                    words.indexOf(w) > -1 || //don't allow repeat words
+                    w.word.split(" ").length > 1 || //don't allow any item with more than one word
+                    omitCategory.indexOf(w.catname) > -1 //don't allow item from omitCategory
+                ) {
                     w = newShuffle(Battig)[0]
-                    w.word = w.word.replace("-"," ")
+                    w.word = w.word.replace("-", " ")
                 };
                 words.push(w.word);
                 temp = {
@@ -44,6 +70,7 @@
                     wordType: "old",
                     cResponse: conditions[c],
                     response: "",
+                    memoryResponse: 0
                 };
 
                 if (temp.cResponse === "yes") {
@@ -52,6 +79,13 @@
                     temp.category = w.catname;
                     if (temp.encodingCondition === "capital") {
                         temp.word = temp.word.toUpperCase();
+                    } else {
+
+                        r = myShuffle(r);
+
+                        if (r[0] === 1) {
+                            temp.word = temp.word.toUpperCase();
+                        }
                     }
                 } else {
                     nw = newShuffle(Battig)[0];
@@ -60,6 +94,17 @@
                     temp.sentence = newShuffle(nw.sentences)[0];
                     temp.category = nw.catname;
                 }
+
+                if (temp.encodingCondition === "capital") {
+                    oldCapital.push(temp.word)
+                } else if (temp.encodingCondition === "rhyme") {
+                    oldRhyme.push(temp.word)
+                } else if (temp.encodingCondition === "category") {
+                    oldCategory.push(temp.word)
+                } else if (temp.encodingCondition === "sentence") {
+                    oldSentence.push(temp.word)
+                }
+
                 trialArray.push(temp);
 
 
@@ -71,37 +116,74 @@
 
     trialArray = newShuffle(trialArray)
 
+
+}
+
+function createMemoryTest() {
+    var n = trialArray.length;
+    memoryArray = memoryArray.concat(trialArray);
+    for (i = 0; i <= n - 1; i++) {
+        var w, nw, temp
+
+        w = newShuffle(Battig)[0]
+        w.word = w.word.replace("-", " ")
+        while (RiTa.getSyllables(w.word.replace("-", " ")).split("/").length != 2 || //only 2-syllable words
+            words.indexOf(w) > -1 || //don't allow repeat words
+            w.word.split(" ").length > 1 || //don't allow any item with more than one word
+            omitCategory.indexOf(w.catname) > -1 //don't allow item from omitCategory
+        ) {
+            w = newShuffle(Battig)[0]
+            w.word = w.word.replace("-", " ")
+        };
+
+        words.push(w.word);
+        temp = {
+            date: new Date(),
+            subject: trialArray[0].subject,
+            trial: "NA",
+            encodingCondition: "NA",
+            word: w.word,
+            wordType: "new",
+            cResponse: "NA",
+            response: "NA",
+            memoryResponse: 0
+        };
+
+        var r = [0, 1];
+        r = newShuffle(r);
+
+        if (r[0] === 1) {
+            temp.word = temp.word.toUpperCase();
+        }
+
+        newWords.push(temp.word)
+        memoryArray.push(temp)
     }
-   
 
+    allWords = allWords.concat(newWords).concat(oldCapital).concat(oldCategory).concat(oldRhyme).concat(oldSentence)
+    allWords = newShuffle(allWords);
 
-    // containers for summary data //
-    ratings = {
-        survival: [],
-        pleasantness: [],
-        imagery: [],
-        selfReference: []
+    for (list = 0; list <= allWords.length - 1; list++) {
+        var d1 = document.getElementById('memoryList');
+        d1.insertAdjacentHTML('beforeend', '<li><input class="custom" type="checkbox" name="' + allWords[list] + '" value="' + allWords[list] + '">' + allWords[list] + '</input></li>');
     }
+}
 
-    memoryACC = {
-        survival: [],
-        pleasantness: [],
-        imagery: [],
-        selfReference: []
+function createCheckboxElement(name, checked) {
+    var radioHtml = '<input type="checkbox" name="' + name + '"';
+    if (checked) {
+        radioHtml += ' checked="checked"';
     }
+    radioHtml += '/>';
 
+    var radioFragment = document.createElement('div');
+    radioFragment.innerHTML = radioHtml;
 
-
-
-
-
-
-
-//
-//};
-
-
+    return radioFragment.firstChild;
+}
 //////////////////////////////////////////////////////////////////////
+
+
 
 ////////////// Trial Events ////////////////////////////////////////////
 
@@ -140,27 +222,29 @@ function trial() {
     /* present target stim */
     $("#targetWord").css("visibility", "hidden")
     $("#targetTask").hide();
+    $("#responseBtns").css("visibility", "hidden")
 
     if (trialArray[trialCount].encodingCondition === "capital") {
-        $("#targetTask").html("Is ________ in UPPERCASE letters?")
+        $("#targetTask").html("Is the word in capital letters?")
 
     }
 
     if (trialArray[trialCount].encodingCondition === "rhyme") {
-        $("#targetTask").html("Does ________ rhyme with " + trialArray[trialCount].rhyme + " ?")
+        $("#targetTask").html("Does the word rhyme with " + trialArray[trialCount].rhyme.toUpperCase() + " ?")
 
     }
 
     if (trialArray[trialCount].encodingCondition === "category") {
-        $("#targetTask").html("Is ________ a(n) " + trialArray[trialCount].category + " ?")
+        $("#targetTask").html("Is the word a(n) " + trialArray[trialCount].category + " ?")
     }
 
     if (trialArray[trialCount].encodingCondition === "sentence") {
-        $("#targetTask").html("Does ________ fit in the sentence: <br />" + "'..." + trialArray[trialCount].sentence + "...'" + " ?")
+        $("#targetTask").html("Would the word fit the sentence: <br />" + "'..." + trialArray[trialCount].sentence + "...'" + " ?")
     }
 
     $("#targetWord").html(trialArray[trialCount].word)
     $("#targetTask").show();
+
     $("#1-target").show();
 
 
@@ -173,31 +257,9 @@ function showWord() {
     time1 = new Date().getTime();
 
     $("#targetWord").css("visibility", "visible")
+    $("#responseBtns").css("visibility", "visible")
 
 }
-
-/* recognition phase */
-function rec_blank() {
-    $("#2-target").hide();
-
-    /* run function fixate after "blankLength" milliseconds */
-    eventTimer.setTimeout(rec_trial, blankLength);
-}
-
-function rec_trial() {
-    /* update counter display */
-    $(".countDisplay").html((trialCount + 1) + " /" + trialArray.length + " trials");
-
-    var trialWords = [trialArray[trialCount].word, trialArray[trialCount].newWord]
-    shuffle(trialWords)
-
-    $("#left").html(trialWords[0].toUpperCase());
-    $("#right").html(trialWords[1].toUpperCase());
-
-    $("#2-target").show();
-    time1 = new Date().getTime();
-}
-
 
 
 ////////////// Set up initial display & button functions //////////////////////////////////////
@@ -206,23 +268,15 @@ $("#beginExp").click(function () {
     $("#1-instructions").hide();
     $(".countDisplay").html(trialCount + " / " + trialArray.length + " trials");
     $(".top").show();
+    
+    $("#firstTrial").show();
+    $("#1-target").hide();
+});
 
+$("#startTrials").click(function (){
+    $("#firstTrial").hide();
     blank();
-});
-
-
-$("#beginMemory").click(function () {
-    trialCount = 0;
-    shuffle(trialArray);
-
-    $("#2-instructions").hide();
-    $(".countDisplay").html(trialCount + " / " + trialArray.length + " trials");
-    $(".top").show();
-
-    rec_blank();
-});
-
-
+})
 
 $("#yesResponse").click(function () {
     $("#1-target").hide();
@@ -239,7 +293,7 @@ $("#yesResponse").click(function () {
         blank();
     } else {
         $("#1-phase").hide()
-        $("#2-target").hide();
+        createMemoryTest();
         $("#2-phase").toggleClass("initHidden");
         $("#2-phase").toggleClass("flexCenter")
         $("#2-instructions").show();
@@ -247,128 +301,155 @@ $("#yesResponse").click(function () {
     }
 });
 
+$("#noResponse").click(function () {
+    $("#1-target").hide();
 
-/* gets button ID and html from button for response */
-function getRecResponse(btnID) {
-    $("#1-instructions").hide();
     time2 = new Date().getTime(); /* get timestamp for response */
 
-    trialArray[trialCount].memoryTrial = trialCount + 1
-    trialArray[trialCount].memoryRT = time2 - time1;
+    trialArray[trialCount].trial = trialCount + 1
+    trialArray[trialCount].subject = subject;
+    trialArray[trialCount].reactionTime = time2 - time1;
+    trialArray[trialCount].response = "no";
 
-
-    if ($("#" + btnID).html().toLowerCase() === trialArray[trialCount].word.toLowerCase()) {
-        trialArray[trialCount].memoryACC = 1;
-    } else {
-        trialArray[trialCount].memoryACC = 0;
-    }
     if (trialCount != trialArray.length - 1) {
         trialCount++; /* increase trial counter by one */
-        rec_blank();
+        blank();
     } else {
-        $("#2-phase").hide()
-        getSummary();
+        $("#1-phase").hide();
+        createMemoryTest();
+        $("#2-phase").toggleClass("initHidden");
+        $("#2-phase").toggleClass("flexCenter")
+        $("#2-instructions").show();
 
-        $("#resultsDisplay").toggleClass("initHidden");
-        $("#resultsDisplay").toggleClass("flexColumn");
-        createChart();
     }
-}
-
-$("#left").click(function () {
-    x = this.id;
-    getRecResponse(x);
-
 });
 
-$("#right").click(function () {
-    x = this.id;
-    getRecResponse(x);
+var checked = [];
+var results = [0, 0, 0, 0, 0];
+$("#submitResponse").click(function () {
 
+    $(".custom:checked").each(function () {
+        checked.push($(this).val())
+    });
 
-});
-
-/* download data file */
-$("#downloadCSV").click(function () {
-    exportObjectToCSV('taskSwitching - ' + subject + '.csv', trialArray);
-});
-
-
-/* summarize the data */
-function getSummary() {
-    for (i = 0; i <= trialArray.length - 1; i++) {
-        ratings[trialArray[i].encodingCondition] = Number(trialArray[i].rating) + Number(ratings[trialArray[i].encodingCondition]);
-        memoryACC[trialArray[i].encodingCondition] = Number(trialArray[i].memoryACC) + Number(memoryACC[trialArray[i].encodingCondition]);
+    for (i = 0; i <= checked.length - 1; i++) {
+        for (c = 0; c <= oldCapital.length - 1; c++) {
+            if (checked[i] === oldCapital[c]) {
+                results[0]++
+            }
+        }
     }
 
-    ratings.survival = ratings.survival / (trialArray.length / 4)
-    ratings.pleasantness = ratings.pleasantness / (trialArray.length / 4)
-    ratings.imagery = ratings.imagery / (trialArray.length / 4)
-    ratings.selfReference = ratings.selfReference / (trialArray.length / 4)
+    for (i = 0; i <= checked.length - 1; i++) {
+        for (c = 0; c <= oldRhyme.length - 1; c++) {
+            if (checked[i] === oldRhyme[c]) {
+                results[1]++
+            }
+        }
+    }
 
-    memoryACC.survival = (memoryACC.survival / (trialArray.length / 4)) * 100
-    memoryACC.pleasantness = (memoryACC.pleasantness / (trialArray.length / 4)) * 100
-    memoryACC.imagery = (memoryACC.imagery / (trialArray.length / 4)) * 100
-    memoryACC.selfReference = (memoryACC.selfReference / (trialArray.length / 4)) * 100
 
+    for (i = 0; i <= checked.length - 1; i++) {
+        for (c = 0; c <= oldCategory.length - 1; c++) {
+            if (checked[i] === oldCategory[c]) {
+                results[2]++
+            }
+        }
+    }
+
+    for (i = 0; i <= checked.length - 1; i++) {
+        for (c = 0; c <= oldSentence.length - 1; c++) {
+            if (checked[i] === oldSentence[c]) {
+                results[3]++
+            }
+        }
+    }
+
+    for (i = 0; i <= checked.length - 1; i++) {
+        for (c = 0; c <= newWords.length - 1; c++) {
+            if (checked[i] === newWords[c]) {
+                results[4]++
+            }
+        }
+    }
+    
+    results[4] = newWords.length - results[4];
+    
+    for (i = 0; i<= memoryArray.length-1; i++){
+        for (m = 0; m<= checked.length-1; m++){
+            if (checked[m] === memoryArray[i].word){ 
+                memoryArray[i].memoryResponse = 1;
+            }
+        }
+    }
+    
+    
     // For d3.js charts //
     D3Data = [
         {
-            condition: "Survival",
-            response: memoryACC.survival
+            condition: "Case",
+            response: (results[0]/oldCapital.length)*100
         },
         {
-            condition: "Pleasantness",
-            response: memoryACC.pleasantness
+            condition: "Rhyme",
+            response: (results[1]/oldRhyme.length)*100
         },
         {
-            condition: "Imagery",
-            response: memoryACC.imagery
+            condition: "Category",
+            response: (results[2]/oldCategory.length)*100
         },
         {
-            condition: "Self-Reference",
-            response: memoryACC.selfReference
-        }
+            condition: "Sentence",
+            response: (results[3]/oldSentence.length)*100
+        },
+
     ];
 
-
-    // For Google Form //
-    var googleURL = "https://docs.google.com/forms/d/e/1FAIpQLSeFloGjJO_wU-u_4Uuv-fSfTm5Hsto0Eo6tXzTVqqeoNfZccg/formResponse"
-    var data = {
-
-        // subject ID //
-        "entry.918765135": trialArray[0].subject,
-
-        // survival Rating //
-        "entry.254745122": ratings.survival,
-        // pleasantness Rating //
-        "entry.829469158": ratings.pleasantness,
-        // imagery Rating //
-        "entry.1937775764": ratings.imagery,
-        // self-reference Rating //
-        "entry.1085361898": ratings.selfReference,
-
-        // survival memory score //
-        "entry.126810252": memoryACC.survival,
-        //pleasantness memory score //
-        "entry.1594130621": memoryACC.pleasantness,
-
-        // imagery memory score //
-        "entry.1760213268": memoryACC.imagery,
-
-        // self-reference memory score //
-        "entry.500942876": memoryACC.selfReference,
+    $("#2-instructions").hide();
+    createChart();
+    $("#resultsDisplay").show();
+    
+})
 
 
-
-
-    }
-    // send to google form ///
-    postToGoogle(googleURL, data);
-}
+/* download data file */
+$("#downloadCSV").click(function () {
+    exportObjectToCSV('levelsOfProcessing - ' + subject + '.csv', memoryArray);
+});
 
 
 /////////////////// Generic Functions /////////////////////////////////
+
+// Sets up the instruction pop-up //
+$(function () {
+    // Get the modal
+    var modal = document.getElementById('popUpInstructions');
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("showInstructions");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks the button, open the modal
+    btn.onclick = function () {
+        modal.style.display = "block";
+    };
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function () {
+        modal.style.display = "none";
+    };
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    };
+})
+
+
 
 /* Disable the backspace key / can add other keys if necessary */
 $(function () {

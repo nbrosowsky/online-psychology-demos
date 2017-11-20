@@ -116,6 +116,7 @@ body {
 
 .targetDisplay {
     margin: auto;
+    min-width: 70%;
     padding: 10px 20px;
 }
 
@@ -147,11 +148,24 @@ body {
     width: 50%;
     min-width: 500px;
     padding: 10px 20px;
-    border: 2px #1e1e1e solid;
+/*    border: 2px #1e1e1e solid;*/
 }
 
 .examples {
     justify-content: center;
+}
+
+#memoryList {
+-webkit-column-count: 3;
+-moz-column-count: 3;
+-ms-column-count: 3;
+-o-column-count: 3;
+column-count: 3;
+-webkit-column-gap: 4em;
+-moz-column-gap: 4em;
+-ms-column-gap: 4em;
+-o-column-gap: 4em;
+column-gap: 4em;
 }
 
 .button-blue {
@@ -181,10 +195,10 @@ body {
     font-family: 'Helvetica', arial;
     font-size: 14px;
     text-decoration: none;
-    color: #06c;
+  color: white;
     border: 2px #06c solid;
     outline: none;
-    background: #fff;
+    background: #06c;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
