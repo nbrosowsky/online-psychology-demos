@@ -478,3 +478,5 @@
 
   return NProgress;
 });
+
+NProgress.start();
