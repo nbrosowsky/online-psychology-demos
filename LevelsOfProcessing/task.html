@@ -256,14 +256,6 @@
         <script>
             pagination.setup();
 
-            document.getElementById("pageUp").disabled = true;
-            var myScript = document.createElement('script');
-            myScript.src = 'js/ltdBattig.js';
-            myScript.onload = function() {
-                console.log('Battig words loaded.');
-                document.getElementById("pageUp").disabled = false;
-            }
-            
             $(document).ready(function() {
                 createTrialArray();
             });
