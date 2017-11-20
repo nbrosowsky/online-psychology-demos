@@ -9,6 +9,7 @@
 
     <!-- Stylesheets
 	============================================= -->
+    <link rel="stylesheet" href="css/nprogress.css" type="text/css" />
     <link rel="stylesheet" href="css/task.css" type="text/css" />
 
 
@@ -83,6 +84,9 @@
                     </ol>
                     <p>
                         Click next to see some examples.
+                    </p>
+                    <p>
+                    <em>Note:</em> It may take a few moments to load the experiment. If it is still loading you will see a progress bar at the top of the page. Upon completion you will be able click next.
                     </p>
                 </div>
                 <div id="pg2" class="page initHidden">
@@ -240,6 +244,7 @@
 	============================================= -->
 
         <!-- JS components -->
+        <script type="text/javascript" src="js/nprogress.js"></script>
         <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
         <script type="text/javascript" src="js/ltdBattig.js"></script>
         <script type="text/javascript" src="js/rita-full.min.js"></script>
@@ -254,10 +259,13 @@
 
 
         <script>
+            NProgress.start()
+            
             pagination.setup();
 
             $(document).ready(function() {
                 createTrialArray();
+                NProgress.done()
             });
 
 
