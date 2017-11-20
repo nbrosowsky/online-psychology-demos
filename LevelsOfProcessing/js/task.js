@@ -3,11 +3,7 @@
  * trialArray properties include any information needed to present the stim and
  * any trial information needed for data analysis
  */
-//var myScript = document.createElement('script');
-//myScript.src = 'js/ltdBattig.js';
-//myScript.onload = function () {
-//console.log('Battig words loaded.');
-//
+
 
 //cats = [];
 //for (i = 0; i<= Battig.length-1; i++){

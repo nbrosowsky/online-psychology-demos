@@ -43,9 +43,9 @@
                 </p>
                 <ol>
                     <li>Is the word in capital letters?</li>
-                    <li>Does the word rhyme with [WORD] ?</li>
-                    <li>Is the word a(n) type of [CATEGORY] ?</li>
-                    <li>Does the word fit the sentence: [SENTENCE] ?</li>
+                    <li>Does the word rhyme with [WORD]?</li>
+                    <li>Is the word a(n) type of [CATEGORY]?</li>
+                    <li>Does the word fit the sentence: [SENTENCE]?</li>
                 </ol>
             </div>
         </div>
@@ -193,7 +193,7 @@
                 <div>
                     <h2>Surprise Memory Test!</h2>
                     <p>Now we'll test your memory for all the words you just saw. Your task is to try to remember and identify all the words from the experiment.</p>
-                    
+
                     <p>Below is a list of words. Some were presented earlier, some are new words that were not presented in the experiment. Click the checkbox next to a word <strong>if it was previously presented</strong>.</p>
                     <p>If a word was not presented in the list, then leave it unchecked. Take your time. When you're finished click "submit".</p>
                     <!--
@@ -256,6 +256,14 @@
         <script>
             pagination.setup();
 
+            document.getElementById("pageUp").disabled = true;
+            var myScript = document.createElement('script');
+            myScript.src = 'js/ltdBattig.js';
+            myScript.onload = function() {
+                console.log('Battig words loaded.');
+                document.getElementById("pageUp").disabled = false;
+            }
+            
             $(document).ready(function() {
                 createTrialArray();
             });
