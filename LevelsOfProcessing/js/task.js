@@ -48,7 +48,7 @@ function createTrialArray() {
                 w = newShuffle(Battig)[0]
                 w.word = w.word.replace("-", " ")
                 while (RiTa.getSyllables(w.word.replace("-", " ")).split("/").length != 2 || //only 2-syllable words
-                    findMatch(w.word,words) === 1 || //don't allow repeat words
+                    words.indexOf(w) > -1 || //don't allow repeat words
                     w.word.split(" ").length > 1 || //don't allow any item with more than one word
                     omitCategory.indexOf(w.catname) > -1 //don't allow item from omitCategory
                 ) {
@@ -124,7 +124,7 @@ function createMemoryTest() {
         w = newShuffle(Battig)[0]
         w.word = w.word.replace("-", " ")
         while (RiTa.getSyllables(w.word.replace("-", " ")).split("/").length != 2 || //only 2-syllable words
-            findMatch(w.word,words) === 1 || //don't allow repeat words
+            words.indexOf(w) > -1 || //don't allow repeat words
             w.word.split(" ").length > 1 || //don't allow any item with more than one word
             omitCategory.indexOf(w.catname) > -1 //don't allow item from omitCategory
         ) {
@@ -176,17 +176,6 @@ function createCheckboxElement(name, checked) {
     radioFragment.innerHTML = radioHtml;
 
     return radioFragment.firstChild;
-}
-
-function findMatch(item,array) {
-    var match
-    match = 0;
-    for (i = 0; i<= array.length - 1; i++){
-        if (array[i]===item){
-            match = 1;
-        }
-    }
-    return match;
 }
 //////////////////////////////////////////////////////////////////////
 
