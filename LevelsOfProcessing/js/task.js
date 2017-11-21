@@ -43,17 +43,19 @@ function createTrialArray() {
     for (n = 0; n <= trialType.length - 1; n++) {
         for (t = 0; t <= (nTrials / 2 - 1); t++) {
             for (c = 0; c <= 1; c++) {
-                var w, nw, temp
+                var w, nw, temp, match
 
-                w = newShuffle(Battig)[0]
+                w = newShuffle(Battig).pop();
                 w.word = w.word.replace("-", " ")
+                match = findMatch(w.word,words)
                 while (RiTa.getSyllables(w.word.replace("-", " ")).split("/").length != 2 || //only 2-syllable words
-                    words.indexOf(w) > -1 || //don't allow repeat words
+                    match === 1 || //don't allow repeat words
                     w.word.split(" ").length > 1 || //don't allow any item with more than one word
                     omitCategory.indexOf(w.catname) > -1 //don't allow item from omitCategory
                 ) {
-                    w = newShuffle(Battig)[0]
+                    w = newShuffle(Battig).pop();
                     w.word = w.word.replace("-", " ")
+                    match = findMatch(w.word,words)
                 };
                 words.push(w.word);
                 temp = {
@@ -119,17 +121,19 @@ function createMemoryTest() {
     var n = trialArray.length;
     memoryArray = memoryArray.concat(trialArray);
     for (i = 0; i <= n - 1; i++) {
-        var w, nw, temp
-
-        w = newShuffle(Battig)[0]
+        var w, nw, temp, match
+        console.log(i)
+        w = newShuffle(Battig).pop()
         w.word = w.word.replace("-", " ")
+        match = findMatch(w.word,words)
         while (RiTa.getSyllables(w.word.replace("-", " ")).split("/").length != 2 || //only 2-syllable words
-            words.indexOf(w) > -1 || //don't allow repeat words
+            match === 1 || //don't allow repeat words
             w.word.split(" ").length > 1 || //don't allow any item with more than one word
             omitCategory.indexOf(w.catname) > -1 //don't allow item from omitCategory
         ) {
-            w = newShuffle(Battig)[0]
+            w = newShuffle(Battig).pop()
             w.word = w.word.replace("-", " ")
+            match = findMatch(w.word,words)
         };
 
         words.push(w.word);
@@ -151,7 +155,7 @@ function createMemoryTest() {
         if (r[0] === 1) {
             temp.word = temp.word.toUpperCase();
         }
-
+        console.log(temp.word)
         newWords.push(temp.word)
         memoryArray.push(temp)
     }
@@ -176,6 +180,18 @@ function createCheckboxElement(name, checked) {
     radioFragment.innerHTML = radioHtml;
 
     return radioFragment.firstChild;
+}
+
+
+function findMatch(item,array) {
+    var match
+    match = 0;
+    for (look = 0; look <= array.length - 1; look ++){
+        if (array[look]===item){
+            match = 1;
+        }
+    }
+    return match;
 }
 //////////////////////////////////////////////////////////////////////
 
