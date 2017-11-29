@@ -1,5 +1,10 @@
-/*global window: false */
-/*global console: false */
+/**
+* @fileoverview A more accurate drop-in replacement for setTimeout and setInterval. Makes use of requestAnimationFrame
+* 
+* @author N.P. Brosowsky (nbrosowsky@gradcenter.cuny.edu)
+* https://github.com/nbrosowsky/eventTimer
+*/
+
 
 var eventTimer = function () {
     'use strict';

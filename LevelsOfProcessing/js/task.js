@@ -1,3 +1,11 @@
+/**
+* @fileoverview Creates task stimuli and events
+* 
+* @author N.P. Brosowsky (nbrosowsky@gmail.com)
+* 
+*/
+
+
 /*
  * Every item in trialArray represents a single trial
  * trialArray properties include any information needed to present the stim and
