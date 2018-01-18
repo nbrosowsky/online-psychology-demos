@@ -12,7 +12,7 @@ body {
 
 
 /* ----------------------------------------------------------------
-  Helper classes
+  General Helper classes
 -----------------------------------------------------------------*/
 
 .initHidden {
@@ -70,15 +70,25 @@ body {
                                   supported by Chrome and Opera */
 }
 
-
-/* ----------------------------------------------------------------
-  d3.js chart
------------------------------------------------------------------*/
-
-.bar {
-    fill: steelblue;
+.bottomRight {
+    position: absolute; 
+    right: 20px; 
+    bottom: 0
 }
 
+.bottomLeft {
+    position: absolute; 
+    left: 20px; 
+    bottom: 0
+}
+
+.width100 {
+    width: 100%;
+}
+
+.margin25 {
+    margin: 25px;
+}
 
 /* ----------------------------------------------------------------
   landing page content
@@ -209,35 +219,7 @@ input[type=submit]:hover {
     height: 500px;
 }
 
-.down {
-    -ms-transform: rotate(180deg);
-    /* IE 9 */
-    -webkit-transform: rotate(180deg);
-    /* Chrome, Safari, Opera */
-    transform: rotate(180deg);
-}
 
-.up {}
-
-.imgResponse img {
-    opacity: 1;
-    -webkit-transition: .3s ease-in-out;
-    transition: .3s ease-in-out;
-}
-
-.imgResponse:hover img {
-    opacity: .6;
-    cursor: pointer;
-}
-
-.imgResponse {
-    margin: 10px;
-}
-
-.feedbackDisplay {
-    font-size: 40pt;
-    display: none;
-}
 
 .instructionDisplay {
     min-height: 600px;
@@ -257,14 +239,15 @@ input[type=submit]:hover {
     justify-content: center;
 }
 
-/*
-#pageDown,
-#pageUp {
+#pageDown {
     position: absolute;
-    right: 0;
-    bottom: 0;
+    left: 20px; 
+    bottom: 0
 }
-*/
+
+#pageUp {
+    
+}
 
 .button-blue {
     font-size: 14px;

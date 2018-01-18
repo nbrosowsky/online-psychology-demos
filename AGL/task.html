@@ -104,24 +104,25 @@
                 <p>
                     First, you will do the study phase, then the memory test phase. Press the start button to begin the study phase.
                 </p>
-                <button id="beginExp" class="button-green" style="position: absolute; right: 20px; bottom: 0">START</button>
+                <button id="beginExp" class="button-green bottomRight">START</button>
             </div>
-            <button id="pageDown" class="button-blue initHidden" style="position: absolute; left: 20px; bottom: 0">BACK</button>
-            <button id="pageUp" class="button-blue" style="position: absolute; right: 20px; bottom: 0">NEXT</button>
+            <button id="pageDown" class="button-blue initHidden bottomLeft">BACK</button>
+            <button id="pageUp" class="button-blue bottomRight">NEXT</button>
 
         </div>
-
+        <!--- end general instruction display --->
+        
         <div class="targetDisplay initHidden">
             <div id="study">
-                <div style="margin: 25px">
+                <div class="margin25">
                     <p>This will be the display for the remainder of the experiment. The images will appear here.</p>
                     <p>Click the button below to begin the study phase. You will be shown one image at a time, try to remember each of the images</p>
                     <button id="startStudy" class="button-green">START</button>
                 </div>
             </div>
-            <div id="test" class="initHidden" style="width: 100%">
+            <div id="test" class="initHidden width100">
                
-                <div id="testInstructions" style="margin: 25px">
+                <div id="testInstructions" class="margin25">
                     <p> Now we will test your memory.
                     </p>
                     <p>
@@ -134,7 +135,7 @@
                     <button id="startTest" class="button-green">START</button>
                 </div>
                 
-                <div id="grammarTask" class="flexCenter flexColumn" style="width: 100%">
+                <div id="grammarTask" class="flexCenter flexColumn width100">
                     <div id="wordDisplay" style="font-size: 60px; text-align: center">
                         MTXXXMT
                     </div>
@@ -155,28 +156,14 @@
                 </div>
             </div>
         </div>
-        <div id="resultsDisplay" class="initHidden">
-            <h2>
-                Finished!
-            </h2>
-            <p>Your results for the memory task are below. It shows the percentage of <strong>errors</strong> you made for each type of image.</p>
-            <div id="containerChart" class="flexCenter flexRow">
-                <div id="chart"></div>
-            </div>
-            <!--
-            <p>
-                Your data has been recorded and you can safely close this window.
-            </p>
--->
-
-            <p>
-                You can download your complete data set by clicking the button below.</p>
-            <button class="button-green" id="downloadCSV">Save Data as CSV</button>
-
-        </div>
+        <!--- end target task display --->
+        
+        
     </div>
-    <!-- #content end -->
-    <!-- JS components -->
+      <!-- End Main Content
+		============================================= -->
+    
+    <!-- General JS components -->
     <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
     <script type="text/javascript" src="js/generic.js"></script>
     <script type="text/javascript" src="js/nouislider.min.js"></script>
@@ -190,9 +177,6 @@
         window.opener.scrollTo(500, 0);
     </script>
 
-    <script>
-
-    </script>
 </body>
 
 </html>
