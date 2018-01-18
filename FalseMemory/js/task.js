@@ -1,167 +1,213 @@
+/**
+ * @fileoverview Creates task stimuli and events
+ * 
+ * @author N.P. Brosowsky (nbrosowsky@gmail.com)
+ * 
+ */
+
+
 /*
  * Every item in trialArray represents a single trial
  * trialArray properties include any information needed to present the stim and
  * any trial information needed for data analysis
  */
 
-
-//cats = [];
-//for (i = 0; i<= Battig.length-1; i++){
-//    if (cats.indexOf(Battig[i].catname) <= -1){
-//        cats.push(Battig.[i].catname)
-//    }
-//}
-
-// List of Categories //
-var categoryNames = ["four-footed animal", "kitchen utensil", "alcoholic beverage", "insect", "musical instrument", "type of ship", "occupation or profession", "chemical element", "snake", "bldg for religious servic", "type of fuel", "metal", "carpenters tool", "city", "country", "part of a building", "kind of cloth", "substance to flavor food", "science", "college or university", "girls first name", "type of music", "nonalcoholic beverage", "weapon", "color", "fish", "type of reading material", "type of vehicle", "natural earth formation", "article of furniture", "sport", "toy", "kind of money", "fruit", "type of footgear", "tree", "military title", "article of clothing", "flower", "crime", "weather phenomenon", "relative", "member of the clergy", "bird", "disease", "type of dance", "males first name", "vegetable", "type of human dwelling", "elective office", "precious stone", "part of the human body", "unit of time", "unit of distance", "state", "part of speech"]
-
-var omitCategory = ["college or university", "girls first name", "elective office", "males first name"]
+var wordLists = [
+    {
+        lure: "man",
+        list: ["woman", "husband", "uncle", "lady", "mouse", "male", "father", "strong", "friend", "beard", "person", "handsome", "muscle", "suit", "old"]
+},
+    {
+        lure: "mountain",
+        list: ["hill", "valley", "climb", "summit", "top", "molehill", "peak", "plain", "glacier", "goat", "bike", "climber", "range", "steep", "ski"]
+},
+    {
+        lure: "music",
+        list: ["note", "sound", "piano", "sing", "radio", "band", "melody", "horn", "concert", "instrument", "symphony", "jazz", "orchestra", "art", "rhythm"]
+},
+    {
+        lure: "needle",
+        list: ["thread", "pin", "eye", "sewing", "sharp", "point", "prick", "thimble", "haystack", "thorn", "hurt", "injection", "syringe", "cloth", "knitting"]
+},
+    {
+        lure: "pen",
+        list: ["pencil", "write", "fountain", "leak", "quill", "felt", "Bic", "scribble", "crayon", "Cross", "tip", "marker", "red", "cap", "letter"]
+},
+    {
+        lure: "river",
+        list: ["water", "stream", "lake", "Mississippi", "boat", "tide", "swim", "flow", "run", "barge", "creek", "brook", "fish", "bridge", "winding"]
+},
+    {
+        lure: "rough",
+        list: ["smooth", "bumpy", "road", "tough", "sandpaper", "jagged", "ready", "coarse", "uneven", "riders", "rugged", "sand", "boards", "ground", "gravel"]
+},
+    {
+        lure: "rubber",
+        list: ["elastic", "bounce", "gloves", "tire", "ball", "eraser", "springy", "foam", "galoshes", "soles", "latex", "glue", "flexible", "resilient", "stretch"]
+},
+    {
+        lure: "shirt",
+        list: ["blouse", "sleeves", "pants", "tie", "button", "shorts", "iron", "polo", "collar", "vest", "pocket", "jersey", "belt", "linen", "cuffs"]
+},
+    {
+        lure: "sleep",
+        list: ["bed", "rest", "awake", "tired", "dream", "wake", "snooze", "blanket", "doze", "slumber", "snore", "nap", "peace", "yawn", "drowsy"]
+},
+    {
+        lure: "slow",
+        list: ["fast", "lethargic", "stop", "listless", "snail", "cautious", "delay", "traffic", "turtle", "hesitant", "speed", "quick", "sluggish", "wait", "molasses"]
+},
+    {
+        lure: "smell",
+        list: ["nose", "breathe", "sniff", "aroma", "hear", "see", "nostril", "whiff", "scent", "reek", "stench", "fragrance", "perfume", "salts", "rose"]
+},
+    {
+        lure: "smoke",
+        list: ["cigarette", "puff", "blaze", "billows", "pollution", "ashes", "cigar", "chimney", "fire", "tobacco", "stink", "pipe", "lungs", "flames", "stain"]
+},
+    {
+        lure: "soft",
+        list: ["hard", "light", "pillow", "plush", "loud", "cotton", "fur", "touch", "fluffy", "feather", "furry", "downy", "kitten", "skin", "tender"]
+},
+    {
+        lure: "spider",
+        list: ["web", "insect", "bug", "fright", "fly", "arachnid", "crawl", "tarantula", "poison", "bite", "creepy", "animal", "ugly", "feelers", "small"]
+},
+    {
+        lure: "sweet",
+        list: ["sour", "candy", "sugar", "bitter", "good", "taste", "tooth", "nice", "honey", "soda", "chocolate", "heart", "cake", "tart", "pie"]
+},
+    {
+        lure: "thief",
+        list: ["steal", "robber", "crook", "burglar", "money", "cop", "bad", "rob", "jail", "gun", "villain", "crime", "bank", "bandit", "criminal"]
+},
+    {
+        lure: "trash",
+        list: ["garbage", "waste", "can", "refuse", "sewage", "bag", "junk", "rubbish", "sweep", "scraps", "pile", "dump", "landfill", "debris", "litter"]
+},
+    {
+        lure: "window",
+        list: ["door", "glass", "pane", "shade", "ledge", "sill", "house", "open", "curtain", "frame", "view", "breeze", "sash", "screen", "shutter"]
+},
+    {
+        lure: "anger",
+        list: ["mad", "fear", "hate", "rage", "temper", "fury", "ire", "wrath", "happy", "fight", "hatred", "mean", "calm", "emotion", "enrage"]
+},
+    {
+        lure: "army",
+        list: ["Navy", "soldier", "UnitedStates", "rifle", "AirForce", "draft", "military", "Marines", "march", "infantry", "captain", "war", "uniform", "pilot", "combat"]
+},
+    {
+        lure: "black",
+        list: ["white", "dark", "cat", "charred", "night", "funeral", "color", "grief", "blue", "death", "ink", "bottom", "coal", "brown", "gray"]
+},
+    {
+        lure: "bread",
+        list: ["butter", "food", "eat", "sandwich", "rye", "jam", "milk", "flour", "jelly", "dough", "crust", "slice", "wine", "loaf", "toast"]
+},
+    {
+        lure: "car",
+        list: ["truck", "bus", "train", "automobile", "vehicle", "drive", "jeep", "Ford", "race", "keys", "garage", "highway", "sedan", "van", "taxi"]
+},
+    {
+        lure: "chair",
+        list: ["table", "sit", "legs", "seat", "couch", "desk", "recliner", "sofa", "wood", "cushion", "swivel", "stool", "sitting", "rocking", "bench"]
+},
+    {
+        lure: "city",
+        list: ["town", "crowded", "state", "capital", "streets", "subway", "country", "NewYork", "village", "metropolis", "big", "Chicago", "suburb", "county", "urban"]
+},
+    {
+        lure: "cold",
+        list: ["hot", "snow", "warm", "winter", "ice", "wet", "frigid", "chilly", "heat", "weather", "freeze", "air", "shiver", "Arctic", "frost"]
+},
+    {
+        lure: "cup",
+        list: ["mug", "saucer", "tea", "measuring", "coaster", "lid", "handle", "coffee", "straw", "goblet", "soup", "stein", "drink", "plastic", "sip"]
+},
+    {
+        lure: "doctor",
+        list: ["nurse", "sick", "lawyer", "medicine", "health", "hospital", "dentist", "physician", "ill", "patient", "office", "stethoscope", "surgeon", "clinic", "cure"]
+},
+    {
+        lure: "flag",
+        list: ["banner", "American", "symbol", "stars", "anthem", "stripes", "pole", "wave", "raised", "national", "checkered", "emblem", "sign", "freedom", "pendant"]
+},
+    {
+        lure: "foot",
+        list: ["shoe", "hand", "toe", "kick", "sandals", "soccer", "yard", "walk", "ankle", "arm", "boot", "inch", "sock", "knee", "mouth"]
+},
+    {
+        lure: "fruit",
+        list: ["apple", "vegetable", "orange", "kiwi", "citrus", "ripe", "pear", "banana", "berry", "cherry", "basket", "juice", "salad", "bowl", "cocktail"]
+},
+    {
+        lure: "girl",
+        list: ["boy", "dolls", "female", "young", "dress", "pretty", "hair", "niece", "dance", "beautiful", "cute", "date", "aunt", "daughter", "sister"]
+},
+    {
+        lure: "high",
+        list: ["low", "clouds", "up", "tall", "tower", "jump", "above", "building", "noon", "cliff", "sky", "over", "airplane", "dive", "elevate"]
+},
+    {
+        lure: "king",
+        list: ["queen", "England", "crown", "prince", "George", "dictator", "palace", "throne", "chess", "rule", "subjects", "monarch", "royal", "leader", "reign"]
+},
+    {
+        lure: "lion",
+        list: ["tiger", "circus", "jungle", "tamer", "den", "cub", "Africa", "mane", "cage", "feline", "roar", "fierce", "bears", "hunt", "pride"]
+ }
+]
 
 
 //////////////// Stim & Trial Array Creation //////////////////////////////////
 /* Creates the trial array for study phase */
-var trialType = ["capital", "rhyme", "category", "sentence"];
-var nTrials = 8; // # of trials per trialType
+var nTrials = 12; // # of words per memory task (max: 15)
+var nLists = 6; // # of lists to recall
+
 var trialArray = [];
-var memoryArray = [];
+var memoryItems = {
+    lures: [],
+    old: [],
+    newUn: [],
+    newWeak: []
+}
 
-var wordList = Battig;
-var words = [];
-var studyWords = [];
-var conditions = ["yes", "no"];
-var counter = 0;
-
-var oldCapital = [];
-var oldRhyme = [];
-var oldCategory = [];
-var oldSentence = [];
-var newWords = [];
-var allWords = [];
-
+/* create word lists for memory task */
 function createTrialArray() {
-    var r = [0, 1];
-    for (n = 0; n <= trialType.length - 1; n++) {
-        for (t = 0; t <= (nTrials / 2 - 1); t++) {
-            for (c = 0; c <= 1; c++) {
-                var w, nw, temp, match
+    for (n = 0; n <= nLists - 1; n++) {
+        var w
+        myShuffle(wordLists)
+        w = wordLists.pop();
 
-                w = newShuffle(Battig).pop();
-                w.word = w.word.replace("-", " ")
-                match = findMatch(w.word,words)
-                while (RiTa.getSyllables(w.word.replace("-", " ")).split("/").length != 2 || //only 2-syllable words
-                    match === 1 || //don't allow repeat words
-                    w.word.split(" ").length > 1 || //don't allow any item with more than one word
-                    omitCategory.indexOf(w.catname) > -1 //don't allow item from omitCategory
-                ) {
-                    w = newShuffle(Battig).pop();
-                    w.word = w.word.replace("-", " ")
-                    match = findMatch(w.word,words)
-                };
-                words.push(w.word);
-                temp = {
-                    date: new Date(),
-                    subject: "",
-                    trial: "",
-                    encodingCondition: trialType[n],
-                    word: w.word,
+        temp = {
+            date: new Date(),
+            subject: "",
+            trial: "",
+            words: myShuffle(w.list.slice(0, nTrials)),
+            lure: w.lure,
+            FRresponse: [],
+            FRaccuracy: []
+        };
 
-                    wordType: "old",
-                    cResponse: conditions[c],
-                    response: "",
-                    memoryResponse: 0
-                };
+        memoryItems.lures = memoryItems.lures.concat(temp.lure)
+        memoryItems.old = memoryItems.old.concat(myShuffle(temp.words).slice(0, 2))
+        memoryItems.newWeak = memoryItems.newWeak.concat(w.list.slice(12, 14))
 
-                if (temp.cResponse === "yes") {
-                    temp.rhyme = newShuffle(w.rhymes)[0];
-                    temp.sentence = newShuffle(w.sentences)[0];
-                    temp.category = w.catname;
-                    if (temp.encodingCondition === "capital") {
-                        temp.word = temp.word.toUpperCase();
-                    } else {
+        myShuffle(wordLists)
+        w = wordLists.pop();
+        memoryItems.newUn = memoryItems.newUn.concat(myShuffle(w.list).slice(12, 14))
 
-                        r = myShuffle(r);
-
-                        if (r[0] === 1) {
-                            temp.word = temp.word.toUpperCase();
-                        }
-                    }
-                } else {
-                    nw = newShuffle(Battig)[0];
-
-                    temp.rhyme = newShuffle(nw.rhymes)[0];
-                    temp.sentence = newShuffle(nw.sentences)[0];
-                    temp.category = nw.catname;
-                }
-
-                if (temp.encodingCondition === "capital") {
-                    oldCapital.push(temp.word)
-                } else if (temp.encodingCondition === "rhyme") {
-                    oldRhyme.push(temp.word)
-                } else if (temp.encodingCondition === "category") {
-                    oldCategory.push(temp.word)
-                } else if (temp.encodingCondition === "sentence") {
-                    oldSentence.push(temp.word)
-                }
-
-                trialArray.push(temp);
-
-
-            }
-
-        }
-
+        trialArray.push(temp)
     }
-
-    trialArray = newShuffle(trialArray)
-
 
 }
 
+/* creates the checkBoxes for recognition memory test */
 function createMemoryTest() {
-    var n = trialArray.length;
-    memoryArray = memoryArray.concat(trialArray);
-    for (i = 0; i <= n - 1; i++) {
-        var w, nw, temp, match
-        console.log(i)
-        w = newShuffle(Battig).pop()
-        w.word = w.word.replace("-", " ")
-        match = findMatch(w.word,words)
-        while (RiTa.getSyllables(w.word.replace("-", " ")).split("/").length != 2 || //only 2-syllable words
-            match === 1 || //don't allow repeat words
-            w.word.split(" ").length > 1 || //don't allow any item with more than one word
-            omitCategory.indexOf(w.catname) > -1 //don't allow item from omitCategory
-        ) {
-            w = newShuffle(Battig).pop()
-            w.word = w.word.replace("-", " ")
-            match = findMatch(w.word,words)
-        };
-
-        words.push(w.word);
-        temp = {
-            date: new Date(),
-            subject: trialArray[0].subject,
-            trial: "NA",
-            encodingCondition: "NA",
-            word: w.word,
-            wordType: "new",
-            cResponse: "NA",
-            response: "NA",
-            memoryResponse: 0
-        };
-
-        var r = [0, 1];
-        r = newShuffle(r);
-
-        if (r[0] === 1) {
-            temp.word = temp.word.toUpperCase();
-        }
-        console.log(temp.word)
-        newWords.push(temp.word)
-        memoryArray.push(temp)
-    }
-
-    allWords = allWords.concat(newWords).concat(oldCapital).concat(oldCategory).concat(oldRhyme).concat(oldSentence)
-    allWords = newShuffle(allWords);
+    var allWords = [];
+    allWords = allWords.concat(memoryItems.lures).concat(memoryItems.old).concat(memoryItems.newUn).concat(memoryItems.newWeak)
+    allWords = myShuffle(allWords);
 
     for (list = 0; list <= allWords.length - 1; list++) {
         var d1 = document.getElementById('memoryList');
@@ -169,30 +215,33 @@ function createMemoryTest() {
     }
 }
 
-function createCheckboxElement(name, checked) {
-    var radioHtml = '<input type="checkbox" name="' + name + '"';
-    if (checked) {
-        radioHtml += ' checked="checked"';
-    }
-    radioHtml += '/>';
 
-    var radioFragment = document.createElement('div');
-    radioFragment.innerHTML = radioHtml;
+/* not needed?? */
+//function createCheckboxElement(name, checked) {
+//    var radioHtml = '<input type="checkbox" name="' + name + '"';
+//    if (checked) {
+//        radioHtml += ' checked="checked"';
+//    }
+//    radioHtml += '/>';
+//
+//    var radioFragment = document.createElement('div');
+//    radioFragment.innerHTML = radioHtml;
+//
+//    return radioFragment.firstChild;
+//}
 
-    return radioFragment.firstChild;
-}
+//
+//function findMatch(item, array) {
+//    var match
+//    match = 0;
+//    for (look = 0; look <= array.length - 1; look++) {
+//        if (array[look] === item) {
+//            match = 1;
+//        }
+//    }
+//    return match;
+//}
 
-
-function findMatch(item,array) {
-    var match
-    match = 0;
-    for (look = 0; look <= array.length - 1; look ++){
-        if (array[look]===item){
-            match = 1;
-        }
-    }
-    return match;
-}
 //////////////////////////////////////////////////////////////////////
 
 
@@ -200,78 +249,60 @@ function findMatch(item,array) {
 ////////////// Trial Events ////////////////////////////////////////////
 
 /* set trial intervals in milliseconds */
-var blankLength = 400;
-// var fixateLength = 200;
-var feedbackLength = 1000;
+var blankLength = 500;
+var memoryLength = 1000;
 
-/* initialize necessary variables */
-var response; /* temporary response container */
-var accuracy; /* temporary accuracy container */
-
-var expBegin = "NA"; /* first stimulus timestamp */
-var expEnd = "NA"; /* end of experiment timestamp */
 
 var trialCount = 0; /* trial counter / keeps track of which trial the subject is on */
+var wordCount = 0; /* tracks which word the subject is on during study phasen */
 var keytest = 0; /* enables and disables keypress effects / only allows responses when keytest == 1 */
+
 var subject = new Date().getTime(); /* creates timestamp for unique subject identifier */
 
 /* trial events in chronological order */
 
+
 /* 1. blank screen */
 function blank() {
     $("#1-target").hide();
+    
+    
+    if (wordCount === nTrials) {
+        /* go to free recall */
+        wordCount = 0;
+        eventTimer.setTimeout(freeRecall, blankLength)
 
-    /* run function fixate after "blankLength" milliseconds */
-    eventTimer.setTimeout(trial, blankLength);
+    } else {
+        /* go to next word */
+        eventTimer.setTimeout(trial, blankLength);
+    }
 }
 
 
-/* 4. stim presentation / present until response */
+/* 2. word presentation for memoryLength milliseconds */
 function trial() {
     /* update counter display */
     $(".countDisplay").html((trialCount + 1) + " /" + trialArray.length + " trials");
 
-    /* present target stim */
-    $("#targetWord").css("visibility", "hidden")
-    $("#targetTask").hide();
-    $("#responseBtns").css("visibility", "hidden")
+    /*show word*/
 
-    if (trialArray[trialCount].encodingCondition === "capital") {
-        $("#targetTask").html("Is the word in capital letters?")
-
-    }
-
-    if (trialArray[trialCount].encodingCondition === "rhyme") {
-        $("#targetTask").html("Does the word rhyme with " + trialArray[trialCount].rhyme.toUpperCase() + " ?")
-
-    }
-
-    if (trialArray[trialCount].encodingCondition === "category") {
-        $("#targetTask").html("Is the word a(n) " + trialArray[trialCount].category + " ?")
-    }
-
-    if (trialArray[trialCount].encodingCondition === "sentence") {
-        $("#targetTask").html("Would the word fit the sentence: <br />" + "'..." + trialArray[trialCount].sentence + "...'" + " ?")
-    }
-
-    $("#targetWord").html(trialArray[trialCount].word)
-    $("#targetTask").show();
-
-    $("#1-target").show();
+    ////
 
 
-    eventTimer.setTimeout(showWord, 2000);
-
+    wordCount++
+    eventTimer.setTimeout(blank, memoryLength);
 }
 
-function showWord() {
-    /* get timestamp for stim presentation */
-    time1 = new Date().getTime();
-
-    $("#targetWord").css("visibility", "visible")
-    $("#responseBtns").css("visibility", "visible")
-
+/* 3. display free recall test */
+function freeRecall(){
+    /* show free recall div */
+    
+    ///
+    
 }
+
+
+
 
 
 ////////////// Set up initial display & button functions //////////////////////////////////////
@@ -280,154 +311,182 @@ $("#beginExp").click(function () {
     $("#1-instructions").hide();
     $(".countDisplay").html(trialCount + " / " + trialArray.length + " trials");
     $(".top").show();
-    
+
     $("#firstTrial").show();
     $("#1-target").hide();
 });
 
-$("#startTrials").click(function (){
+$("#startTrials").click(function () {
     $("#firstTrial").hide();
     blank();
 })
 
-$("#yesResponse").click(function () {
-    $("#1-target").hide();
 
-    time2 = new Date().getTime(); /* get timestamp for response */
-
-    trialArray[trialCount].trial = trialCount + 1
-    trialArray[trialCount].subject = subject;
-    trialArray[trialCount].reactionTime = time2 - time1;
-    trialArray[trialCount].response = "yes";
-
-    if (trialCount != trialArray.length - 1) {
-        trialCount++; /* increase trial counter by one */
-        blank();
+$("#submitFreeRecallResponse").click(function(){
+    /* determine accuracy / match words to lists */
+    
+    /* match words using the RiTa minimum distance function? */
+    
+    ////
+    if (trialCount === nTrials - 1){
+        /* show instructions for recogntion memory phase */
+        /* do I want a distractor task?? */
     } else {
-        $("#1-phase").hide()
-        createMemoryTest();
-        $("#2-phase").toggleClass("initHidden");
-        $("#2-phase").toggleClass("flexCenter")
-        $("#2-instructions").show();
-
-    }
-});
-
-$("#noResponse").click(function () {
-    $("#1-target").hide();
-
-    time2 = new Date().getTime(); /* get timestamp for response */
-
-    trialArray[trialCount].trial = trialCount + 1
-    trialArray[trialCount].subject = subject;
-    trialArray[trialCount].reactionTime = time2 - time1;
-    trialArray[trialCount].response = "no";
-
-    if (trialCount != trialArray.length - 1) {
-        trialCount++; /* increase trial counter by one */
-        blank();
-    } else {
-        $("#1-phase").hide();
-        createMemoryTest();
-        $("#2-phase").toggleClass("initHidden");
-        $("#2-phase").toggleClass("flexCenter")
-        $("#2-instructions").show();
-
-    }
-});
-
-var checked = [];
-var results = [0, 0, 0, 0, 0];
-$("#submitResponse").click(function () {
-
-    $(".custom:checked").each(function () {
-        checked.push($(this).val())
-    });
-
-    for (i = 0; i <= checked.length - 1; i++) {
-        for (c = 0; c <= oldCapital.length - 1; c++) {
-            if (checked[i] === oldCapital[c]) {
-                results[0]++
-            }
-        }
-    }
-
-    for (i = 0; i <= checked.length - 1; i++) {
-        for (c = 0; c <= oldRhyme.length - 1; c++) {
-            if (checked[i] === oldRhyme[c]) {
-                results[1]++
-            }
-        }
-    }
-
-
-    for (i = 0; i <= checked.length - 1; i++) {
-        for (c = 0; c <= oldCategory.length - 1; c++) {
-            if (checked[i] === oldCategory[c]) {
-                results[2]++
-            }
-        }
-    }
-
-    for (i = 0; i <= checked.length - 1; i++) {
-        for (c = 0; c <= oldSentence.length - 1; c++) {
-            if (checked[i] === oldSentence[c]) {
-                results[3]++
-            }
-        }
-    }
-
-    for (i = 0; i <= checked.length - 1; i++) {
-        for (c = 0; c <= newWords.length - 1; c++) {
-            if (checked[i] === newWords[c]) {
-                results[4]++
-            }
-        }
+        /* show instructions for next list */
+        
     }
     
-    results[4] = newWords.length - results[4];
-    
-    for (i = 0; i<= memoryArray.length-1; i++){
-        for (m = 0; m<= checked.length-1; m++){
-            if (checked[m] === memoryArray[i].word){ 
-                memoryArray[i].memoryResponse = 1;
-            }
-        }
-    }
-    
-    
-    // For d3.js charts //
-    D3Data = [
-        {
-            condition: "Case",
-            response: (results[0]/oldCapital.length)*100
-        },
-        {
-            condition: "Rhyme",
-            response: (results[1]/oldRhyme.length)*100
-        },
-        {
-            condition: "Category",
-            response: (results[2]/oldCategory.length)*100
-        },
-        {
-            condition: "Sentence",
-            response: (results[3]/oldSentence.length)*100
-        },
-
-    ];
-
-    $("#2-instructions").hide();
-    createChart();
-    $("#resultsDisplay").show();
     
 })
+
+
+$("#submitRecognitionResponse").click(function(){
+    
+})
+
 
 
 /* download data file */
 $("#downloadCSV").click(function () {
     exportObjectToCSV('levelsOfProcessing - ' + subject + '.csv', memoryArray);
 });
+
+
+
+//$("#yesResponse").click(function () {
+//    $("#1-target").hide();
+//
+//    time2 = new Date().getTime(); /* get timestamp for response */
+//
+//    trialArray[trialCount].trial = trialCount + 1
+//    trialArray[trialCount].subject = subject;
+//    trialArray[trialCount].reactionTime = time2 - time1;
+//    trialArray[trialCount].response = "yes";
+//
+//    if (trialCount != trialArray.length - 1) {
+//        trialCount++; /* increase trial counter by one */
+//        blank();
+//    } else {
+//        $("#1-phase").hide()
+//        createMemoryTest();
+//        $("#2-phase").toggleClass("initHidden");
+//        $("#2-phase").toggleClass("flexCenter")
+//        $("#2-instructions").show();
+//
+//    }
+//});
+//
+//$("#noResponse").click(function () {
+//    $("#1-target").hide();
+//
+//    time2 = new Date().getTime(); /* get timestamp for response */
+//
+//    trialArray[trialCount].trial = trialCount + 1
+//    trialArray[trialCount].subject = subject;
+//    trialArray[trialCount].reactionTime = time2 - time1;
+//    trialArray[trialCount].response = "no";
+//
+//    if (trialCount != trialArray.length - 1) {
+//        trialCount++; /* increase trial counter by one */
+//        blank();
+//    } else {
+//        $("#1-phase").hide();
+//        createMemoryTest();
+//        $("#2-phase").toggleClass("initHidden");
+//        $("#2-phase").toggleClass("flexCenter")
+//        $("#2-instructions").show();
+//
+//    }
+//});
+//
+//
+//
+//var checked = [];
+//var results = [0, 0, 0, 0, 0];
+//$("#submitResponse").click(function () {
+//
+//    $(".custom:checked").each(function () {
+//        checked.push($(this).val())
+//    });
+//
+//    for (i = 0; i <= checked.length - 1; i++) {
+//        for (c = 0; c <= oldCapital.length - 1; c++) {
+//            if (checked[i] === oldCapital[c]) {
+//                results[0]++
+//            }
+//        }
+//    }
+//
+//    for (i = 0; i <= checked.length - 1; i++) {
+//        for (c = 0; c <= oldRhyme.length - 1; c++) {
+//            if (checked[i] === oldRhyme[c]) {
+//                results[1]++
+//            }
+//        }
+//    }
+//
+//
+//    for (i = 0; i <= checked.length - 1; i++) {
+//        for (c = 0; c <= oldCategory.length - 1; c++) {
+//            if (checked[i] === oldCategory[c]) {
+//                results[2]++
+//            }
+//        }
+//    }
+//
+//    for (i = 0; i <= checked.length - 1; i++) {
+//        for (c = 0; c <= oldSentence.length - 1; c++) {
+//            if (checked[i] === oldSentence[c]) {
+//                results[3]++
+//            }
+//        }
+//    }
+//
+//    for (i = 0; i <= checked.length - 1; i++) {
+//        for (c = 0; c <= newWords.length - 1; c++) {
+//            if (checked[i] === newWords[c]) {
+//                results[4]++
+//            }
+//        }
+//    }
+//
+//    results[4] = newWords.length - results[4];
+//
+//    for (i = 0; i <= memoryArray.length - 1; i++) {
+//        for (m = 0; m <= checked.length - 1; m++) {
+//            if (checked[m] === memoryArray[i].word) {
+//                memoryArray[i].memoryResponse = 1;
+//            }
+//        }
+//    }
+//
+//
+//    // For d3.js charts //
+//    D3Data = [
+//        {
+//            condition: "Case",
+//            response: (results[0] / oldCapital.length) * 100
+//        },
+//        {
+//            condition: "Rhyme",
+//            response: (results[1] / oldRhyme.length) * 100
+//        },
+//        {
+//            condition: "Category",
+//            response: (results[2] / oldCategory.length) * 100
+//        },
+//        {
+//            condition: "Sentence",
+//            response: (results[3] / oldSentence.length) * 100
+//        },
+//
+//    ];
+//
+//    $("#2-instructions").hide();
+//    createChart();
+//    $("#resultsDisplay").show();
+//
+//})
 
 
 /////////////////// Generic Functions /////////////////////////////////
@@ -482,19 +541,6 @@ $(function () {
 
 
 
-
-/* compute average of array */
-function calcAVG(array) {
-    var total = 0;
-    for (var i = 0; i < array.length; i++) {
-        total += array[i];
-    }
-    var avg = total / array.length;
-    return (avg);
-}
-
-
-
 /* shuffle an array */
 function myShuffle(array) {
     var tmp, current, top = array.length;
@@ -508,19 +554,3 @@ function myShuffle(array) {
 
     return array;
 }
-
-function newShuffle(arr, bool) {
-    var isView = ArrayBuffer && ArrayBuffer.isView && ArrayBuffer.isView(arr);
-    arr = bool || isView ? arr : arr.slice();
-
-    var rnd, tmp, idx = arr.length;
-    while (idx > 1) {
-        rnd = Math.random() * idx | 0;
-
-        tmp = arr[--idx];
-        arr[idx] = arr[rnd];
-        arr[rnd] = tmp;
-    }
-
-    return arr;
-};
