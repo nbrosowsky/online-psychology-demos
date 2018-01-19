@@ -223,6 +223,11 @@
             firebase.database().ref('testExpData/' + userID).set(data)
             $("#debrief").hide();
             $("#success").show();
+            firebase.auth().signOut().then(function(){
+                console.log("You are now signed out")
+            }, function(error){
+                console.error('Sign out Error', error);
+            });
         })
 
     </script>
