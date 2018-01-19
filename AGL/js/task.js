@@ -21,11 +21,16 @@ var studyList = shuffle(grammar.study)
 
 /* Creates the trial array */
 var trialArray = [];
+var expStart = new Date().getTime();
+var expID = "test Exp"
 //
 //for (i=0; i<=(grammar.testGram.length)-1; i++){
 
 for (i = 0; i <= 3; i++) {
     trialArray.push({
+        expStart: expStart,
+        expID: expID,
+        userID: userID,
         trial: "",
         trialType: "grammatical",
         stimulus: grammar.testGram[i],
@@ -37,6 +42,9 @@ for (i = 0; i <= 3; i++) {
 //for (i=0; i<=(grammar.testUnGram.length)-1; i++){
 for (i = 0; i <= 3; i++) {
     trialArray.push({
+        expStart: expStart,
+        expID: expID,
+        userID: userID,
         trial: "",
         trialType: "ungrammatical",
         stimulus: grammar.testUnGram[i],
