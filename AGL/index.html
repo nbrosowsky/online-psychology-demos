@@ -142,7 +142,6 @@
     <div id="endExp">
         <div id="debrief" class="initHidden">
             <h1>Experimental Debriefing</h1>
-            <form id="mturk_form" method="POST" action="https://www.mturk.com/mturk/externalSubmit">
                 <div id="Debrief">
 
                     <p>Thank you for your participation in our experiment. </p>
@@ -164,13 +163,14 @@
 
                 <input type="hidden" id="assignmentId" name="assignmentId" value="">
                 <textarea name="Comments" id="Comments"> </textarea>
-                <input id="submit" type="submit" name="Submit" value="Submit"> <br />
-                <input id="RTs" type="text" name="RTs" class="initHidden"><br />
-
-            </form>
-
+                <button id="submitResponse" class="button-green">Submit</button>
+          
 
             <button id="getData" class="initHidden"></button>
+        </div>
+        <div id="success">
+            <h1>Data Successfully Submitted!</h1>
+            <p>Your data has been submitted and you can now close the window.</p>
         </div>
     </div>
 
@@ -189,11 +189,11 @@
             messagingSenderId: "75804280404"
         };
         firebase.initializeApp(config);
-        firebase.auth().signInAnonymously().catch(function(error){
+        firebase.auth().signInAnonymously().catch(function(error) {
             var errorCod = error.code;
-            var errorMessage = error.message;      
+            var errorMessage = error.message;
         });
-        
+
         var userID, isAnonymous
         firebase.auth().onAuthStateChanged(function(user) {
             if (user) {
@@ -204,25 +204,26 @@
                 console.log("you are not logged in")
             }
         });
-        
+
     </script>
-    
+
     <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
     <script type="text/javascript" src="js/generic.js"></script>
     <script type="text/javascript">
         var data = {};
-
+         $("#success").hide();
         //hides the landing page info and shows the end of experiment information//
         function endofExp() {
             $("#landing").hide();
             $("#debrief").show();
         }
-        
-        $("#submit").click(function(){
-          data.Comments = $("#Comments").val().replace(/[^\w\s]/gi, '');
-          firebase.database().ref('testExpData/' + userID).set(data)      
-        })
 
+        $("#submitResponse").click(function() {
+            data.Comments = $("#Comments").val().replace(/[^\w\s]/gi, '');
+            firebase.database().ref('testExpData/' + userID).set(data)
+            $("#debrief").hide();
+            $("#success").show();
+        })
 
     </script>
 
