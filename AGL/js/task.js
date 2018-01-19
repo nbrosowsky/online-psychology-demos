@@ -30,7 +30,8 @@ for (i = 0; i <= 3; i++) {
     trialArray.push({
         expStart: expStart,
         expID: expID,
-        userID: userID,
+        userID: window.opener.userID,
+        grammar: grammar.cite,
         trial: "",
         trialType: "grammatical",
         stimulus: grammar.testGram[i],
@@ -44,7 +45,8 @@ for (i = 0; i <= 3; i++) {
     trialArray.push({
         expStart: expStart,
         expID: expID,
-        userID: userID,
+        userID: window.opener.userID,
+        grammar: grammar.cite,
         trial: "",
         trialType: "ungrammatical",
         stimulus: grammar.testUnGram[i],
@@ -124,6 +126,7 @@ function testBlank() {
         window.opener.data.trialArray = trialArray
         window.opener.data.studyList = studyList
         window.opener.data.grammar = grammar.cite
+        window.opener.data.expStart = expStart
         window.close()
     }
 
