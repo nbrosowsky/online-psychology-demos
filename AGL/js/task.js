@@ -19,6 +19,13 @@ var grammar = {
 // create study trials //
 var studyList = shuffle(grammar.study)
 
+var uID;
+if (window.opener) {
+    uID = window.opener.userID
+} else {
+    uID = new Date().getTime();
+}
+
 /* Creates the trial array */
 var trialArray = [];
 var expStart = new Date().getTime();
@@ -30,7 +37,7 @@ for (i = 0; i <= 3; i++) {
     trialArray.push({
         expStart: expStart,
         expID: expID,
-        userID: window.opener.userID,
+        userID: uID,
         grammar: grammar.cite,
         trial: "",
         trialType: "grammatical",
@@ -45,7 +52,7 @@ for (i = 0; i <= 3; i++) {
     trialArray.push({
         expStart: expStart,
         expID: expID,
-        userID: window.opener.userID,
+        userID: uID,
         grammar: grammar.cite,
         trial: "",
         trialType: "ungrammatical",
@@ -106,10 +113,17 @@ function studyTarget() {
 }
 
 function endStudy() {
-    $("#study").hide();
+    // reset trial counter
     trialCount = -1;
-    $("#grammarTask").hide();
-    $("#test").show();
+
+    // hide study display
+    $("#studyDisplay").hide();
+
+    // show test instructions
+    $("#testInstructions").show();
+
+    // change modal instructions //
+    $("#modalText").text("We will present you with new letter strings (i.e., ones you did not study). Your task is to rate how rule-compliant or rule-violating each new string is. If you are at a loss, use your gut feeling.")
 }
 
 
@@ -123,11 +137,8 @@ function testBlank() {
     if (trialCount != trialArray.length) {
         eventTimer.setTimeout(testTarget, blankLength);
     } else {
-        window.opener.data.trialArray = trialArray
-        window.opener.data.studyList = studyList
-        window.opener.data.grammar = grammar.cite
-        window.opener.data.expStart = expStart
-        window.close()
+        $("#testDisplay").hide();
+        $("#ruleDisplay").show();
     }
 
 }
@@ -143,14 +154,41 @@ function testTarget() {
 
 }
 
+function endExp() {
+    //.replace(/[^\w\s]/gi, '');//
+    var rules = $("#ruleResponse").val()
+    rules = rules.replace(/(\r\n|\n|\r)/gm, ' ')
+    window.opener.data.ruleResponse = rules;
+    window.opener.data.trialArray = trialArray
+    window.opener.data.studyList = studyList
+    window.opener.data.grammar = grammar.cite
+    window.opener.data.expStart = expStart
+    window.close()
+}
 
 
 
 ////////////// Set up initial display & button functions //////////////////////////////////////
 
-pagination.setup(); // setup pagination for instructions
 disableBS(); // disable backspace key
 modalInit(); // initiate the modal instruction
+
+// INITIAL DISPLAY //
+// display counter
+$(".countDisplay").html(0 + " / " + studyList.length + " trials");
+$("#topCounter").show();
+
+// display study instructions
+$("studyInstructions").show();
+
+// hide all others
+$("#testInstructions").hide();
+$("#studyDisplay").hide();
+$("#testDisplay").hide();
+$("#ruleDisplay").hide();
+
+
+////////////////////////
 
 // initiate the slider from nouislider.js
 var slider = document.getElementById('slider');
@@ -162,35 +200,23 @@ noUiSlider.create(slider, {
         'min': -100,
         'max': 100
     },
-    tooltips: true
+    tooltips: false
 });
 
 ///// initiate buttons ////
-/* end instructions and begin experiment */
-$("#beginExp").click(function () {
-    // hide instructions
-    $(".instructionDisplay").hide();
-
-    // display counter
-    $(".countDisplay").html(0 + " / " + studyList.length + " trials");
-    $(".top").show();
-
-    // deal with flex / jquery issues //
-    $(".targetDisplay").removeClass("initHidden");
-    $(".targetDisplay").css("display", "flex");
-    $(".targetDisplay").addClass("flexCenter");
-
-});
 
 
 $("#startStudy").click(function () {
     // mark the beginning of the experiment
     expBegin = new Date().getTime();
 
-    // clear the study display & fix font-size //
-    $("#study").html("");
-    $("#study").css("font-size", "60px");
+    // hide study instructions
+    $("#studyInstructions").hide();
 
+    // show study display
+    $("#studyDisplay").show();
+
+    // trigger study trials
     // initiate blank screen 
     studyBlank();
 
@@ -200,12 +226,8 @@ $("#startTest").click(function () {
     // hide instructions
     $("#testInstructions").hide();
 
-    // deal with flex / jquery issues //
-    $("#grammarTask").removeClass("initHidden")
-    $("#grammarTask").addClass("flexCenter")
-    $("#grammarTask").addClass("flexColumn")
-    $("#test").removeClass("initHidden")
-    $("#test").addClass("flexCenter")
+    // show test display
+    $("#testDisplay").show();
 
     // init blank screen 
     testBlank();
@@ -213,14 +235,20 @@ $("#startTest").click(function () {
 
 
 $("#submitResponse").click(function () {
-    time2 = window.performance.now();
-    $("#grammarTask").hide();
 
-    trialArray[trialCount].response = slider.noUiSlider.get();
-    trialArray[trialCount].RT = time2 - time1;
+    if (slider.noUiSlider.get() != 0) {
+        time2 = window.performance.now();
+        $("#grammarTask").hide();
 
-    slider.noUiSlider.set(0);
+        trialArray[trialCount].response = slider.noUiSlider.get();
+        trialArray[trialCount].RT = time2 - time1;
 
-    testBlank();
+        slider.noUiSlider.set(0);
 
+        testBlank();
+    }
+})
+
+$("#submitRuleResponse").click(function () {
+    endExp();
 })

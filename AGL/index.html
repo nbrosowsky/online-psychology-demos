@@ -162,7 +162,8 @@
                 </div>
 
                 <input type="hidden" id="assignmentId" name="assignmentId" value="">
-                <textarea name="Comments" id="Comments"> </textarea>
+                <textarea name="Comments" id="Comments" class="textInput"> </textarea>
+                <div style="clear: left"></div>
                 <button id="submitResponse" class="button-green">Submit</button>
           
 
@@ -219,7 +220,8 @@
         }
 
         $("#submitResponse").click(function() {
-            data.Comments = $("#Comments").val().replace(/[^\w\s]/gi, '');
+            //.replace(/[^\w\s]/gi, '');//
+            data.Comments = $("#Comments").val().replace(/(\r\n|\n|\r)/gm, ' ')
             firebase.database().ref('testExpData/' + userID).set(data)
             $("#debrief").hide();
             $("#success").show();

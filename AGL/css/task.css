@@ -71,14 +71,14 @@ body {
 }
 
 .bottomRight {
-    position: absolute; 
-    right: 20px; 
+    position: absolute;
+    right: 20px;
     bottom: 0
 }
 
 .bottomLeft {
-    position: absolute; 
-    left: 20px; 
+    position: absolute;
+    left: 20px;
     bottom: 0
 }
 
@@ -86,8 +86,14 @@ body {
     width: 100%;
 }
 
-.margin25 {
-    margin: 25px;
+.margin15 {
+    margin: 15%;
+}
+
+
+.textInput {
+    font-size: 16px;
+    width: 80%;
 }
 
 /* ----------------------------------------------------------------
@@ -127,6 +133,7 @@ header {
     line-height: 20px;
     margin-left: 10%;
     margin-right: 10%;
+    min-width: 500px;
 }
 
 
@@ -185,14 +192,15 @@ input[type=submit]:hover {
 /* ----------------------------------------------------------------
   Task Content
 -----------------------------------------------------------------*/
-  #custom-handle {
+
+#custom-handle {
     width: 3em;
     height: 1.6em;
     top: 50%;
     margin-top: -.8em;
     text-align: center;
     line-height: 1.6em;
-  }
+}
 
 .contentDisplay {
     width: 100vw;
@@ -212,7 +220,7 @@ input[type=submit]:hover {
     padding: 0;
 }
 
-.targetDisplay {
+.standardDisplay {
     border: 2px #1e1e1e solid;
     width: 1000px;
     min-width: 500px;
@@ -220,34 +228,6 @@ input[type=submit]:hover {
 }
 
 
-
-.instructionDisplay {
-    min-height: 600px;
-    width: 60%;
-    padding: 10px 20px;
-    border: 2px #1e1e1e solid;
-    position: relative;
-}
-
-.resultsDisplay {
-    width: 50%;
-    padding: 10px 20px;
-    border: 2px #1e1e1e solid;
-}
-
-.examples {
-    justify-content: center;
-}
-
-#pageDown {
-    position: absolute;
-    left: 20px; 
-    bottom: 0
-}
-
-#pageUp {
-    
-}
 
 .button-blue {
     font-size: 14px;

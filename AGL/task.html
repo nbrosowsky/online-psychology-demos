@@ -24,29 +24,23 @@
 <body>
     <!-- Header & Footer
 		============================================= -->
-    <div class="top initHidden" style="width: 100%">
-        <h3 style="float: left; width: 16.66%" class="countDisplay">1 /27 trials</h3>
-        <h3 style="float: left; width: 66.66%; text-align: center" id="reminder"></h3>
-        <div style="width: 16.66%; clear: left"></div>
+    <div id="topCounter" class="top" style="width: 100%">
+        <h3 style="float: left; width: 30%" class="countDisplay">1 /27 trials</h3>
+        <div style="width 30%; clear: left"></div>
         <button id="showInstructions" class="leftButton">Show Instructions</button>
 
     </div>
     <!-- Header & Footer End -->
 
     <!-- pop-up instructions -->
-    <div id="popUpInstructions" class="modal initHidden">
+    <div id="popUpInstructions" class="modal">
         <!-- Modal content -->
         <div class="modal-content">
             <span class="close">&times;</span>
             <div id="popUpText">
                 <h3>Instructions:</h3>
+                <p id="modalText"> You will be shown 20 nonsense letter strings. Your task is to memorize each one as best as you can</p>
 
-                <p>
-                    First, you will have a study phase, where you will be shown one image at a time. Your task is to try to memorize each of the images.
-                </p>
-                <p>
-                    Following the study phase, you will complete a recognition memory task. You will be shown two images side-by-side. One is an image that you have seen before ("OLD") and one is an image you have not seen before ("NEW") Your task is to identify the "OLD" image by clicking on it with the mouse.
-                </p>
 
             </div>
         </div>
@@ -56,125 +50,93 @@
 
     <!-- Main Content
 		============================================= -->
-    <div class="contentDisplay flexCenter noSelect ">
-        <div id="loading" class="initHidden">
-            <p> please wait while the images are loading </p>
-            <p id="progress">0%</p>
-        </div>
-
-        <!-- Instruction display -->
-        <div class="instructionDisplay book">
-            <div id="pg1" class="page">
+    <div class="contentDisplay flexCenter noSelect">
+        <!-- instructions for study phase -->
+        <div id="studyInstructions" class="standardDisplay flexCenter">
+            <div class="margin15">
                 <h2>
                     Welcome to the experiment!
                 </h2>
-                <p>
-                    First, we will review the instructions for the experiment. Feel free to use the "next" and "back" buttons to move through the instructions. Once you hit "start" however, you will not be able to go back.
-                </p>
-                <h3>1. Instructions:</h3>
-                <p>
-                    There will be two parts to this experiment. The first will be a study phase. You will be shown images one at a time, each presented for 2 seconds. Your task for this phase is to try to memorize each of the images.
-                </p>
-                <p>
+                <p> You will be shown 20 nonsense letter strings. Your task is to memorize each one as best as you can</p>
 
-            </div>
-            <div id="pg2" class="initHidden page">
-                <h3>
-                    2. Instructions:
-                </h3>
-                <p>
-                    In the second phase your memory for the images will be tested.
-                </p>
-                <p>On each trial you will see two images side-by-side. One will be an image you have seen before (an OLD image) and one will be one you have not seen before (a NEW image). For example:
-                </p>
-                <div class="flexCenter">
-                    <img src="images/example1.png" height="300px" />
-                </div>
-                <p> Your task will be to identify the "OLD" image by clicking on it with the mouse.</p>
-            </div>
 
-            <div id="pg3" class="initHidden page">
-                <h3>
-                    3. Instructions
-                </h3>
-
-                <p>
-                    That's it!
-                </p>
-                <p>
-                    First, you will do the study phase, then the memory test phase. Press the start button to begin the study phase.
-                </p>
-                <button id="beginExp" class="button-green bottomRight">START</button>
+                <p>Click 'START' when you are ready to begin.</p>
+                <button id="startStudy" class="button-green">START</button>
             </div>
-            <button id="pageDown" class="button-blue initHidden bottomLeft">BACK</button>
-            <button id="pageUp" class="button-blue bottomRight">NEXT</button>
+        </div>
+
+        <!-- instructions for test phase -->
+        <div id="testInstructions" class="standardDisplay flexCenter">
+            <div class="margin15">
+                <p> The strings you just studied were constructed according to a set of rules.
+                </p>
+                <p>
+                    In the test that follows, we will present you with new letter strings (i.e., ones you did not study). Your task is to rate how rule-compliant or rule-violating each new string is.
+                </p>
+
+                <p>If you are at a loss, use your gut feeling.</p>
+                <p>Click "START" when you are ready to begin.</p>
+                <button id="startTest" class="button-green">START</button>
+            </div>
 
         </div>
-        <!--- end general instruction display --->
-        
-        <div class="targetDisplay initHidden">
-            <div id="study">
-                <div class="margin25">
-                    <p>This will be the display for the remainder of the experiment. The images will appear here.</p>
-                    <p>Click the button below to begin the study phase. You will be shown one image at a time, try to remember each of the images</p>
-                    <button id="startStudy" class="button-green">START</button>
-                </div>
-            </div>
-            <div id="test" class="initHidden width100">
-               
-                <div id="testInstructions" class="margin25">
-                    <p> Now we will test your memory.
-                    </p>
-                    <p>
-                        On each trial you will see two images side-by-side. One will be an image you have seen before (an OLD image) and one will be one you have not seen before (a NEW image).
-                    </p>
 
-                    <p>Your task is to identify the OLD image. You will select the OLD image by clicking on it with the mouse.
-                    </p>
-                    <p>When you are ready to begin the first trial, click the button below</p>
-                    <button id="startTest" class="button-green">START</button>
+        <!-- display for study trials -->
+        <div id="studyDisplay" class="standardDisplay flexCenter">
+            <div id="study" class="width100 flexCenter" style="font-size: 60px">
+            </div>
+        </div>
+
+        <!-- display for test trials -->
+        <div id="testDisplay" class="standardDisplay flexCenter">
+            <div id="grammarTask" class="flexCenter flexColumn width100">
+                <div id="wordDisplay" style="font-size: 60px; text-align: center">
+                    MTXXXMT
                 </div>
-                
-                <div id="grammarTask" class="flexCenter flexColumn width100">
-                    <div id="wordDisplay" style="font-size: 60px; text-align: center">
-                        MTXXXMT
-                    </div>
-                    <div class="sliderContainer flexCenter"  style="width: 100%">
-                        <div style="margin:5%; width: 80%">
-                            <div id="slider"></div>
-                            <div class="flexCenter" style=" justify-content: space-between">
-                                <p style="min-width: 20%; text-align: left">Rule Violating</p>
-                                <p style="min-width: 20%; text-align: center">Unsure</p>
-                                <p style="min-width: 20%; text-align: right">Rule Conforming</p>
-                            </div>
+                <div class="sliderContainer flexCenter" style="width: 100%">
+                    <div style="margin:5%; width: 80%">
+                        <div id="slider"></div>
                         <br />
-                        
+                        <div class="flexCenter" style=" justify-content: space-between">
+                            <p style="min-width: 20%; text-align: left">Rule Violating</p>
+                            <p style="min-width: 20%; text-align: center">Unsure</p>
+                            <p style="min-width: 20%; text-align: right">Rule Conforming</p>
                         </div>
-                       
+                        <br />
+
                     </div>
-                     <button id="submitResponse" class="button-green" style="">SUBMIT</button>
+
                 </div>
+                <button id="submitResponse" class="button-green" style="">SUBMIT</button>
+                <p style="font-size: 12pt">**<em>Please note</em>: you will not be able to submit your response until you have moved the slider off of 0.</p>
             </div>
         </div>
-        <!--- end target task display --->
-        
-        
+
+        <!-- display for rule question -->
+        <div id="ruleDisplay" class="standardDisplay flexCenter flexColumn">
+            <p>The strings you studied were constructed according to a set of rules</p>
+            <p>Please describe, as best you can, the rules that were used:</p>
+            <textarea name="ruleResponse" id="ruleResponse" class="textInput"> </textarea>
+            <button id="submitRuleResponse" class="button-green" style="">SUBMIT</button>
+        </div>
+
     </div>
-      <!-- End Main Content
+    <!-- End Main Content
 		============================================= -->
-    
+
     <!-- General JS components -->
     <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
     <script type="text/javascript" src="js/generic.js"></script>
     <script type="text/javascript" src="js/nouislider.min.js"></script>
     <script type="text/javascript" src="js/eventTimer.js"></script>
-    <script type="text/javascript" src="js/pagination.js"></script>
 
     <!-- task-specific JS -->
     <script type="text/javascript" src="js/task.js"></script>
     <script type="text/javascript">
-        window.opener.endofExp();
-        window.opener.scrollTo(500, 0);
+        if (window.opener) {
+            window.opener.endofExp();
+            window.opener.scrollTo(500, 0);
+        }
     </script>
 
 </body>
