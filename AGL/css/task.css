@@ -24,17 +24,20 @@ body {
 }
 
 .flexSpaceBetween {
+    -js-display: flex;
     display: flex;
     align-content: space-between;
 }
 
 .flexCenter {
+    -js-display: flex;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
 .flexRow {
+    -js-display: flex;
     display: -webkit-flex;
     /* Safari 6.1+ */
     display: flex;
@@ -45,6 +48,7 @@ body {
 }
 
 .flexColumn {
+    -js-display: flex;
     display: -webkit-flex;
     /* Safari 6.1+ */
     display: flex;
