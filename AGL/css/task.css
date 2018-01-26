@@ -10,6 +10,10 @@ body {
     color: black;
 }
 
+html,
+body {
+    height: 100%;
+}
 
 /* ----------------------------------------------------------------
   General Helper classes
@@ -207,6 +211,7 @@ input[type=submit]:hover {
 }
 
 .contentDisplay {
+    width: 100%;
     width: 100vw;
     min-height: 100vh;
     margin: 0;
