@@ -1,9 +1,9 @@
 /**
-* @fileoverview Creates task stimuli and events
-* 
-* @author N.P. Brosowsky (nbrosowsky@gmail.com)
-* 
-*/
+ * @fileoverview Creates task stimuli and events
+ * 
+ * @author N.P. Brosowsky (nbrosowsky@gmail.com)
+ * 
+ */
 
 
 /*
@@ -26,6 +26,7 @@ var categoryNames = ["four-footed animal", "kitchen utensil", "alcoholic beverag
 var omitCategory = ["college or university", "girls first name", "elective office", "males first name"]
 
 
+
 //////////////// Stim & Trial Array Creation //////////////////////////////////
 /* Creates the trial array for study phase */
 var trialType = ["capital", "rhyme", "category", "sentence"];
@@ -46,6 +47,147 @@ var oldSentence = [];
 var newWords = [];
 var allWords = [];
 
+//var ref = firebase.database().ref();
+//var fbData
+//var numbers = [];
+//for (var i = 1; i <= 2171; i++) {
+//    numbers.push(i)
+//}
+//numbers = newShuffle(numbers);
+//
+//function createTrialArray() {
+//    //create capital trials
+//    for (n = 0; n <= 2; n++) {
+//        for (i = 0; i <= (nTrials/2) - 1; i++) {
+//            ref.on("value", function (snapshot) {
+//                fbData = snapshot.val()[numbers.shift()]
+//                console.log(fbData.word)
+//            })
+//            temp = {
+//                date: new Date(),
+//                subject: "",
+//                trial: "",
+//                encodingCondition: trialType[n],
+//                word: fbData.word,
+//                wordType: "old",
+//                cResponse: conditions[n],
+//                response: "",
+//                memoryResponse: 0,
+//                trialType: "capital",
+//                rhymes: newShuffle(fbData.rhymes)[0],
+//                sentences: newShuffle(fbData.sentences)[0],
+//                category: fbData.category
+//            };
+//
+//            if (temp.cResponse === "yes") {
+//                temp.word = temp.word.toUpperCase();
+//            }
+//
+//            trialArray.push(temp)
+//        }
+//    }
+//
+//    //create rhyme trials
+//    for (n = 0; n <= 1; n++) {
+//        for (i = 0; i <= nTrials - 1; i++) {
+//            ref.on("value", function (snapshot) {
+//                fbData = snapshot.val()[numbers.shift()]
+//                console.log(fbData.word)
+//            })
+//            temp = {
+//                date: new Date(),
+//                subject: "",
+//                trial: "",
+//                encodingCondition: trialType[n],
+//                word: fbData.word,
+//                wordType: "old",
+//                cResponse: conditions[n],
+//                response: "",
+//                memoryResponse: 0,
+//                trialType: "capital",
+//                rhymes: newShuffle(fbData.rhymes)[0],
+//                sentences: newShuffle(fbData.sentences)[0],
+//                category: fbData.category
+//            };
+//
+//            if (temp.cResponse === "no") {
+//                fbData = ref.on("value", function (snapshot) {fbData = (snapshot.val()[numbers.shift()])})
+//                temp.rhyme = newShuffle(fbData.rhyme)[0]
+//            }
+//
+//            trialArray.push(temp)
+//        }
+//    }
+//    
+//    //create category trials
+//    for (n = 0; n <= 1; n++) {
+//        for (i = 0; i <= nTrials - 1; i++) {
+//            ref.on("value", function (snapshot) {
+//                fbData = snapshot.val()[numbers.shift()]
+//                console.log(fbData.word)
+//            })
+//            temp = {
+//                date: new Date(),
+//                subject: "",
+//                trial: "",
+//                encodingCondition: trialType[n],
+//                word: fbData.word,
+//                wordType: "old",
+//                cResponse: conditions[n],
+//                response: "",
+//                memoryResponse: 0,
+//                trialType: "capital",
+//                rhymes: newShuffle(fbData.rhymes)[0],
+//                sentences: newShuffle(fbData.sentences)[0],
+//                category: fbData.category
+//            };
+//
+//            if (temp.cResponse === "no") {
+//                fbData = ref.on("value", function (snapshot) {fbData = (snapshot.val()[numbers.shift()])})
+//                temp.category = newShuffle(fbData.category)[0]
+//            }
+//
+//            trialArray.push(temp)
+//        }
+//    }
+//    
+//    //create sentence trials
+//    for (n = 0; n <= 1; n++) {
+//        for (i = 0; i <= nTrials - 1; i++) {
+//            ref.on("value", function (snapshot) {
+//                fbData = snapshot.val()[numbers.shift()]
+//                console.log(fbData.word)
+//            })
+//            temp = {
+//                date: new Date(),
+//                subject: "",
+//                trial: "",
+//                encodingCondition: trialType[n],
+//                word: fbData.word,
+//                wordType: "old",
+//                cResponse: conditions[n],
+//                response: "",
+//                memoryResponse: 0,
+//                trialType: "capital",
+//                rhymes: newShuffle(fbData.rhymes)[0],
+//                sentences: newShuffle(fbData.sentences)[0],
+//                category: fbData.category
+//            };
+//
+//            if (temp.cResponse === "no") {
+//                fbData = ref.on("value", function (snapshot) {fbData = (snapshot.val()[numbers.shift()])})
+//                temp.sentence = newShuffle(fbData.sentence)[0]
+//            }
+//
+//            trialArray.push(temp)
+//        }
+//    }
+//
+//
+//}
+//
+
+
 function createTrialArray() {
     var r = [0, 1];
     for (n = 0; n <= trialType.length - 1; n++) {
@@ -55,7 +197,7 @@ function createTrialArray() {
 
                 w = newShuffle(Battig).pop();
                 w.word = w.word.replace("-", " ")
-                match = findMatch(w.word,words)
+                match = findMatch(w.word, words)
                 while (RiTa.getSyllables(w.word.replace("-", " ")).split("/").length != 2 || //only 2-syllable words
                     match === 1 || //don't allow repeat words
                     w.word.split(" ").length > 1 || //don't allow any item with more than one word
@@ -63,7 +205,7 @@ function createTrialArray() {
                 ) {
                     w = newShuffle(Battig).pop();
                     w.word = w.word.replace("-", " ")
-                    match = findMatch(w.word,words)
+                    match = findMatch(w.word, words)
                 };
                 words.push(w.word);
                 temp = {
@@ -133,7 +275,7 @@ function createMemoryTest() {
         console.log(i)
         w = newShuffle(Battig).pop()
         w.word = w.word.replace("-", " ")
-        match = findMatch(w.word,words)
+        match = findMatch(w.word, words)
         while (RiTa.getSyllables(w.word.replace("-", " ")).split("/").length != 2 || //only 2-syllable words
             match === 1 || //don't allow repeat words
             w.word.split(" ").length > 1 || //don't allow any item with more than one word
@@ -141,7 +283,7 @@ function createMemoryTest() {
         ) {
             w = newShuffle(Battig).pop()
             w.word = w.word.replace("-", " ")
-            match = findMatch(w.word,words)
+            match = findMatch(w.word, words)
         };
 
         words.push(w.word);
@@ -191,11 +333,11 @@ function createCheckboxElement(name, checked) {
 }
 
 
-function findMatch(item,array) {
+function findMatch(item, array) {
     var match
     match = 0;
-    for (look = 0; look <= array.length - 1; look ++){
-        if (array[look]===item){
+    for (look = 0; look <= array.length - 1; look++) {
+        if (array[look] === item) {
             match = 1;
         }
     }
@@ -288,12 +430,12 @@ $("#beginExp").click(function () {
     $("#1-instructions").hide();
     $(".countDisplay").html(trialCount + " / " + trialArray.length + " trials");
     $(".top").show();
-    
+
     $("#firstTrial").show();
     $("#1-target").hide();
 });
 
-$("#startTrials").click(function (){
+$("#startTrials").click(function () {
     $("#firstTrial").hide();
     blank();
 })
@@ -392,35 +534,35 @@ $("#submitResponse").click(function () {
             }
         }
     }
-    
+
     results[4] = newWords.length - results[4];
-    
-    for (i = 0; i<= memoryArray.length-1; i++){
-        for (m = 0; m<= checked.length-1; m++){
-            if (checked[m] === memoryArray[i].word){ 
+
+    for (i = 0; i <= memoryArray.length - 1; i++) {
+        for (m = 0; m <= checked.length - 1; m++) {
+            if (checked[m] === memoryArray[i].word) {
                 memoryArray[i].memoryResponse = 1;
             }
         }
     }
-    
-    
+
+
     // For d3.js charts //
     D3Data = [
         {
             condition: "Case",
-            response: (results[0]/oldCapital.length)*100
+            response: (results[0] / oldCapital.length) * 100
         },
         {
             condition: "Rhyme",
-            response: (results[1]/oldRhyme.length)*100
+            response: (results[1] / oldRhyme.length) * 100
         },
         {
             condition: "Category",
-            response: (results[2]/oldCategory.length)*100
+            response: (results[2] / oldCategory.length) * 100
         },
         {
             condition: "Sentence",
-            response: (results[3]/oldSentence.length)*100
+            response: (results[3] / oldSentence.length) * 100
         },
 
     ];
@@ -428,7 +570,7 @@ $("#submitResponse").click(function () {
     $("#2-instructions").hide();
     createChart();
     $("#resultsDisplay").show();
-    
+
 })
 
 
