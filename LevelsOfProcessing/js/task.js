@@ -455,6 +455,7 @@ $("#yesResponse").click(function () {
         blank();
     } else {
         $("#1-phase").hide()
+        $(".top").hide();
         createMemoryTest();
         $("#2-phase").toggleClass("initHidden");
         $("#2-phase").toggleClass("flexCenter")
@@ -478,6 +479,7 @@ $("#noResponse").click(function () {
         blank();
     } else {
         $("#1-phase").hide();
+        $(".top").hide();
         createMemoryTest();
         $("#2-phase").toggleClass("initHidden");
         $("#2-phase").toggleClass("flexCenter")
