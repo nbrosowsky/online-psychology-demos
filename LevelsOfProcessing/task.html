@@ -86,7 +86,7 @@
                         Click next to see some examples.
                     </p>
                     <p>
-                    <em>Note:</em> It may take a few moments to load the experiment. If it is still loading you will see a progress bar at the top of the page. Upon completion you will be able click next.
+                        <em>Note:</em> It may take a few moments to load the experiment. If it is still loading you will see a progress bar at the top of the page. Upon completion you will be able click next.
                     </p>
                 </div>
                 <div id="pg2" class="page initHidden">
@@ -242,6 +242,20 @@
         <!-- #content end -->
         <!--- Javascript on page load
 	============================================= -->
+        <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>
+        <script>
+            // Initialize Firebase
+            var config = {
+                apiKey: "AIzaSyBQTQ--MfccgK9C3ckytvU1mpoEm0n3mqE",
+                authDomain: "battig-words.firebaseapp.com",
+                databaseURL: "https://battig-words.firebaseio.com",
+                projectId: "battig-words",
+                storageBucket: "battig-words.appspot.com",
+                messagingSenderId: "846276080009"
+            };
+            firebase.initializeApp(config);
+
+        </script>
 
         <!-- JS components -->
         <script type="text/javascript" src="js/external/nprogress.js"></script>
@@ -260,7 +274,7 @@
 
         <script>
             NProgress.start()
-            
+
             pagination.setup();
 
             $(document).ready(function() {
