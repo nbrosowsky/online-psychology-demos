@@ -253,22 +253,39 @@
                 storageBucket: "battig-words.appspot.com",
                 messagingSenderId: "846276080009"
             };
+            // log into firebase
             firebase.initializeApp(config);
+            firebase.auth().signInAnonymously().catch(function(error) {
+                var errorCod = error.code;
+                var errorMessage = error.message;
+            });
+
+            var userID, isAnonymous
+            firebase.auth().onAuthStateChanged(function(user) {
+                if (user) {
+                    isAnonymous = user.isAnonymous
+                    userID = user.uid;
+                    console.log("you are logged in");
+                } else {
+                    console.log("you are not logged in")
+                }
+            });;
 
         </script>
 
-        <!-- JS components -->
+        <!-- external JS components -->
         <script type="text/javascript" src="js/external/nprogress.js"></script>
         <script type="text/javascript" src="js/external/jquery-3.1.1.js"></script>
-        <script type="text/javascript" src="js/external/rita-full.min.js"></script>
+        <script type="text/javascript" src="https://d3js.org/d3.v4.min.js"></script>
+        
+        <!-- internal common JS components -->
         <script type="text/javascript" src="js/common/eventTimer.js"></script>
         <script type="text/javascript" src="js/common/exportToCSV.js"></script>
         <script type="text/javascript" src="js/common/pagination.js"></script>
-        <script type="text/javascript" src="https://d3js.org/d3.v4.min.js"></script>
         <script type="text/javascript" src="js/common/createChart.js"></script>
-
+        
         <!-- task-specific JS -->
-        <script type="text/javascript" src="js/wordList.js"></script>
+        <script type="text/javascript" src="js/fallbackWords.js"></script>
         <script type="text/javascript" src="js/task.js"></script>
 
 
@@ -278,7 +295,7 @@
             pagination.setup();
 
             $(document).ready(function() {
-                createTrialArray();
+                //createTrialArray();
                 NProgress.done()
             });
 
