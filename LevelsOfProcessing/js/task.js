@@ -23,7 +23,8 @@ var memoryArray = [],
     trialArray = [],
     newWords = [],
     extraWords = [],
-    selectedWords;
+    selectedWords,
+    loaded = false
 var ref = firebase.database().ref();
 
 
@@ -181,7 +182,10 @@ function createTrialArray() {
         var d1 = document.getElementById('memoryList');
         d1.insertAdjacentHTML('beforeend', '<li><input class="custom" type="checkbox" name="' + memoryArray[list].word + '" value="' + memoryArray[list].word + '">' + memoryArray[list].word + '</input></li>');
     }
-    
+
+    console.log("trials created")
+    loaded = true;
+    NProgress.done();
     ref.off();
 }
 
@@ -190,7 +194,6 @@ function createTrialArray() {
 
 
 ////////////// Trial Events ////////////////////////////////////////////
-
 /* set trial intervals in milliseconds */
 var blankLength = 400;
 var feedbackLength = 1000;
@@ -266,12 +269,15 @@ function showWord() {
 ////////////// Set up initial display & button functions //////////////////////////////////////
 /* end instructions and begin experiment */
 $("#beginExp").click(function () {
-    $("#1-instructions").hide();
-    $(".countDisplay").html(trialCount + " / " + trialArray.length + " trials");
-    $(".top").show();
+    if (loaded) {
+        $("#1-instructions").hide();
+        $(".countDisplay").html(trialCount + " / " + trialArray.length + " trials");
+        $(".top").show();
 
-    $("#firstTrial").show();
-    $("#1-target").hide();
+        $("#firstTrial").show();
+        $("#1-target").hide();
+    }
+
 });
 
 $("#startTrials").click(function () {

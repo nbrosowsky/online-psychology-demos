@@ -85,9 +85,7 @@
                     <p>
                         Click next to see some examples.
                     </p>
-                    <p>
-                        <em>Note:</em> It may take a few moments to load the experiment. If it is still loading you will see a progress bar at the top of the page. Upon completion you will be able click next.
-                    </p>
+                
                 </div>
                 <div id="pg2" class="page initHidden">
 
@@ -152,6 +150,9 @@
                     <h3>6. Instructions:</h3>
                     <p>That's it!</p>
                     <p> When you are ready to begin, hit "Start"</p>
+                        <p>
+                        <em>Note:</em> It may take a few moments to load the experiment. If it is still loading you will see a progress bar at the top of the page. Upon completion you will be able click start.
+                    </p>
                     <button id="beginExp" class="button-green" style="float: right">START</button>
 
                 </div>
@@ -293,11 +294,11 @@
             NProgress.start()
 
             pagination.setup();
-
-            $(document).ready(function() {
-                //createTrialArray();
-                NProgress.done()
-            });
+//
+//            $(document).ready(function() {
+//                //createTrialArray();
+//                NProgress.done()
+//            });
 
 
             /*Modernizr: check for flexbox */
