@@ -34,9 +34,18 @@
                 <span class="close">&times;</span>
                 <div id="popUpText">
                     <h3>Instructions:</h3>
-                    <p id="modalText"> You will be shown 20 nonsense letter strings. Your task is to memorize each one as best as you can</p>
+                    <p>On every trial you'll see two words presented briefly, one after the other. The first will appear in the center of the screen and the second word will appear either above or below. Your task will be to indicate whether the word appeared in the upper or lower location.
+                    </p>
+                    <p>
+                        You will use the keyboard to make your response. If it appears in the upper location press the up arrow and if it appears in the lower location, press the down arrow. Try to answer as quickly and accurately as possible.
+                    </p>
 
+                    <h4>Example #1</h4>
+                    <img src="images/example.jpg" style="width: 100%">
 
+                    <p>
+                        In this example, the second word appears in the lower location. Therefore, you would respond by pressing the down arrow on the keyboard.
+                    </p>
                 </div>
             </div>
 
@@ -155,6 +164,9 @@
                 <div class="absolute-center target-box" id="center"></div>
                 <div class="absolute-center target-box" id="down"></div>
             </div>
+            <div id="reminder" style="display: none;">
+                <p>*Reminder: press the up arrow if the <strong>second word</strong> appears in the upper location, press the down arrow if it appears in the lower location.</p>
+            </div>
 
         </div>
         <!-- End Main Content
@@ -178,6 +190,7 @@
         disableBS(); // disable backspace key
         modalInit(); // initiate the modal instruction
         pagination.setup(); // setup pagination for instructions
+
     </script>
 
 </body>

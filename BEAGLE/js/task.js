@@ -244,6 +244,9 @@ function endStudy() {
 
     // hide study display
     $("#targetDisplay").hide();
+    $("#reminder").hide();
+    
+    $("#up").css("font-size","35px")
 
     // create array of new & old words 
     memoryArray = trialArray.concat(newWordsArray)
@@ -254,7 +257,9 @@ function endStudy() {
     $("#testInstructions").css('display', 'flex');
 
     // change modal instructions //
-    $("#modalText").text("We will present you with new letter strings (i.e., ones you did not study). Your task is to rate how rule-compliant or rule-violating each new string is. If you are at a loss, use your gut feeling.")
+    $("#popUpText").html("<p>For the second part of the experiment, we will test your memory for the words you were presented.</p> <p> In the test that follows, we will present you with a series of words, one at a time. Some of the words were presented earlier, some are new words that were not presented in the experiment.</p> <p>Your task is to indicate whether the word presented is an 'OLD' word (i.e., a word that was presented earlier) or a 'NEW' word (i.e., a word that was not presented earlier). </p> <p>To respond, press 'O' if you believe it's an old word or press 'N' if you believe it's a new word. </p> ")
+
+    $("#reminder").html("<p>*Reminder: Press 'O' if you believe the word is an old word, press 'N' if you believe the word is a new word</p>");
 }
 
 
@@ -320,6 +325,7 @@ $("#begin-exp").click(function () {
 
     // show study display & trial counter
     $("#targetDisplay").show();
+    $("#reminder").show();
     $(".countDisplay").html(0 + " / " + trialArray.length + " trials");
     $(".top").css('visibility', 'visible');
 
@@ -335,6 +341,7 @@ $("#startTest").click(function () {
 
     // show test display
     $("#targetDisplay").show();
+    $("#reminder").show();
 
     // init blank screen 
     testBlank();
@@ -354,7 +361,7 @@ $(document).keydown(function (event) {
         if (event.keyCode != 38 && event.keyCode != 40) {
             return
         }
-        
+
         keytest = false; /* disable keypresses */
         time2 = window.performance.now(); /* get timestamp for response */
 
