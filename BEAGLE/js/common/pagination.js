@@ -42,21 +42,21 @@ var pagination = {
 
     },
 
-    pageUp: function () {
+    'pageUp': function () {
         $("#pageDown").show();
         $("#" + this.ids[this.currentPage]).hide();
         pagination.currentPage++;
         $("#" + pagination.ids[this.currentPage]).show();
         if (this.currentPage === this.lastPage) {
             $("#pageUp").hide();
-            $("#beginExp").show();
+            $("#begin-exp").show();
 
         }
     },
 
-    pageDown: function () {
+    'pageDown': function () {
         $("#" + this.ids[this.currentPage]).hide();
-        $("#beginExp").hide();
+        $("#begin-exp").hide();
         this.currentPage--;
         $("#" + this.ids[this.currentPage]).show();
         $("#pageUp").show();
