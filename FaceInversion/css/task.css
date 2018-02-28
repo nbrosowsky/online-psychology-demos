@@ -137,9 +137,20 @@ body {
 }
 
 .instructionDisplay {
+/*
     width: 60%;
     padding: 10px 20px;
     border: 2px #1e1e1e solid;
+*/
+    
+    width: 50%;
+    min-width: 555px;
+    padding: 10px 20px;
+    padding-bottom: 100px;
+    border: 2px #1e1e1e solid;
+    position: relative;
+    min-height: 500px;
+   
 }
 
 .resultsDisplay {
@@ -204,6 +215,12 @@ body {
     background: green;
 }
 
+
+.pgButtons {
+    bottom: 0;
+    position: absolute;
+    width: 100%
+}
 
 /* ----------------------------------------------------------------
   Modal content

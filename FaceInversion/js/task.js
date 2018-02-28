@@ -34,7 +34,7 @@ var trialType = [
 
 var trialArray = [];
 var block = [];
-for (b = 0; b <= 11; b++) {
+for (b = 0; b <= 1; b++) {
     block = [];
     for (n = 0; n <= trialType.length - 1; n++) {
         temp = {
@@ -308,36 +308,38 @@ function getSummary() {
 
 //
 //    // For Google Form //
-//    var googleURL = "https://docs.google.com/forms/d/e/1FAIpQLScRBdUKmF3M4QBmwZCfCLWEyo36qMoZYQfqZbKlWibpB8TcOw/formResponse"
-//    var data = {
-//
-//        // subject ID //
-//        "entry.508578446": trialArray[0].subject,
-//
-//        // RTs //
-//        // faces //
-//        "entry.1339517662": calcAVG(summary.RTFaceUp),
-//        "entry.464346576": calcAVG(summary.RTFaceDown),
-//
-//        // houses //
-//        "entry.907587456": calcAVG(summary.RTHouseUp),
-//        "entry.976557265": calcAVG(summary.RTHouseDown),
-//        
-//        // ACC //
-//        // faces //
-//        "entry.992061188": (1-calcAVG(summary.ACCFaceUp))*100,
-//        "entry.739534827": (1-calcAVG(summary.ACCFaceDown))*100,
-//
-//        // houses //
-//        "entry.468725422": (1-calcAVG(summary.ACCHouseUp))*100,
-//        "entry.1567685492": (1-calcAVG(summary.ACCHouseDown))*100
-//
-//
-//
-//
-//    }
-//    // send to google form ///
-//    postToGoogle(googleURL, data);
+    var googleURL = "https://docs.google.com/forms/d/e/1FAIpQLScRBdUKmF3M4QBmwZCfCLWEyo36qMoZYQfqZbKlWibpB8TcOw/formResponse"
+    var data = {
+        // Instructor's name // 
+        "entry.836651089": document.getElementsByName("instructor")[0].value,
+        
+        // subject ID //
+        "entry.508578446": trialArray[0].subject,
+
+        // RTs //
+        // faces //
+        "entry.1339517662": calcAVG(summary.RTFaceUp),
+        "entry.464346576": calcAVG(summary.RTFaceDown),
+
+        // houses //
+        "entry.907587456": calcAVG(summary.RTHouseUp),
+        "entry.976557265": calcAVG(summary.RTHouseDown),
+        
+        // ACC //
+        // faces //
+        "entry.992061188": (1-calcAVG(summary.ACCFaceUp))*100,
+        "entry.739534827": (1-calcAVG(summary.ACCFaceDown))*100,
+
+        // houses //
+        "entry.468725422": (1-calcAVG(summary.ACCHouseUp))*100,
+        "entry.1567685492": (1-calcAVG(summary.ACCHouseDown))*100
+
+
+
+
+    }
+    // send to google form ///
+    postToGoogle(googleURL, data);
 }
 
 
