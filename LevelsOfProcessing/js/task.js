@@ -324,7 +324,6 @@ $("#noResponse").click(function () {
     } else {
         $("#1-phase").hide();
         $(".top").hide();
-        createMemoryTest();
         $("#2-phase").toggleClass("initHidden");
         $("#2-phase").toggleClass("flexCenter")
         $("#2-instructions").show();
