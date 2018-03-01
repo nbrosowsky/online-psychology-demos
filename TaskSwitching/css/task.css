@@ -258,8 +258,10 @@ body {
     }
 }
 
-@media only screen and (max-width: 768px) {
     /* For mobile phones: */
+/*
+@media only screen and (max-width: 768px) {
+
     .instructionDisplay {
         width: 100%;
         min-height: 0;
@@ -327,3 +329,4 @@ body {
         background: #06c;
     }
 }
+*/
