@@ -67,6 +67,16 @@
                     Welcome to the experiment!
                 </h2>
                 <p>
+                    Please enter your instructor's last name (if applicable):</p>
+
+                <ol>
+                    <p>
+                        Instructor's name:
+                    </p>
+                    <input type="text" name="instructor" style="width: 60%">
+                </ol>
+                <br/>
+                <p>
                     First, we will review the instructions for the experiment. Feel free to use the "next" and "back" buttons to move through the instructions. Once you hit "start" however, you will not be able to go back.
                 </p>
                 <h3>1. Instructions:</h3>
@@ -102,11 +112,13 @@
                 <p>
                     First, you will do the study phase, then the memory test phase. Press the start button to begin the study phase.
                 </p>
-                <button id="beginExp" class="button-green" style="float: right">START</button>
-            </div>
-            <button id="pageDown" class="button-blue initHidden" style="float: left;">BACK</button>
-            <button id="pageUp" class="button-blue" style="float: right;">NEXT</button>
 
+            </div>
+            <div class="pgButtons">
+                <button id="pageDown" class="button-blue initHidden" style="float: left;">BACK</button>
+                <button id="pageUp" class="button-blue" style="float: right; margin-right: 4%">NEXT</button>
+                <button id="beginExp" class="button-green initHidden" style="float: right; margin-right: 4%">START</button>
+            </div>
         </div>
 
         <div class="targetDisplay initHidden">
@@ -142,14 +154,14 @@
             <div id="containerChart" class="flexCenter flexRow">
                 <div id="chart"></div>
             </div>
-<!--
+            <!--
             <p>
                 Your data has been recorded and you can safely close this window.
             </p>
 -->
-            
+
             <p>
-            You can download your complete data set by clicking the button below.</p>
+                You can download your complete data set by clicking the button below.</p>
             <button class="button-green" id="downloadCSV">Save Data as CSV</button>
 
         </div>

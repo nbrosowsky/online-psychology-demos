@@ -119,7 +119,7 @@ body {
 }
 
 .finalInst {
-    font-size: 20px; 
+    font-size: 20px;
     margin: 20px;
 }
 
@@ -139,6 +139,7 @@ body {
 
 .resultsDisplay {
     width: 50%;
+    min-width: 500px;
     padding: 10px 20px;
     border: 2px #1e1e1e solid;
 }
@@ -242,24 +243,33 @@ body {
     color: black;
 }
 
-@media only screen and (min-width: 768px) {
-    .button-blue:hover,
-    .smallButton:hover {
-        cursor: pointer;
-        color: #fff;
-        border: 2px #fff solid;
-        background: #06c;
-    }
-    .button-green:hover {
-        cursor: pointer;
-        color: #fff;
-        border: 2px #fff solid;
-        background: green;
-    }
+
+.button-blue:hover,
+.smallButton:hover {
+    cursor: pointer;
+    color: #fff;
+    border: 2px #fff solid;
+    background: #06c;
 }
 
+.button-green:hover {
+    cursor: pointer;
+    color: #fff;
+    border: 2px #fff solid;
+    background: green;
+}
+
+
+@media only screen and (min-width: 768px) {}
+
+
+/*   For mobile phones: */
+
 @media only screen and (max-width: 768px) {
-    /* For mobile phones: */
+    .top {
+        display: none !important;
+    }
+/*
     .instructionDisplay {
         width: 100%;
         min-height: 0;
@@ -273,9 +283,7 @@ body {
     #beginExp {
         width: 45%;
     }
-    .top {
-        display: none !important;
-    }
+
     .up,
     .down {
         width: 95%;
@@ -286,7 +294,7 @@ body {
         font-size: 20px;
         text-align: center;
     }
-    
+
     .finalInst {
         font-size: 15px;
     }
@@ -294,9 +302,12 @@ body {
         width: 100%;
         margin: 2%;
     }
+*/
+/*
     #mobileButtons {
         display: block;
     }
+*/
     .button-blue:active {
         font-size: 14px;
         margin: 25px auto;
