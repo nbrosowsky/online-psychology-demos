@@ -222,23 +222,13 @@
             }
 
             function submitResponse() {
-                //.replace(/[^\w\s]/gi, '');//
-
-
                 //submit to FireBase
                 data.Comments = $("#Comments").val().replace(/(\r\n|\n|\r)/gm, ' ')
-                firebase.database().ref(userID).set(data)
-                $("#debrief").hide();
-                $("#success").show();
-                firebase.auth().signOut().then(function() {
+                firebase.database().ref(userID).set(data).then(function() {
                     console.log("You are now signed out")
                 }, function(error) {
                     console.error('Sign out Error', error);
                 });
-
-
-                //submit to MTurk
-                //mTurk.submitToTurk(turkData);
 
             };
 
