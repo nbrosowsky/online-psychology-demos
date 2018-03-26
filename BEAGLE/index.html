@@ -223,7 +223,7 @@
 
             function submitResponse() {
                 //submit to FireBase
-                data.Comments = $("#Comments").val().replace(/(\r\n|\n|\r)/gm, ' ')
+                data.comments = $("#Comments").val().replace(/(\r\n|\n|\r)/gm, ' ')
                 firebase.database().ref(userID).set(data).then(function() {
                     console.log("You are now signed out")
                 }, function(error) {

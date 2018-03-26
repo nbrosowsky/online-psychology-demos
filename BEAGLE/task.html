@@ -228,6 +228,20 @@
         if (mTurk.turkInfo().previewMode == true) {
             $("#previewMode").show();
         } else {
+            // give warning if they close the window before the experiment is finished (only when NOT in preview mode) //
+            $(window).on("beforeunload", function(e) {
+                e = e || window.event;
+
+                // For IE and Firefox prior to version 4
+                if (e) {
+                    e.returnValue = 'Sure?';
+                }
+
+                // For Safari
+                return 'Sure?';
+
+            })
+
             if (window.opener) {
                 window.opener.endofExp();
                 window.opener.scrollTo(500, 0);

@@ -17,6 +17,7 @@ if (typeof eventTimer == 'undefined') {
     }
 }
 
+
 //////////////// Stim & Trial Array Creation //////////////////////////////////
 var wordList = [
     [
@@ -206,7 +207,8 @@ var mTurkID,
     expStart = new Date().getTime(),
     expID = "Exp1",
     i,
-    demo
+    demo,
+    expEnd = "incomplete"
 
 
 if (window.opener) {
@@ -236,7 +238,6 @@ for (s = 0; s <= 8; s++) {
         shuffle(words)
 
         trialArray.push({
-            expStart: expStart,
             expID: expID,
             firebaseId: fbID,
             word: words[1],
@@ -279,7 +280,6 @@ for (i = 0; i <= Nwords - 1; i++) {
     shuffle(words)
 
     trialArray.push({
-        expStart: expStart,
         expID: expID,
         firebaseId: fbID,
         word: words[1],
@@ -321,7 +321,6 @@ for (i = 0; i <= (Nwords * 10) - 1; i++) {
     shuffle(words)
 
     newWordsArray.push({
-        expStart: expStart,
         expID: expID,
         firebaseId: fbID,
         word: words[1],
@@ -514,7 +513,11 @@ function testTarget() {
 }
 
 function endExp() {
-    memoryArray.demo = {
+    var fbData
+    fbData.data = memoryArray;
+    fbData.expStart = expStart;
+    fbData.expEnd = new Date().getTime();
+    fbData.demographics = {
         country: $("#country").val(),
         sex: $("[name='sex']").val(),
         age: $("#age").val(),
@@ -527,10 +530,11 @@ function endExp() {
         workerId: mTurk.turkInfo().workerId
 
     };
-    window.opener.data = memoryArray;
+    window.opener.data = fbData;
     $("#data", opener.window.document).val(JSON.stringify(memoryArray));
     window.close()
 }
+
 
 
 
@@ -543,7 +547,7 @@ $("#begin-exp").click(function () {
     // mark the beginning of the experiment
     expBegin = new Date().getTime();
 
-    
+
     // hide study instructions
     $("#studyInstructions").hide();
 
@@ -684,6 +688,7 @@ $(document).keydown(function (event) {
             if (trialCount != memoryArray.length - 1) {
                 testBlank();
             } else {
+
                 endExp();
             }
         }
