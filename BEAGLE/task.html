@@ -54,6 +54,13 @@
         <!-- Main Content
 		============================================= -->
         <div class="content-display noSelect">
+            <!-- Preview Header across all pages
+  ================================================ -->
+            <p id="previewMode" align="center" style="display: none">
+                You are in preview mode. To complete the hit close this window and accept hit before continuing
+            </p>
+            <!-- End Preview Header -->
+
             <div id="topCounter" class="top" style="width: 100%">
                 <h3 style="float: left; width: 30%" class="countDisplay">1 /27 trials</h3>
                 <div style="width 30%; clear: left"></div>
@@ -182,14 +189,9 @@
     <!-- task-specific JS -->
     <script type="text/javascript" src="js/task.js"></script>
     <script type="text/javascript">
-        if (window.opener) {
-            window.opener.endofExp();
-            window.opener.scrollTo(500, 0);
-        }
         disableBS(); // disable backspace key
         modalInit(); // initiate the modal instruction
         pagination.setup(); // setup pagination for instructions
-
     </script>
 
 </body>

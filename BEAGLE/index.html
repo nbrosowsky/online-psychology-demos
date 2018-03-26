@@ -128,109 +128,109 @@
         </div>
 
         <div id="endExp">
-            <div id="debrief" class="initHidden">
+            <div id="debrief">
                 <h1>Experimental Debriefing</h1>
-                <div id="Debrief">
+                <form id="mturk_form" method="POST" action="https://www.mturk.com/mturk/externalSubmit">
 
-                    <p>Thank you for your participation in our experiment. </p>
-                    <p>This document serves as short description of the purposes behind our experiment.</p>
-
+                    <h3>Thank you for participating in our experiment! </h3>
+                    <p class="spaceBelow">This document serves as short description of the purposes behind our experiment.</p>
+                    <p class="spaceBelow">
+                        The general purpose of this study is to investigate spatial aspects of human attention.
+                    </p>
                     <p>
-                        You just completed what is commonly known as a Flanker task. On each trial you were presented with three images. Sometimes all three images were in the same color (congruent) and sometimes they were presented in different colors (incongruent). Typically people are slower to respond when the color of the center image is different from the flanking images demonstrating an inability to ignore the conflicting information. The current experiment investigated whether repeating specific images with either the same or different color configuration (congruent versus incongruent) would change this effect.
+                        You just completed what is commonly known as a Flanker task. On each trial you were presented with five arrows pointed left or right. Sometimes the center arrow was pointed in the same direction as the other four, and sometimes it was pointed in the opposite direction. Typically people are slower to respond when the center arrow is pointed in the opposite direction. This is thought to reflect your ability to ignore conflicting information (the slower you are, the harder it is to ignore the other arrows).
+                    </p>
+                    <p class="spaceAbove">
+                        The current experiment investigated whether people can learn about categorical features associated with more or less conflicting information (e.g., Female, Male). For example, if you learn that images of Males are generally associated with conflict, you might be able to use that as a cue for more focused attention. The counting task was used to get you to focus on certain categorical features more than others.
                     </p>
 
-                    <p>
-                        We are conducting this study to investigate these spatial aspects of human attention across a wide range of participants.
-                    </p>
 
-                    <h3>You have completed the Experiment. Please submit your Hit</h3>
 
-                    <p><strong><em>If you would like to leave a comment, or report a problem use the form below before submitting:</em></strong>
-                    </p>
+                    <h3 class="spaceAbove spaceBelow">You have completed the Experiment. Please submit your Hit</h3>
+
+                    <p><em><strong>If you would like to leave a comment, or report a problem use the form below before submitting:</strong></em></p>
+
+                    <input type="hidden" id="assignmentId" name="assignmentId" value="">
+                    <textarea name="Comments" id="Comments" style="font-size:18px"> </textarea>
+                    <input id="submit" type="submit" name="Submit" value="Submit"> <br />
+                    <input id="data" type="text" name="data"><br />
+
+                </form>
+                <div id="success">
+                    <h1>Data Successfully Submitted!</h1>
+                    <p>Your data has been submitted and you can now close the window.</p>
                 </div>
-
-                <input type="hidden" id="assignmentId" name="assignmentId" value="">
-                <textarea name="Comments" id="Comments" class="textInput"> </textarea>
-                <div style="clear: left"></div>
-                <button id="submitResponse" class="button-green">Submit</button>
-
-
-                <button id="getData" class="initHidden"></button>
-            </div>
-            <div id="success">
-                <h1>Data Successfully Submitted!</h1>
-                <p>Your data has been submitted and you can now close the window.</p>
             </div>
         </div>
 
 
-        <script src="https://www.gstatic.com/firebasejs/4.8.2/firebase.js"></script>
-        <script>
-            // Initialize Firebase
-            var config = {
-                apiKey: "AIzaSyBtx3W8EZZi-TsCdY2tAoGXdjSyLr2L0FM",
-                authDomain: "beagle-3fbdd.firebaseapp.com",
-                databaseURL: "https://beagle-3fbdd.firebaseio.com",
-                projectId: "beagle-3fbdd",
-                storageBucket: "",
-                messagingSenderId: "514895260633"
-            };
-            firebase.initializeApp(config);
-            firebase.auth().signInAnonymously().catch(function(error) {
-                var errorCod = error.code;
-                var errorMessage = error.message;
-            });
-
-            var userID, isAnonymous
-            firebase.auth().onAuthStateChanged(function(user) {
-                if (user) {
-                    isAnonymous = user.isAnonymous
-                    userID = user.uid;
-                    console.log("you are logged in");
-                } else {
-                    console.log("you are not logged in")
-                }
-            });
-
-        </script>
-
-        <script type="text/javascript" src="js/external/jquery-3.1.1.min.js"></script>
-        <script type="text/javascript" src="js/common/mTurk.js"></script>
-        <script type="text/javascript" src="js/common/generic.js"></script>
-        <script type="text/javascript">
-            var data = {};
-            $("#success").hide();
-            //hides the landing page info and shows the end of experiment information//
-            function endofExp() {
-                $("#landing").hide();
-                $("#debrief").show();
-            }
-
-            $("#submitResponse").click(function() {
-                //.replace(/[^\w\s]/gi, '');//
-                var turkData = {
-                    data: JSON.stringify(data),
-                    comments: $("#Comments").val().replace(/(\r\n|\n|\r)/gm, ' ')
-                }
-                
-                
-                //submit to FireBase
-                data.Comments = $("#Comments").val().replace(/(\r\n|\n|\r)/gm, ' ')
-                firebase.database().ref('Exp1/' + userID).set(data)
-                $("#debrief").hide();
-                $("#success").show();
-                firebase.auth().signOut().then(function() {
-                    console.log("You are now signed out")
-                }, function(error) {
-                    console.error('Sign out Error', error);
+            <script src="https://www.gstatic.com/firebasejs/4.8.2/firebase.js"></script>
+            <script>
+                // Initialize Firebase
+                var config = {
+                    apiKey: "AIzaSyBtx3W8EZZi-TsCdY2tAoGXdjSyLr2L0FM",
+                    authDomain: "beagle-3fbdd.firebaseapp.com",
+                    databaseURL: "https://beagle-3fbdd.firebaseio.com",
+                    projectId: "beagle-3fbdd",
+                    storageBucket: "",
+                    messagingSenderId: "514895260633"
+                };
+                firebase.initializeApp(config);
+                firebase.auth().signInAnonymously().catch(function(error) {
+                    var errorCod = error.code;
+                    var errorMessage = error.message;
                 });
 
+                var userID, isAnonymous
+                firebase.auth().onAuthStateChanged(function(user) {
+                    if (user) {
+                        isAnonymous = user.isAnonymous
+                        userID = user.uid;
+                        console.log("you are logged in");
+                    } else {
+                        console.log("you are not logged in")
+                    }
+                });
 
-                //submit to MTurk
-                 mTurk.submitToTurk(turkData);
-                
-            })
+            </script>
 
-        </script>
+            <script type="text/javascript" src="js/external/jquery-3.1.1.min.js"></script>
+            <script type="text/javascript" src="js/common/mTurk.js"></script>
+            <script type="text/javascript" src="js/common/generic.js"></script>
+            <script type="text/javascript">
+                var data = {};
+                $("#success").hide();
+                //hides the landing page info and shows the end of experiment information//
+                function endofExp() {
+                    $("#landing").hide();
+                    $("#debrief").show();
+                }
+
+                $("#submitResponse").click(function() {
+                    //.replace(/[^\w\s]/gi, '');//
+                    var turkData = {
+                        data: JSON.stringify(data),
+                        comments: $("#Comments").val().replace(/(\r\n|\n|\r)/gm, ' ')
+                    }
+
+
+                    //submit to FireBase
+                    data.Comments = $("#Comments").val().replace(/(\r\n|\n|\r)/gm, ' ')
+                    firebase.database().ref('Exp1/' + userID).set(data)
+                    $("#debrief").hide();
+                    $("#success").show();
+                    firebase.auth().signOut().then(function() {
+                        console.log("You are now signed out")
+                    }, function(error) {
+                        console.error('Sign out Error', error);
+                    });
+
+
+                    //submit to MTurk
+                    mTurk.submitToTurk(turkData);
+
+                })
+
+            </script>
 
 </body>

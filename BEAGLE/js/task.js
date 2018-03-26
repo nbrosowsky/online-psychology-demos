@@ -299,7 +299,7 @@ trialArray = shuffle(trialArray);
 // flatten array of remaining words
 var leftover = [].concat.apply([], wordList)
 
-for (i = 0; i <= (Nwords*10)-1; i++) {
+for (i = 0; i <= (Nwords * 10) - 1; i++) {
 
     var l, i, selectOne, words
     selectOne = shuffle(leftover).shift()
@@ -335,6 +335,19 @@ for (i = 0; i <= (Nwords*10)-1; i++) {
 
 
 //////////////////////////////////////////////////////////////////////
+
+///// IF in Preview Mode //////
+
+if (mTurk.turkInfo().previewMode == TRUE) {
+    $("#previewMode").show();
+} else {
+    if (window.opener) {
+        window.opener.endofExp();
+        window.opener.scrollTo(500, 0);
+    }
+}
+
+
 
 
 ////////////// Trial Events ////////////////////////////////////////////
@@ -501,6 +514,7 @@ function testTarget() {
 
 function endExp() {
     window.opener.data = memoryArray;
+    $("#data", opener.window.document).val(JSON.stringify(memoryArray));
     window.close()
 }
 
