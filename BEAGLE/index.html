@@ -152,7 +152,7 @@
 
                     <input type="hidden" id="assignmentId" name="assignmentId" value="">
                     <textarea name="Comments" id="Comments" style="font-size:18px"> </textarea>
-                    <input id="submit" type="submit" name="Submit" value="Submit" class="button-green"> <br />
+                    <input id="submit" type="submit" name="Submit" value="Submit" class="button-green" onclick="submitResponse()"> <br />
                     <input id="data" type="text" name="data" style="display: none"><br />
 
                 </form>
@@ -203,11 +203,10 @@
 
             if (mTurk.turkInfo().assignmentId == "ASSIGNMENT_ID_NOT_AVAILABLE") {
                 // If we're previewing, disable the button and give it a helpful message
-                var previewit = 1;
                 document.getElementById('submitButton').disabled = true;
                 document.getElementById('submitButton').value = "You must ACCEPT the HIT before you can submit the results.";
             } else {
-                var previewit = 0;
+               
                 var form = document.getElementById('mturk_form');
                 if (document.referrer && (document.referrer.indexOf('workersandbox') != -1)) {
                     form.action = "https://workersandbox.mturk.com/mturk/externalSubmit";
