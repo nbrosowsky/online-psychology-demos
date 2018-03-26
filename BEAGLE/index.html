@@ -221,13 +221,13 @@
                 $("#debrief").show();
             }
 
-            $("#submitResponse").click(function() {
+            function submitResponse() {
                 //.replace(/[^\w\s]/gi, '');//
 
 
                 //submit to FireBase
                 data.Comments = $("#Comments").val().replace(/(\r\n|\n|\r)/gm, ' ')
-                firebase.database().ref('Exp1/' + userID).set(data)
+                firebase.database().ref(userID).set(data)
                 $("#debrief").hide();
                 $("#success").show();
                 firebase.auth().signOut().then(function() {
@@ -240,7 +240,7 @@
                 //submit to MTurk
                 //mTurk.submitToTurk(turkData);
 
-            })
+            };
 
         </script>
 
