@@ -206,7 +206,7 @@ if (window.opener) {
 // create study trial array //
 
 // number of words per condition
-var Nwords = 2
+var Nwords = 1
 
 // for each similarity condition... //
 for (s = 0; s <= 8; s++) {
@@ -501,7 +501,6 @@ function testTarget() {
 
 function endExp() {
     window.opener.data = memoryArray;
-    mTurk.submitToTurk(memoryArray);
     window.close()
 }
 
