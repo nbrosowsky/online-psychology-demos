@@ -194,7 +194,8 @@ var mTurkID,
     newWordsArray = [],
     expStart = new Date().getTime(),
     expID = "Exp1",
-    i
+    i,
+    demo
 
 
 if (window.opener) {
@@ -508,8 +509,13 @@ function endExp() {
         age: $("#age").val(),
         hand: $("[name='hand']").val(),
         vision: $("[name='vision']").val(),
-        language: $("[name='language']").val()
-    }
+        language: $("[name='language']").val(),
+        firebaseID: fbID,
+        assignmentId: mTurk.turkInfo().assignmentId,
+        hitId: mTurk.turkInfo().hitId,
+        workerId: mTurk.turkInfo().workerId
+
+    };
     window.opener.data = memoryArray;
     $("#data", opener.window.document).val(JSON.stringify(memoryArray));
     window.close()
@@ -526,6 +532,7 @@ $("#begin-exp").click(function () {
     // mark the beginning of the experiment
     expBegin = new Date().getTime();
 
+    
     // hide study instructions
     $("#studyInstructions").hide();
 
@@ -536,7 +543,7 @@ $("#begin-exp").click(function () {
     $(".top").css('visibility', 'visible');
 
     phase = 'prime'
-    
+
     // trigger study trials
     // initiate blank screen 
     studyBlank();
@@ -559,114 +566,118 @@ $("#startTest").click(function () {
 /* collect response on keypress / ends trial / only when keytest == 1 */
 $(document).keydown(function (event) {
     console.log(event.keyCode)
-    event.preventDefault();
-    if (!keytest) {
-        return
-    };
 
-
-    if (phase == "prime") {
-        if (event.keyCode != 38 && event.keyCode != 40) {
+    if (phase != "instructions") {
+        event.preventDefault();
+        if (!keytest) {
             return
-        }
-
-        keytest = false; /* disable keypresses */
-        time2 = window.performance.now(); /* get timestamp for response */
-
-        /* collect response / force to lower case */
-        response = event.keyCode;
-        if (response == 38) {
-            response = "up"
-        } else if (response == 40) {
-            response = "down"
-        }
-
-        /* determine accuracy */
-        if (response == trialArray[trialCount].location) {
-            accuracy = 1
-        } else {
-            accuracy = 0
         };
 
-        trialArray[trialCount].locationTrial = trialCount + 1
-        trialArray[trialCount].locationResponse = response;
-        trialArray[trialCount].locationT1 = time1;
-        trialArray[trialCount].locationT2 = time2;
-        trialArray[trialCount].locationRT = time2 - time1;
-        trialArray[trialCount].locationACC = accuracy;
 
-        /* create summary data */
+        if (phase == "prime") {
+            if (event.keyCode != 38 && event.keyCode != 40) {
+                return
+            }
 
-        /* display feedback */
-        $("#up").html("");
-        $("#down").html("");
+            keytest = false; /* disable keypresses */
+            time2 = window.performance.now(); /* get timestamp for response */
 
-        if (response == trialArray[trialCount].location) {
-            /* When response is correct... */
-            $('#center').html('<p style="font-size: 40px; text-align: center; color: green"> correct </p>');
-        } else {
-            /* when response is incorrect... */
-            $('#center').html('<p style="font-size: 40px; text-align: center; color: red"> incorrect </p>');
+            /* collect response / force to lower case */
+            response = event.keyCode;
+            if (response == 38) {
+                response = "up"
+            } else if (response == 40) {
+                response = "down"
+            }
+
+            /* determine accuracy */
+            if (response == trialArray[trialCount].location) {
+                accuracy = 1
+            } else {
+                accuracy = 0
+            };
+
+            trialArray[trialCount].locationTrial = trialCount + 1
+            trialArray[trialCount].locationResponse = response;
+            trialArray[trialCount].locationT1 = time1;
+            trialArray[trialCount].locationT2 = time2;
+            trialArray[trialCount].locationRT = time2 - time1;
+            trialArray[trialCount].locationACC = accuracy;
+
+            /* create summary data */
+
+            /* display feedback */
+            $("#up").html("");
+            $("#down").html("");
+
+            if (response == trialArray[trialCount].location) {
+                /* When response is correct... */
+                $('#center').html('<p style="font-size: 40px; text-align: center; color: green"> correct </p>');
+            } else {
+                /* when response is incorrect... */
+                $('#center').html('<p style="font-size: 40px; text-align: center; color: red"> incorrect </p>');
+            }
+
+
+            if (trialCount != trialArray.length - 1) {
+                eventTimer.setTimeout(studyBlank, feedbackLength);
+            } else {
+                eventTimer.setTimeout(endStudy, feedbackLength);
+            }
         }
 
+        if (phase == "probe") {
+            if (String.fromCharCode(event.which).toLowerCase() != 'o' && String.fromCharCode(event.which).toLowerCase() != 'n') {
+                return
+            }
 
-        if (trialCount != trialArray.length - 1) {
-            eventTimer.setTimeout(studyBlank, feedbackLength);
-        } else {
-            eventTimer.setTimeout(endStudy, feedbackLength);
+            keytest = false; /* disable keypresses */
+            time2 = window.performance.now(); /* get timestamp for response */
+
+            /* collect response / force to lower case */
+            response = String.fromCharCode(event.which).toLowerCase();
+
+            if (response === 'o') {
+                response = "old"
+            } else if (response === 'n') {
+                response = "new"
+            }
+
+            /* determine accuracy */
+            if (response == memoryArray[trialCount].wordType) {
+                accuracy = 1
+            } else {
+                accuracy = 0
+            };
+
+            memoryArray[trialCount].memoryTrial = trialCount + 1
+            memoryArray[trialCount].memoryResponse = response;
+            memoryArray[trialCount].memoryRT = time2 - time1;
+            memoryArray[trialCount].memoryACC = accuracy;
+
+            /* create summary data */
+
+            /* display feedback */
+            //            $("#up").html("");
+            //            $("#down").html("");
+            //
+            //            if (response == trialArray[trialCount].cResponse) {
+            //                /* When response is correct... */
+            //                $('#' + trialArray[trialCount].location).html('<p style="font-size: 40px; text-align: center; color: green"> correct </p>');
+            //            } else {
+            //                /* when response is incorrect... */
+            //                $('#' + trialArray[trialCount].location).html('<p style="font-size: 40px; text-align: center; color: red"> incorrect </p>');
+            //            }
+
+
+            if (trialCount != memoryArray.length - 1) {
+                testBlank();
+            } else {
+                endExp();
+            }
         }
     }
 
-    if (phase == "probe") {
-        if (String.fromCharCode(event.which).toLowerCase() != 'o' && String.fromCharCode(event.which).toLowerCase() != 'n') {
-            return
-        }
-
-        keytest = false; /* disable keypresses */
-        time2 = window.performance.now(); /* get timestamp for response */
-
-        /* collect response / force to lower case */
-        response = String.fromCharCode(event.which).toLowerCase();
-
-        if (response === 'o') {
-            response = "old"
-        } else if (response === 'n') {
-            response = "new"
-        }
-
-        /* determine accuracy */
-        if (response == memoryArray[trialCount].wordType) {
-            accuracy = 1
-        } else {
-            accuracy = 0
-        };
-
-        memoryArray[trialCount].memoryTrial = trialCount + 1
-        memoryArray[trialCount].memoryResponse = response;
-        memoryArray[trialCount].memoryRT = time2 - time1;
-        memoryArray[trialCount].memoryACC = accuracy;
-
-        /* create summary data */
-
-        /* display feedback */
-        //            $("#up").html("");
-        //            $("#down").html("");
-        //
-        //            if (response == trialArray[trialCount].cResponse) {
-        //                /* When response is correct... */
-        //                $('#' + trialArray[trialCount].location).html('<p style="font-size: 40px; text-align: center; color: green"> correct </p>');
-        //            } else {
-        //                /* when response is incorrect... */
-        //                $('#' + trialArray[trialCount].location).html('<p style="font-size: 40px; text-align: center; color: red"> incorrect </p>');
-        //            }
-
-
-        if (trialCount != memoryArray.length - 1) {
-            testBlank();
-        } else {
-            endExp();
-        }
-    }
 
 
 });
