@@ -5,6 +5,17 @@
  */
 
 
+//fallback: if eventTimer doesn't load for some reason fallback to the standard js timers
+if (typeof eventTimer == 'undefined') {
+    //console.log("no eventTimer found... using JS setTimeout/Interval")
+    var eventTimer = {};
+    eventTimer.setTimeout = function (fun, time) {
+        window.setTimeout(fun, time)
+    }
+    eventTimer.setInterval = function (fun, time) {
+        window.setInterval(fun, time)
+    }
+}
 
 //////////////// Stim & Trial Array Creation //////////////////////////////////
 var wordList = [
