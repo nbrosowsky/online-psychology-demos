@@ -193,7 +193,7 @@ var mTurkID,
     trialArray = [],
     newWordsArray = [],
     expStart = new Date().getTime(),
-    expID = "test Exp",
+    expID = "Exp1",
     i
 
 
@@ -206,7 +206,7 @@ if (window.opener) {
 // create study trial array //
 
 // number of words per condition
-var Nwords = 5
+var Nwords = 2
 
 // for each similarity condition... //
 for (s = 0; s <= 8; s++) {
@@ -501,6 +501,7 @@ function testTarget() {
 
 function endExp() {
     window.opener.data = memoryArray;
+    mTurk.submitToTurk(memoryArray);
     window.close()
 }
 
