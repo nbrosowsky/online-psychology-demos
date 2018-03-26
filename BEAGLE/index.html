@@ -208,7 +208,12 @@
 
             $("#submitResponse").click(function() {
                 //.replace(/[^\w\s]/gi, '');//
-
+                var turkData = {
+                    data: JSON.stringify(data),
+                    comments: $("#Comments").val().replace(/(\r\n|\n|\r)/gm, ' ')
+                }
+                
+                
                 //submit to FireBase
                 data.Comments = $("#Comments").val().replace(/(\r\n|\n|\r)/gm, ' ')
                 firebase.database().ref('Exp1/' + userID).set(data)
@@ -220,8 +225,9 @@
                     console.error('Sign out Error', error);
                 });
 
+
                 //submit to MTurk
-                 mTurk.submitToTurk(memoryArray);
+                 mTurk.submitToTurk(turkData);
                 
             })
 
