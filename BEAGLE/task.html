@@ -69,7 +69,41 @@
             </div>
             <!-- instructions for study phase -->
             <div id="studyInstructions" class="standard-display book">
-                <div id="pg1" class="page">
+                <!-- Demographics display -->
+                <div id="pg1" class="page initHidden">
+                    <h2>As a part of the research we are collecting general demographic information. </h2>
+                    <p><em>You are not required to complete these questions. </em></p>
+                    <p>However, doing so will help us better understand our results.</p>
+                    <div class="questions">
+                        <p>1. Country </p>
+                        <input id="Country" type="text"> </p>
+                        <hr>
+                        <p>2.
+                            <input id="Sex" type="radio" name="SexGroup" value="Male"> Male
+                            <input id="Sex" type="radio" name="SexGroup" value="Female"> Female</p>
+                        <hr>
+                        <p>3. Age </p>
+                        <input id="Age" type="text"> </p>
+                        <hr>
+                        <p>4. Handedness</p>
+                        <input type="radio" name="HandGroup" value="Right"> Right
+                        <input type="radio" name="HandGroup" value="Left"> Left
+                        <input type="radio" name="HandGroup" value="Both"> Both
+                        <hr>
+                        <p>5. Vision</p>
+                        <input type="radio" name="VisionGroup" value="Normal"> Normal eyesight without needing glasses<br>
+                        <input type="radio" name="VisionGroup" value="Corrected"> Corrected Vision (wear glasses)<br>
+                        <input type="radio" name="VisionGroup" value="problems"> Poor eyesight and do not wear glasses<br>
+                        <hr>
+                        <p>6. English Ability</p>
+                        <input type="radio" name="EnglishGroup" value="First"> First-language speaker<br>
+                        <input type="radio" name="EnglishGroup" value="Second"> Second-language speaker<br>
+                        <input type="radio" name="EnglishGroup" value="None"> No English ability<br>
+                        </hr>
+                    </div>
+                </div>
+
+                <div id="pg2"  class="page initHidden">
 
                     <h2>
                         Welcome to the experiment!
@@ -91,7 +125,7 @@
                     </p>
 
                 </div>
-                <div id="pg2" class="page initHidden">
+                <div id="pg3" class="page initHidden">
 
                     <h3>2. Instructions:</h3>
                     <p>On every trial you'll see two words presented briefly, one after the other. The first will appear in the center of the screen and the second word will appear either above or below. Your task will be to indicate whether the word appeared in the upper or lower location.
@@ -109,7 +143,7 @@
 
 
                 </div>
-                <div id="pg3" class="page initHidden">
+                <div id="pg4" class="page initHidden">
 
                     <h3>3. Instructions:</h3>
                     <p>On every trial you'll see two words presented briefly, one after the other. The first will appear in the center of the screen and the second word will appear either above or below. Your task will be to indicate whether the word appeared in the upper or lower location.
@@ -204,6 +238,7 @@
         disableBS(); // disable backspace key
         modalInit(); // initiate the modal instruction
         pagination.setup(); // setup pagination for instructions
+
     </script>
 
 </body>

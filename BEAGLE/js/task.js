@@ -356,7 +356,7 @@ var expBegin = "NA",
 var trialCount = -1; /* trial counter / keeps track of which trial the subject is on */
 var keytest = false; /* enables and disables keypress effects / only allows responses when keytest == 1 */
 var time1, time2
-var phase = "prime"
+var phase = "instructions"
 /* RT collection
 
 
@@ -502,6 +502,14 @@ function testTarget() {
 }
 
 function endExp() {
+    memoryArray.demo = {
+        country: $("#country").val(),
+        sex: $("[name='sex']").val(),
+        age: $("#age").val(),
+        hand: $("[name='hand']").val(),
+        vision: $("[name='vision']").val(),
+        language: $("[name='language']").val()
+    }
     window.opener.data = memoryArray;
     $("#data", opener.window.document).val(JSON.stringify(memoryArray));
     window.close()
@@ -527,6 +535,8 @@ $("#begin-exp").click(function () {
     $(".countDisplay").html(0 + " / " + trialArray.length + " trials");
     $(".top").css('visibility', 'visible');
 
+    phase = 'prime'
+    
     // trigger study trials
     // initiate blank screen 
     studyBlank();

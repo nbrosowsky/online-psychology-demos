@@ -262,11 +262,11 @@ input[type=submit]:hover {
 }
 
 .standard-display {
-    width: 600px;
+    width: 750px;
     padding: 10px 20px;
     border: 2px #1e1e1e solid;
     position: relative;
-    height: 600px;
+    min-height: 600px;
     margin: auto;
 }
 
