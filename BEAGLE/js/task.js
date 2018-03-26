@@ -336,17 +336,6 @@ for (i = 0; i <= (Nwords * 10) - 1; i++) {
 
 //////////////////////////////////////////////////////////////////////
 
-///// IF in Preview Mode //////
-
-if (mTurk.turkInfo().previewMode == TRUE) {
-    $("#previewMode").show();
-} else {
-    if (window.opener) {
-        window.opener.endofExp();
-        window.opener.scrollTo(500, 0);
-    }
-}
-
 
 
 

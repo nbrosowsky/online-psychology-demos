@@ -128,7 +128,7 @@
         </div>
 
         <div id="endExp">
-            <div id="debrief">
+            <div id="debrief" style="display: none">
                 <h1>Experimental Debriefing</h1>
                 <form id="mturk_form" method="POST" action="https://www.mturk.com/mturk/externalSubmit">
 
@@ -152,8 +152,8 @@
 
                     <input type="hidden" id="assignmentId" name="assignmentId" value="">
                     <textarea name="Comments" id="Comments" style="font-size:18px"> </textarea>
-                    <input id="submit" type="submit" name="Submit" value="Submit"> <br />
-                    <input id="data" type="text" name="data"><br />
+                    <input id="submit" type="submit" name="Submit" value="Submit" class="button-green"> <br />
+                    <input id="data" type="text" name="data" style="display: none"><br />
 
                 </form>
                 <div id="success">
@@ -164,73 +164,85 @@
         </div>
 
 
-            <script src="https://www.gstatic.com/firebasejs/4.8.2/firebase.js"></script>
-            <script>
-                // Initialize Firebase
-                var config = {
-                    apiKey: "AIzaSyBtx3W8EZZi-TsCdY2tAoGXdjSyLr2L0FM",
-                    authDomain: "beagle-3fbdd.firebaseapp.com",
-                    databaseURL: "https://beagle-3fbdd.firebaseio.com",
-                    projectId: "beagle-3fbdd",
-                    storageBucket: "",
-                    messagingSenderId: "514895260633"
-                };
-                firebase.initializeApp(config);
-                firebase.auth().signInAnonymously().catch(function(error) {
-                    var errorCod = error.code;
-                    var errorMessage = error.message;
-                });
+        <script src="https://www.gstatic.com/firebasejs/4.8.2/firebase.js"></script>
+        <script>
+            // Initialize Firebase
+            var config = {
+                apiKey: "AIzaSyBtx3W8EZZi-TsCdY2tAoGXdjSyLr2L0FM",
+                authDomain: "beagle-3fbdd.firebaseapp.com",
+                databaseURL: "https://beagle-3fbdd.firebaseio.com",
+                projectId: "beagle-3fbdd",
+                storageBucket: "",
+                messagingSenderId: "514895260633"
+            };
+            firebase.initializeApp(config);
+            firebase.auth().signInAnonymously().catch(function(error) {
+                var errorCod = error.code;
+                var errorMessage = error.message;
+            });
 
-                var userID, isAnonymous
-                firebase.auth().onAuthStateChanged(function(user) {
-                    if (user) {
-                        isAnonymous = user.isAnonymous
-                        userID = user.uid;
-                        console.log("you are logged in");
-                    } else {
-                        console.log("you are not logged in")
-                    }
-                });
-
-            </script>
-
-            <script type="text/javascript" src="js/external/jquery-3.1.1.min.js"></script>
-            <script type="text/javascript" src="js/common/mTurk.js"></script>
-            <script type="text/javascript" src="js/common/generic.js"></script>
-            <script type="text/javascript">
-                var data = {};
-                $("#success").hide();
-                //hides the landing page info and shows the end of experiment information//
-                function endofExp() {
-                    $("#landing").hide();
-                    $("#debrief").show();
+            var userID, isAnonymous
+            firebase.auth().onAuthStateChanged(function(user) {
+                if (user) {
+                    isAnonymous = user.isAnonymous
+                    userID = user.uid;
+                    console.log("you are logged in");
+                } else {
+                    console.log("you are not logged in")
                 }
+            });
 
-                $("#submitResponse").click(function() {
-                    //.replace(/[^\w\s]/gi, '');//
-                    var turkData = {
-                        data: JSON.stringify(data),
-                        comments: $("#Comments").val().replace(/(\r\n|\n|\r)/gm, ' ')
-                    }
+        </script>
+
+        <script type="text/javascript" src="js/external/jquery-3.1.1.min.js"></script>
+        <script type="text/javascript" src="js/common/mTurk.js"></script>
+        <script type="text/javascript" src="js/common/generic.js"></script>
+        <script type="text/javascript">
+            // Check if the worker is PREVIEWING the HIT or if they've ACCEPTED the HIT
+            document.getElementById('assignmentId').value = mTurk.turkInfo().assignmentId;
+
+            if (mTurk.turkInfo().assignmentId == "ASSIGNMENT_ID_NOT_AVAILABLE") {
+                // If we're previewing, disable the button and give it a helpful message
+                var previewit = 1;
+                document.getElementById('submitButton').disabled = true;
+                document.getElementById('submitButton').value = "You must ACCEPT the HIT before you can submit the results.";
+            } else {
+                var previewit = 0;
+                var form = document.getElementById('mturk_form');
+                if (document.referrer && (document.referrer.indexOf('workersandbox') != -1)) {
+                    form.action = "https://workersandbox.mturk.com/mturk/externalSubmit";
+                }
+            }
+
+            var data = {};
+            $("#success").hide();
+            //hides the landing page info and shows the end of experiment information//
+            function endofExp() {
+                $("#landing").hide();
+                $("#debrief").show();
+            }
+
+            $("#submitResponse").click(function() {
+                //.replace(/[^\w\s]/gi, '');//
 
 
-                    //submit to FireBase
-                    data.Comments = $("#Comments").val().replace(/(\r\n|\n|\r)/gm, ' ')
-                    firebase.database().ref('Exp1/' + userID).set(data)
-                    $("#debrief").hide();
-                    $("#success").show();
-                    firebase.auth().signOut().then(function() {
-                        console.log("You are now signed out")
-                    }, function(error) {
-                        console.error('Sign out Error', error);
-                    });
+                //submit to FireBase
+                data.Comments = $("#Comments").val().replace(/(\r\n|\n|\r)/gm, ' ')
+                firebase.database().ref('Exp1/' + userID).set(data)
+                $("#debrief").hide();
+                $("#success").show();
+                firebase.auth().signOut().then(function() {
+                    console.log("You are now signed out")
+                }, function(error) {
+                    console.error('Sign out Error', error);
+                });
 
 
-                    //submit to MTurk
-                    mTurk.submitToTurk(turkData);
+                //submit to MTurk
+                //mTurk.submitToTurk(turkData);
 
-                })
+            })
 
-            </script>
+        </script>
 
 </body>

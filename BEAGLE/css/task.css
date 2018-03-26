@@ -175,28 +175,22 @@ textarea {
 }
 
 input[type=submit] {
-    font-family: arial;
-    display: block;
-    padding: 10px 75px 13px 75px;
-    background: #ffffff;
-    border: 2px #0066CC solid;
-    color: #0066CC;
+   font-size: 15px;
+    margin: 25px auto;
+    padding: 10px 30px 13px 30px;
     text-decoration: none;
-    margin: 50 auto;
-    font-size: 15px;
-    outline: none;
-    border-radius: 100px;
-    -webkit-border-radius: 100px;
-    -moz-border-radius: 100px;
-    -o-border-radius: 100px;
-    -ms-border-radius: 100px;
+    color: #fff;
+    border: 2px green solid;
+    background: green;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 input[type=submit]:hover {
-    border: 2px #ffffff solid;
-    background: #0066CC;
-    color: #ffffff;
     cursor: pointer;
+    color: green;
+    background: white;
+    border: 2px green solid;
+    outline: none;
 }
 
 

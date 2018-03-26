@@ -189,6 +189,18 @@
     <!-- task-specific JS -->
     <script type="text/javascript" src="js/task.js"></script>
     <script type="text/javascript">
+        ///// IF in Preview Mode //////
+
+        if (mTurk.turkInfo().previewMode == true) {
+            $("#previewMode").show();
+        } else {
+            if (window.opener) {
+                window.opener.endofExp();
+                window.opener.scrollTo(500, 0);
+            }
+        }
+
+
         disableBS(); // disable backspace key
         modalInit(); // initiate the modal instruction
         pagination.setup(); // setup pagination for instructions
