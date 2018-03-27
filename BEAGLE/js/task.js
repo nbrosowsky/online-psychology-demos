@@ -208,7 +208,8 @@ var mTurkID,
     expID = "Exp1",
     i,
     demo,
-    expEnd = "incomplete"
+    expEnd = "incomplete",
+    probeTimer
 
 
 if (window.opener) {
@@ -353,10 +354,10 @@ for (i = 0; i <= (Nwords * 10) - 1; i++) {
 ////////////// Trial Events ////////////////////////////////////////////
 
 /* set trial intervals in milliseconds */
-var blankLength = 200,
-    primeLength = 250,
-    fixateLength = 1000,
-    targetLength = 250,
+var blankLength = 250,
+    primeLength = 500,
+    fixateLength = 500,
+    targetLength = 1000,
     feedbackLength = 1000
 
 
@@ -409,7 +410,7 @@ function studyBlank2() {
 /* 3. Prime word */
 function studyPrime() {
     $("#center").html(trialArray[trialCount].prime.toUpperCase())
-    eventTimer.setTimeout(studyBlank3, primeLength);
+    eventTimer.setTimeout(studyProbe, primeLength);
 }
 
 /* 4. Blank 3 */
@@ -433,14 +434,30 @@ function studyProbe() {
     $("#down").html("");
 
     $("#" + trialArray[trialCount].location).html(trialArray[trialCount].word.toUpperCase())
-    eventTimer.setTimeout(studyResponse, targetLength);
+    probeTimer = eventTimer.setTimeout(studyResponse, targetLength);
 }
 
 /* 5. Blank / wait for response */
 function studyResponse() {
     $("#up").html("");
-    $("#center").html("");
+    //$("#center").html("");
     $("#down").html("");
+}
+
+function feedback() {
+    if (response == trialArray[trialCount].location) {
+        /* When response is correct... */
+        $('#center').html('<p style="font-size: 40px; text-align: center; color: green"> correct </p>');
+    } else {
+        /* when response is incorrect... */
+        $('#center').html('<p style="font-size: 40px; text-align: center; color: red"> incorrect </p>');
+    }
+    
+    if (trialCount != trialArray.length - 1) {
+        eventTimer.setTimeout(studyBlank, feedbackLength);
+    } else {
+        eventTimer.setTimeout(endStudy, feedbackLength);
+    }
 }
 
 //////// END PRIME EVENTS /////////
@@ -622,23 +639,12 @@ $(document).keydown(function (event) {
             /* create summary data */
 
             /* display feedback */
-            $("#up").html("");
-            $("#down").html("");
-
-            if (response == trialArray[trialCount].location) {
-                /* When response is correct... */
-                $('#center').html('<p style="font-size: 40px; text-align: center; color: green"> correct </p>');
-            } else {
-                /* when response is incorrect... */
-                $('#center').html('<p style="font-size: 40px; text-align: center; color: red"> incorrect </p>');
-            }
+            //$("#up").html("");
+            //$("#down").html("");
 
 
-            if (trialCount != trialArray.length - 1) {
-                eventTimer.setTimeout(studyBlank, feedbackLength);
-            } else {
-                eventTimer.setTimeout(endStudy, feedbackLength);
-            }
+            eventTimer.setTimeout(feedback, 1000 - (time2 - time1))
+
         }
 
         if (phase == "probe") {
