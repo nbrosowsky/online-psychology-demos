@@ -530,7 +530,8 @@ function testTarget() {
 }
 
 function endExp() {
-    var fbData
+    var fbData = {};
+    
     fbData.data = memoryArray;
     fbData.expStart = expStart;
     fbData.expEnd = new Date().getTime();
