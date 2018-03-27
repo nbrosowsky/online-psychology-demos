@@ -130,7 +130,8 @@
         <div id="endExp">
             <div id="debrief" style="display: none">
                 <h1>Experimental Debriefing</h1>
-                <form id="mturk_form" method="POST" action="https://www.mturk.com/mturk/externalSubmit">
+                <!-- only submit form if accessed through mTurk -->
+                <form id="mturk_form" method="POST" action="https://www.mturk.com/mturk/externalSubmit" onsubmit="return !mTurk.turkInfo().outsideTurk">
 
                     <h3>Thank you for participating in our experiment! </h3>
                     <p class="spaceBelow">This document serves as short description of the purposes behind our experiment.</p>
@@ -148,14 +149,17 @@
 
                     <input type="hidden" id="assignmentId" name="assignmentId" value="">
                     <textarea name="Comments" id="Comments" style="font-size:18px"> </textarea>
+                    
+                    <!-- always submit data to firebase -->
                     <input id="submit" type="submit" name="Submit" value="Submit" class="button-green" onclick="submitResponse()"> <br />
                     <input id="data" type="text" name="data" style="display: none"><br />
 
                 </form>
-                <div id="success">
-                    <h1>Data Successfully Submitted!</h1>
-                    <p>Your data has been submitted and you can now close the window.</p>
-                </div>
+
+            </div>
+            <div id="success">
+                <h1>Data Successfully Submitted!</h1>
+                <p>Your data has been submitted and you can now close the window.</p>
             </div>
         </div>
 
@@ -197,20 +201,25 @@
             // Check if the worker is PREVIEWING the HIT or if they've ACCEPTED the HIT
             document.getElementById('assignmentId').value = mTurk.turkInfo().assignmentId;
 
+
             if (mTurk.turkInfo().assignmentId == "ASSIGNMENT_ID_NOT_AVAILABLE") {
                 // If we're previewing, disable the button and give it a helpful message
                 document.getElementById('submitButton').disabled = true;
                 document.getElementById('submitButton').value = "You must ACCEPT the HIT before you can submit the results.";
             } else {
-
                 var form = document.getElementById('mturk_form');
                 if (document.referrer && (document.referrer.indexOf('workersandbox') != -1)) {
                     form.action = "https://workersandbox.mturk.com/mturk/externalSubmit";
                 }
             }
 
+
+
+
             var data = {};
             $("#success").hide();
+
+
             //hides the landing page info and shows the end of experiment information//
             function endofExp() {
                 $("#landing").hide();
@@ -218,6 +227,8 @@
             }
 
             function submitResponse() {
+                $("#debrief").hide();
+                $("#success").show();
                 //submit to FireBase
                 data.comments = $("#Comments").val().replace(/(\r\n|\n|\r)/gm, ' ')
                 firebase.database().ref(userID).set(data).then(function() {
