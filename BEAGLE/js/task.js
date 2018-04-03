@@ -29,6 +29,7 @@ shuffle(words)
 // number of words per condition
 var Nwords = 15;
 
+
 var mTurkID,
     fbID,
     trialArray = [],
@@ -155,6 +156,8 @@ $.getJSON("words.json", function (data) {
             wordType: 'new',
             location: 'NA',
             prime: "NA",
+            similarity: "NA",
+            rank: "NA",
             assignmentId: mTurk.turkInfo().assignmentId,
             hitId: mTurk.turkInfo().hitId,
             previewMode: mTurk.turkInfo().hitId,
@@ -465,8 +468,8 @@ $(document).keydown(function (event) {
 
             trialArray[trialCount].locationTrial = trialCount + 1
             trialArray[trialCount].locationResponse = response;
-            trialArray[trialCount].locationT1 = time1;
-            trialArray[trialCount].locationT2 = time2;
+            //trialArray[trialCount].locationT1 = time1;
+            //trialArray[trialCount].locationT2 = time2;
             trialArray[trialCount].locationRT = time2 - time1;
             trialArray[trialCount].locationACC = accuracy;
 
