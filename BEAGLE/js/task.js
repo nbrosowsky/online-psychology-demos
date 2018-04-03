@@ -3,7 +3,6 @@
  * trialArray properties include any information needed to present the stim and
  * any trial information needed for data analysis
  */
-var words
 
 
 //fallback: if eventTimer doesn't load for some reason fallback to the standard js timers
@@ -20,9 +19,16 @@ if (typeof eventTimer == 'undefined') {
 
 
 //////////////// Stim & Trial Array Creation //////////////////////////////////
+
+// words loaded from words.js
 shuffle(words)
 
+
 ///////////// create study trials ////////////////
+
+// number of words per condition
+var Nwords = 15;
+
 var mTurkID,
     fbID,
     trialArray = [],
@@ -50,8 +56,6 @@ $.getJSON("words.json", function (data) {
 
     // create study trial array //
 
-    // number of words per condition
-    var Nwords = 1
 
     // for each similarity condition... //
     for (s = 0; s <= 5; s++) {
@@ -106,7 +110,7 @@ $.getJSON("words.json", function (data) {
 
         selectOne = words.shift()
 
-      
+
         trialArray.push({
             expID: expID,
             firebaseId: fbID,
