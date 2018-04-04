@@ -41,7 +41,7 @@
             <hr>
             <p><strong>Instructions:</strong></p>
 
-            <p>On every trial you'll see two words presented briefly, one after the other. Your task is to type the <strong>second</strong> word as quickly and as accurately as possible. Your typing will appear below the target word. To submit your response, you will press the spacebar. 
+            <p>On every trial you'll see two words presented briefly, one after the other. Your task is to type the <strong>second</strong> word as quickly and as accurately as possible. Your typing will appear below the target word. To submit your response, you will press the spacebar.
             </p>
             <p> For example: </p>
             <p><img src="images/example.png" width="75%" />
@@ -146,7 +146,7 @@
 
                     <input type="hidden" id="assignmentId" name="assignmentId" value="">
                     <textarea name="Comments" id="Comments" style="font-size:18px"> </textarea>
-                    
+
                     <!-- always submit data to firebase -->
                     <input id="submit" type="submit" name="Submit" value="Submit" class="button-green" onclick="submitResponse()"> <br />
                     <input id="data" type="text" name="data" style="display: none"><br />
@@ -223,16 +223,28 @@
                 $("#debrief").show();
             }
 
+            // runs before submitting form:
             function submitResponse() {
-                $("#debrief").hide();
-                $("#success").show();
+                
+                //add comments to dataframe
+                for (i = 0; i <= data.length - 1; i++) {
+                    data[i].comments = $("#Comments").val().replace(/(\r\n|\n|\r)/gm, ' ')
+                }
+
+                //convert data to text and add to form
+                $("#data").val(JSON.stringify(data));
+;
+
                 //submit to FireBase
-                data.comments = $("#Comments").val().replace(/(\r\n|\n|\r)/gm, ' ')
                 firebase.database().ref(userID).set(data).then(function() {
                     console.log("You are now signed out")
                 }, function(error) {
                     console.error('Sign out Error', error);
                 });
+                
+                
+                $("#debrief").hide();
+                $("#success").show();
 
             };
 
