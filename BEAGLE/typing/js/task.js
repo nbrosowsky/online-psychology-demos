@@ -477,7 +477,7 @@ $(document).keydown(function (event) {
                 keys = "";
 
 
-                
+                window.opener.data = trialArray;
 
 
                 if (trialCount != trialArray.length - 1) {
@@ -516,8 +516,7 @@ $(document).keydown(function (event) {
             memoryArray[trialCount].memoryResponse = response;
             memoryArray[trialCount].memoryRT = time2 - time1;
             memoryArray[trialCount].memoryACC = accuracy;
-
-
+            window.opener.data = memoryArray;
 
             if (trialCount != memoryArray.length - 1) {
                 testBlank();
