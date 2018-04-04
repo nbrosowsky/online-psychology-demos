@@ -238,17 +238,25 @@
                 firebase.database().ref(userID).set(data).then(function(){
                     console.log("data sent")
                     
-                    document.getElementById("mturk_form").submit();
+                    if (!mTurk.turkInfo().outsideTurk){
+                         document.getElementById("mturk_form").submit();
+                    }
+                   
                     
                     $("#debrief").hide();
                     $("#success").show();
                     
-//                    firebase.auth().signOut().then(function() {
-//                        console.log('Signed Out');
-//                    }, function(error) {
-//                        console.error('Sign Out Error', error);
-//                    });
+                    firebase.auth().signOut().then(function() {
+                        console.log('Signed Out');
+                    }, function(error) {
+                        console.error('Sign Out Error', error);
+                    });
         
+                }, function(error) {
+                    console.error('data not sent to Firebas', error);
+                    if (!mTurk.turkInfo().outsideTurk){
+                         document.getElementById("mturk_form").submit();
+                    }
                 })
 
             }
