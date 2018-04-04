@@ -379,7 +379,8 @@ input[type=submit]:hover {
 
 .modal-content {
     width: 50%;
-    margin: 10% auto;
+    min-width: 600px;
+    margin: 1% auto;
     /* 10% from the top and centered */
     padding: 20px;
     border: 1px solid #888;
