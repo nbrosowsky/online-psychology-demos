@@ -344,41 +344,6 @@ function testTarget() {
     $("#center").html(memoryArray[trialCount].word.toUpperCase())
 }
 
-function endExp() {
-//    var fbData = {};
-//
-////    fbData.data = memoryArray;
-////    fbData.expStart = expStart;
-////    fbData.expEnd = new Date().getTime();
-////    fbData.demographics = {
-////        country: $("#country").val(),
-////        sex: $("[name='sex']").val(),
-////        age: $("#age").val(),
-////        hand: $("[name='hand']").val(),
-////        vision: $("[name='vision']").val(),
-////        language: $("[name='language']").val(),
-////        firebaseID: fbID,
-////        assignmentId: mTurk.turkInfo().assignmentId,
-////        hitId: mTurk.turkInfo().hitId,
-////        workerId: mTurk.turkInfo().workerId
-////
-////    };
-    
-    for (i =0; i<= memoryArray.length-1; i++){
-        memoryArray[i].expStart = expStart,
-        memoryArray[i].expEnd = expEnd,
-        memoryArray[i].country = $("#country").val();
-        memoryArray[i].sex = $("[name='sex']").val();
-        memoryArray[i].age = $("#age").val();
-        memoryArray[i].hand = $("[name='hand']").val();
-        memoryArray[i].vision = $("[name='vision']").val();
-        memoryArray[i].language = $("[name='language']").val(); 
-    }
-    
-    window.opener.data = memoryArray;
-//    $("#data", opener.window.document).val(JSON.stringify(memoryArray));
-    window.close()
-}
 
 
 
@@ -552,3 +517,9 @@ function sendData(){
     
     window.opener.data = t;
 }
+
+function endExp() {
+    sendData();
+    window.close();
+}
+
