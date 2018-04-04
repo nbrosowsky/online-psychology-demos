@@ -184,10 +184,6 @@ var blankLength = 250,
     feedbackLength = 1000
 
 
-
-var expBegin = "NA",
-    expEnd = "NA"
-
 var trialCount = -1; /* trial counter / keeps track of which trial the subject is on */
 var keytest = false; /* enables and disables keypress effects / only allows responses when keytest == 1 */
 var time1, time2, keys = [],
@@ -526,7 +522,7 @@ $(document).keydown(function (event) {
             if (trialCount != memoryArray.length - 1) {
                 testBlank();
             } else {
-
+                expEnd = new Date().getTime();
                 endExp();
             }
         }

@@ -225,15 +225,11 @@
 
             // runs before submitting form:
             function submitResponse() {
-                
+
                 //add comments to dataframe
                 for (i = 0; i <= data.length - 1; i++) {
                     data[i].comments = $("#Comments").val().replace(/(\r\n|\n|\r)/gm, ' ')
                 }
-
-                //convert data to text and add to form
-                $("#data").val(JSON.stringify(data));
-;
 
                 //submit to FireBase
                 firebase.database().ref(userID).set(data).then(function() {
@@ -241,8 +237,11 @@
                 }, function(error) {
                     console.error('Sign out Error', error);
                 });
-                
-                
+
+                //convert data to text and add to form
+                $("#data").val(JSON.stringify(data));
+
+
                 $("#debrief").hide();
                 $("#success").show();
 
