@@ -223,9 +223,8 @@
                 $("#debrief").show();
             }
 
-            // runs before submitting form:
-            function submitResponse() {
 
+            $('#mturk_form').submit(function() {
                 //add comments to dataframe
                 for (i = 0; i <= data.length - 1; i++) {
                     data[i].comments = $("#Comments").val().replace(/(\r\n|\n|\r)/gm, ' ')
@@ -233,9 +232,15 @@
 
                 //submit to FireBase
                 firebase.database().ref(userID).set(data).then(function() {
-                    console.log("You are now signed out")
+
+                    firebase.auth().signOut().then(function() {
+                        console.log('Signed Out');
+                    }, function(error) {
+                        console.error('Sign Out Error', error);
+                    });
+                   
                 }, function(error) {
-                    console.error('Sign out Error', error);
+                    console.error('Firebase error. Data not sent', error);
                 });
 
                 //convert data to text and add to form
@@ -244,6 +249,13 @@
 
                 $("#debrief").hide();
                 $("#success").show();
+
+                return true; // return false to cancel form action
+            });
+            // runs before submitting form:
+            function submitResponse() {
+
+
 
             };
 
