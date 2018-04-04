@@ -149,7 +149,7 @@
                     <textarea name="Comments" id="Comments" style="font-size:18px"> </textarea>
 
                     <!-- always submit data to firebase -->
-                    <input id="submit" type="submit" name="Submit" value="Submit" class="button-green" onclick="submitResponse()"> <br />
+                    <input id="collect" value="Submit" class="button-green" onclick="submitResponse()"> <br />
                     <input id="data" type="text" name="data" style="display: none"><br />
 
                 </form>
@@ -237,6 +237,9 @@
                 
                 firebase.database().ref(userID).set(data).then(function(){
                     console.log("data sent")
+                    
+                    document.getElementById("mturk_form").submit();
+                    
                     $("#debrief").hide();
                     $("#success").show();
                     
