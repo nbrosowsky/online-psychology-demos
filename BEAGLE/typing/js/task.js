@@ -477,8 +477,7 @@ $(document).keydown(function (event) {
                 keys = "";
 
 
-                window.opener.data = trialArray;
-
+                sendData();
 
                 if (trialCount != trialArray.length - 1) {
                     eventTimer.setTimeout(studyBlank, 1000 - (time2 - time1))
@@ -516,7 +515,8 @@ $(document).keydown(function (event) {
             memoryArray[trialCount].memoryResponse = response;
             memoryArray[trialCount].memoryRT = time2 - time1;
             memoryArray[trialCount].memoryACC = accuracy;
-            window.opener.data = memoryArray;
+           
+            sendData();
 
             if (trialCount != memoryArray.length - 1) {
                 testBlank();
@@ -530,3 +530,25 @@ $(document).keydown(function (event) {
 
 
 });
+
+function sendData(){
+    var t
+    if (phase == 'probe'){
+        t = memoryArray
+    } else {
+        t = trialArray
+    }
+    
+     for (i =0; i<= t.length-1; i++){
+        t[i].expStart = expStart,
+        t[i].expEnd = expEnd,
+        t[i].country = $("#country").val();
+        t[i].sex = $("[name='sex']").val();
+        t[i].age = $("#age").val();
+        t[i].hand = $("[name='hand']").val();
+        t[i].vision = $("[name='vision']").val();
+        t[i].language = $("[name='language']").val(); 
+    }
+    
+    window.opener.data = t;
+}
