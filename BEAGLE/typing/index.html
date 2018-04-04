@@ -149,8 +149,7 @@
                     <textarea name="Comments" id="Comments" style="font-size:18px"> </textarea>
 
                     <!-- always submit data to firebase -->
-                    <input id="submit" type="submit" name="Submit" value="Submit" class="button-green" style="display:none"> <br />
-                    <input id="collect" value="Submit" class="button-green" style="text-align: center"> <br />
+                    <input id="submit" type="submit" name="Submit" value="Submit" class="button-green" onclick="submitResponse()"> <br />
                     <input id="data" type="text" name="data" style="display: none"><br />
 
                 </form>
@@ -225,38 +224,31 @@
                 $("#debrief").show();
             }
 
-
-            $('#collect').click(function() {
+            function submitResponse() {
                 //add comments to dataframe
+                var c = $("#Comments").val().replace(/(\r\n|\n|\r)/gm, ' ')
+                
                 for (i = 0; i <= data.length - 1; i++) {
-                    data[i].comments = $("#Comments").val().replace(/(\r\n|\n|\r)/gm, ' ')
+                    data[i].comments = c;
                 }
 
-                //submit to FireBase
-                firebase.database().ref(userID).set(data).then(function() {
-
-                    //convert data to text and add to form
-                    $("#data").val(JSON.stringify(data));
-
-
+                //convert data to text and add to form
+                $("#data").val(JSON.stringify(data));
+                
+                firebase.database().ref(userID).set(data).then(function(){
+                    console.log("data sent")
                     $("#debrief").hide();
                     $("#success").show();
-
-                    firebase.auth().signOut().then(function() {
-                        console.log('Signed Out');
-                    }, function(error) {
-                        console.error('Sign Out Error', error);
-                    });
-
-                }, function(error) {
-                    console.error('Firebase error. Data not sent', error);
-                    $("#error").show();
                     
-                });
+//                    firebase.auth().signOut().then(function() {
+//                        console.log('Signed Out');
+//                    }, function(error) {
+//                        console.error('Sign Out Error', error);
+//                    });
+        
+                })
 
-                $("#mturk_form").submit();
-
-            });
+            }
 
         </script>
 
