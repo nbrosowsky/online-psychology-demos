@@ -149,7 +149,8 @@
                     <textarea name="Comments" id="Comments" style="font-size:18px"> </textarea>
 
                     <!-- always submit data to firebase -->
-                    <input id="submit" type="submit" name="Submit" value="Submit" class="button-green" onclick="submitResponse()"> <br />
+                    <input id="submit" type="submit" name="Submit" value="Submit" class="button-green" style="display:none"> <br />
+                    <input id="collect" value="Submit" class="button-green" style="text-align: center"> <br />
                     <input id="data" type="text" name="data" style="display: none"><br />
 
                 </form>
@@ -225,7 +226,7 @@
             }
 
 
-            $('#mturk_form').submit(function() {
+            $('#collect').click(function() {
                 //add comments to dataframe
                 for (i = 0; i <= data.length - 1; i++) {
                     data[i].comments = $("#Comments").val().replace(/(\r\n|\n|\r)/gm, ' ')
@@ -241,8 +242,6 @@
                     $("#debrief").hide();
                     $("#success").show();
 
-                    return true; // return false to cancel form action
-
                     firebase.auth().signOut().then(function() {
                         console.log('Signed Out');
                     }, function(error) {
@@ -252,17 +251,12 @@
                 }, function(error) {
                     console.error('Firebase error. Data not sent', error);
                     $("#error").show();
-                    return false; // return false to cancel form action
+                    
                 });
 
+                $("#mturk_form").submit();
 
             });
-            // runs before submitting form:
-            function submitResponse() {
-
-
-
-            };
 
         </script>
 
