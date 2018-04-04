@@ -126,6 +126,7 @@
 
         <div id="endExp">
             <div id="debrief" style="display: none">
+                <p id='error' style="display:none">There was an error submitting your data. Please try submitting again.</p>
                 <h1>Experimental Debriefing</h1>
                 <!-- only submit form if accessed through mTurk -->
                 <form id="mturk_form" method="POST" action="https://www.mturk.com/mturk/externalSubmit" onsubmit="return !mTurk.turkInfo().outsideTurk">
@@ -233,24 +234,28 @@
                 //submit to FireBase
                 firebase.database().ref(userID).set(data).then(function() {
 
+                    //convert data to text and add to form
+                    $("#data").val(JSON.stringify(data));
+
+
+                    $("#debrief").hide();
+                    $("#success").show();
+
+                    return true; // return false to cancel form action
+
                     firebase.auth().signOut().then(function() {
                         console.log('Signed Out');
                     }, function(error) {
                         console.error('Sign Out Error', error);
                     });
-                   
+
                 }, function(error) {
                     console.error('Firebase error. Data not sent', error);
+                    $("#error").show();
+                    return false; // return false to cancel form action
                 });
 
-                //convert data to text and add to form
-                $("#data").val(JSON.stringify(data));
 
-
-                $("#debrief").hide();
-                $("#success").show();
-
-                return true; // return false to cancel form action
             });
             // runs before submitting form:
             function submitResponse() {
