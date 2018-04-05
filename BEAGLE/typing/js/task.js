@@ -32,7 +32,7 @@ var mTurkID,
     fbID,
     trialArray = [],
     newWordsArray = [],
-    expStart = new Date().getTime(),
+    expStart = new Date(),
     expID = "Exp1",
     i,
     demo,
@@ -398,6 +398,7 @@ $(document).keydown(function (event) {
 
     if (phase != "instructions") {
         event.preventDefault();
+        
         if (!keytest) {
             return
         };
@@ -486,7 +487,7 @@ $(document).keydown(function (event) {
             if (trialCount != memoryArray.length - 1) {
                 testBlank();
             } else {
-                expEnd = new Date().getTime();
+                expEnd = new Date();
                 endExp();
             }
         }
