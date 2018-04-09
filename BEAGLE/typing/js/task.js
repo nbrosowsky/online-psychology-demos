@@ -25,7 +25,7 @@ if (typeof eventTimer == 'undefined') {
 ///////////// create study trials ////////////////
 
 // number of words per condition
-var Nwords = 2;
+var Nwords = 15;
 
 
 var mTurkID,
