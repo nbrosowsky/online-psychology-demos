@@ -161,7 +161,7 @@ header {
     font-size: 15px;
     color: #000;
 /*    line-height: 20px;*/
-    width: 60%;
+    width: 75%;
     margin: auto;
     min-width: 500px;
 }
@@ -201,8 +201,7 @@ input[type=submit]:hover {
     background-color: #292929;
     border-bottom: 4px #1e1e1e solid;
     color: #ffffff;
-    width: 100%;
-    margin: auto;
+    
     min-width: 500px;
 }
 
