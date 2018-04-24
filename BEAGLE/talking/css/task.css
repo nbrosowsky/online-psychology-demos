@@ -1,0 +1,416 @@
+/* ----------------------------------------------------------------
+  Typography
+-----------------------------------------------------------------*/
+
+body {
+    font-family: arial;
+    font-size: 15px;
+    margin: 0;
+    padding: 0;
+    color: black;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+/* ----------------------------------------------------------------
+  General Helper classes
+-----------------------------------------------------------------*/
+
+.initHidden {
+    display: none;
+}
+
+.noMargin {
+    margin: 0 !important;
+}
+
+.absolute-center {
+    /* Internet Explorer 10 */
+    display: -ms-flexbox;
+    -ms-flex-pack: center;
+    -ms-flex-align: center;
+
+    /* Firefox */
+    display: -moz-box;
+    -moz-box-pack: center;
+    -moz-box-align: center;
+
+    /* Safari, Opera, and Chrome */
+    display: -webkit-box;
+    -webkit-box-pack: center;
+    -webkit-box-align: center;
+
+    /* W3C */
+    display: box;
+    box-pack: center;
+    box-align: center;
+}
+
+.flexSpaceBetween {
+    display: flex;
+    align-content: space-between;
+}
+
+.flexCenter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.flexRow {
+    display: -webkit-flex;
+    /* Safari 6.1+ */
+    display: flex;
+    flex-direction: row;
+    /* Safari */
+    -webkit-flex-direction: row;
+    align-items: center;
+}
+
+.flexColumn {
+    display: -webkit-flex;
+    /* Safari 6.1+ */
+    display: flex;
+    flex-direction: column;
+    /* Safari */
+    -webkit-flex-direction: column;
+    align-items: center;
+}
+
+.noSelect {
+    -webkit-touch-callout: none;
+    /* iOS Safari */
+    -webkit-user-select: none;
+    /* Safari */
+    -khtml-user-select: none;
+    /* Konqueror HTML */
+    -moz-user-select: none;
+    /* Firefox */
+    -ms-user-select: none;
+    /* Internet Explorer/Edge */
+    user-select: none;
+    /* Non-prefixed version, currently supported by Chrome and Opera */
+}
+
+.bottomRight {
+    position: absolute;
+    right: 20px;
+    bottom: 0
+}
+
+.bottomLeft {
+    position: absolute;
+    left: 20px;
+    bottom: 0
+}
+
+.width100 {
+    width: 100%;
+}
+
+.margin15 {
+    margin: 15%;
+}
+
+
+.textInput {
+    font-size: 15px;
+    width: 80%;
+}
+
+/* ----------------------------------------------------------------
+  landing page content
+------------------------------------------------------------------*/
+
+header {
+    width: 100%;
+    height: 75px;
+    background-color: #292929;
+    border-bottom: 4px #1e1e1e solid;
+    margin: auto;
+}
+
+.landingContainer {
+    min-width: 1000px;
+}
+
+.wrapper {
+    height: auto;
+    margin: 0 auto;
+}
+
+#title {
+    display: block;
+    float: left;
+    margin-top: 30px;
+    margin-left: 10%;
+    margin-right: 10%;
+    font-family: arial;
+    font-weight: bold;
+    font-size: 25pt;
+    color: white;
+}
+
+#landing,
+#explorerInst,
+#endExp {
+    font-family: arial;
+    font-size: 15px;
+    color: #000;
+/*    line-height: 20px;*/
+    width: 75%;
+    margin: auto;
+    min-width: 500px;
+}
+
+
+/* Debriefing */
+
+textarea {
+    width: 100%;
+    height: 126px;
+}
+
+input[type=submit] {
+   font-size: 15px;
+    margin: 25px auto;
+    padding: 10px 30px 13px 30px;
+    text-decoration: none;
+    color: #fff;
+    border: 2px green solid;
+    background: green;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+input[type=submit]:hover {
+    cursor: pointer;
+    color: green;
+    background: white;
+    border: 2px green solid;
+    outline: none;
+}
+
+
+/* TURKconsent.html */
+
+#consentWrapper {
+    height: 100px;
+    background-color: #292929;
+    border-bottom: 4px #1e1e1e solid;
+    color: #ffffff;
+    
+    min-width: 500px;
+}
+
+.headerText {
+    display: block;
+    color: #ffffff;
+    float: left;
+    margin: 20px 20px 20px 20px;
+/*    line-height: 40px;*/
+ 
+}
+
+
+/* ----------------------------------------------------------------
+  Task Content
+-----------------------------------------------------------------*/
+#previewMode {
+  background-color: rgba(255, 0, 0, 0.75);
+  color: white;
+  font-weight:bold;
+  line-height: 4em;
+  position: fixed;
+  width: 100%;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+  z-index: 3;
+}
+
+/*
+#custom-handle {
+    width: 3em;
+    height: 1.6em;
+    top: 50%;
+    margin-top: -.8em;
+    text-align: center;
+    line-height: 1.6em;
+}
+*/
+
+.content-display {
+    width: 100%;
+    width: 100vw;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+
+.top {
+    font-family: arial;
+    z-index: 2;
+    visibility: hidden;
+    height: 100px;
+    margin-left: 25px;
+    padding: 0;
+}
+
+.standard-display {
+    width: 750px;
+    padding: 10px 20px;
+    border: 2px #1e1e1e solid;
+    position: relative;
+    min-height: 600px;
+    margin: auto;
+}
+
+#reminder {
+    width: 600px;
+    padding: 10px 20px;
+    position: relative;
+    margin: auto;
+    font-size: 14px;
+}
+
+.target-box {
+    width: 100%; 
+    height: 200px; 
+    margin: 0; 
+    padding: 0;
+    font-size: 60px;      
+}
+
+.mem-words {
+    width: 50%;
+    text-align: center;
+}
+
+.mem-words:hover {
+    cursor: pointer;
+    background: #d3d3d3;
+}
+
+.pg-buttons {
+    bottom: 0;
+    position: absolute;
+    width: 100%
+}
+
+.page {
+    margin-bottom: 100px;
+}
+
+
+
+.button-blue {
+    font-size: 15px;
+    margin: 25px auto;
+    padding: 10px 30px 13px 30px;
+    text-decoration: none;
+    color: white;
+    border: 2px #06c solid;
+    outline: none;
+    background: #06c;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.button-green {
+    font-size: 15px;
+    margin: 25px auto;
+    padding: 10px 30px 13px 30px;
+    text-decoration: none;
+    color: #fff;
+    border: 2px green solid;
+    background: green;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.leftButton {
+    font-family:  arial;
+    font-size: 15px;
+    text-decoration: none;
+    color: white;
+    border: 2px #06c solid;
+    outline: none;
+    background: #06c;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.button-blue:hover,
+.leftButton:hover {
+    cursor: pointer;
+    color: #06c;
+    background: #fff;
+    border: 2px #06c solid;
+}
+
+.button-green:hover {
+    cursor: pointer;
+    color: green;
+    background: white;
+    border: 2px green solid;
+    outline: none;
+}
+
+
+/* ----------------------------------------------------------------
+  Modal content
+-----------------------------------------------------------------*/
+
+.modal {
+    /* Hidden by default */
+    position: fixed;
+    /* Stay in place */
+    z-index: 1;
+    top: 0;
+    /* Sit on top */
+    left: 0;
+    display: none;
+    /* Full height */
+    overflow: auto;
+    width: 100%;
+    /* Full width */
+    height: 100%;
+    /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0);
+    /* Fallback color */
+    background-color: rgba(0, 0, 0, .4);
+    /* Black w/ opacity */
+}
+
+
+/* Modal Content/Box */
+
+.modal-content {
+    width: 50%;
+    min-width: 600px;
+    margin: 1% auto;
+    /* 10% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    background-color: #fefefe;
+    /* Could be more or less, depending on screen size */
+}
+
+
+/* The Close Button */
+
+.close {
+    font-size: 28px;
+    font-weight: bold;
+    float: right;
+    padding: 15px;
+    color: #aaa;
+}
+
+.close:hover,
+.close:focus {
+    cursor: pointer;
+    text-decoration: none;
+    color: black;
+}

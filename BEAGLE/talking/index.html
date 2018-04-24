@@ -167,12 +167,12 @@
         <script>
             // Initialize Firebase
             var config = {
-                apiKey: "AIzaSyBtx3W8EZZi-TsCdY2tAoGXdjSyLr2L0FM",
-                authDomain: "beagle-3fbdd.firebaseapp.com",
-                databaseURL: "https://beagle-3fbdd.firebaseio.com",
-                projectId: "beagle-3fbdd",
-                storageBucket: "",
-                messagingSenderId: "514895260633"
+                apiKey: "AIzaSyDgSKf36zFc66K6J-2fBNFpRSYRoOq66a0",
+                authDomain: "beagle-2.firebaseapp.com",
+                databaseURL: "https://beagle-2.firebaseio.com",
+                projectId: "beagle-2",
+                storageBucket: "beagle-2.appspot.com",
+                messagingSenderId: "256957577787"
             };
             firebase.initializeApp(config);
             firebase.auth().signInAnonymously().catch(function(error) {
@@ -228,37 +228,67 @@
             function submitResponse() {
                 //add comments to dataframe
                 var c = $("#Comments").val().replace(/(\r\n|\n|\r)/gm, ' ')
-                
+
                 for (i = 0; i <= data.length - 1; i++) {
                     data[i].comments = c;
                 }
 
                 //convert data to text and add to form
                 $("#data").val(JSON.stringify(data));
+
+                var newKey = firebase.database().ref().child(userID).push().key;
+                var updates = {};
                 
-                firebase.database().ref(userID).set(data).then(function(){
+                updates["/" + userID + "/" + newKey] = data
+                
+                firebase.database().ref().update(updates).then(function() {
                     console.log("data sent")
-                    
-                    if (!mTurk.turkInfo().outsideTurk){
-                         document.getElementById("mturk_form").submit();
+
+                    if (!mTurk.turkInfo().outsideTurk) {
+                        document.getElementById("mturk_form").submit();
                     }
-                   
-                    
+
+
                     $("#debrief").hide();
                     $("#success").show();
-                    
+
                     firebase.auth().signOut().then(function() {
                         console.log('Signed Out');
                     }, function(error) {
                         console.error('Sign Out Error', error);
                     });
-        
+
                 }, function(error) {
                     console.error('data not sent to Firebas', error);
-                    if (!mTurk.turkInfo().outsideTurk){
-                         document.getElementById("mturk_form").submit();
+                    if (!mTurk.turkInfo().outsideTurk) {
+                        document.getElementById("mturk_form").submit();
                     }
                 })
+                
+                
+//                firebase.database().ref(userID + "/" + new Date().getTime()).set(data).then(function() {
+//                    console.log("data sent")
+//
+//                    if (!mTurk.turkInfo().outsideTurk) {
+//                        document.getElementById("mturk_form").submit();
+//                    }
+//
+//
+//                    $("#debrief").hide();
+//                    $("#success").show();
+//
+//                    firebase.auth().signOut().then(function() {
+//                        console.log('Signed Out');
+//                    }, function(error) {
+//                        console.error('Sign Out Error', error);
+//                    });
+//
+//                }, function(error) {
+//                    console.error('data not sent to Firebas', error);
+//                    if (!mTurk.turkInfo().outsideTurk) {
+//                        document.getElementById("mturk_form").submit();
+//                    }
+//                })
 
             }
 
