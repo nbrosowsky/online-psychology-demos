@@ -25,14 +25,14 @@ if (typeof eventTimer == 'undefined') {
 ///////////// create study trials ////////////////
 
 // number of words per condition
-var Nwords = 1;
+var Nwords = 2;
 
 
 var mTurkID,
     fbID,
     trialArray = [],
     newWordsArray = [],
-    expStart = convertDate(),
+    expStart = new Date(),
     expID = "Exp2",
     i,
     demo,
@@ -154,7 +154,7 @@ function studyBlank() {
     keytest = false; /*disable keypresses */
 
     /* clear all target displays */
-    $("#up").html("");
+    $("#up", "#down").html("");
     $("#center").html("");
     $("#down").html("");
 
@@ -163,6 +163,7 @@ function studyBlank() {
 
 /* 2. fixation cross */
 function studyFixate() {
+    $("#center").css("color", "black")
     $(".countDisplay").html((trialCount + 1) + " /" + trialArray.length + " trials");
     $("#center").html("+")
 
@@ -172,7 +173,7 @@ function studyFixate() {
 /* 3. Blank 2 */
 function studyBlank2() {
     /* clear all target displays */
-    $("#up").html("");
+    $("#up", "#down").html("");
     $("#center").html("");
 
     eventTimer.setTimeout(studyPrime, blankLength);
@@ -180,6 +181,7 @@ function studyBlank2() {
 
 /* 3. Prime word */
 function studyPrime() {
+    $("#center").css("color", "green")
     $("#center").html(trialArray[trialCount].prime.toUpperCase())
     eventTimer.setTimeout(studyBlank3, primeLength);
 }
@@ -187,7 +189,7 @@ function studyPrime() {
 /* 4. Blank 3 */
 function studyBlank3() {
     /* clear all target displays */
-    $("#up").html("");
+    $("#up", "#down").html("");
     $("#center").html("");
 
     eventTimer.setTimeout(studyProbe, blankLength);
@@ -197,8 +199,10 @@ function studyBlank3() {
 function studyProbe() {
 
     /* clear all target displays */
-    $("#up").html("");
+    $("#up", "#down").html("");
+    $("#center").css("color", "red")
     $("#center").html(trialArray[trialCount].word.toUpperCase())
+
 
     probeTimer = eventTimer.setTimeout(studyResponse, targetLength);
 }
@@ -208,8 +212,8 @@ function studyResponse() {
     time1 = window.performance.now();
     keytest = true;
 
-
-    $("#up").html("");
+    $("#center").css("color", "black")
+    $("#up", "#down").html("");
     $("#center").html("");
 
     responseTimer = eventTimer.setTimeout(tooSlow, 1000);
@@ -217,7 +221,9 @@ function studyResponse() {
 
 function tooSlow() {
     /* when response takes longer than 1 second. */
-    $('#center').html('<p style="font-size: 40px; text-align: center; color: red"> Too Slow! Respond Faster </p>');
+    $("#center").css("color", "black")
+    $('#center').html('<p style="font-size: 40px; text-align: center; color: black"> Too Slow! Respond Faster </p>');
+    $("#down").html('<p style="font-size: 20px; text-align: center; color: black">(press the spacebar to continue) </p>');
 }
 
 //////// END PRIME EVENTS /////////
@@ -241,9 +247,9 @@ function endStudy() {
     $("#testInstructions").css('display', 'flex');
 
     // change modal instructions //
-    $("#popUpText").html("<p>For the second part of the experiment, we will test your memory for the words you were presented.</p> <p> In the test that follows, we will present you with a series of words, one at a time. Some of the words were presented earlier, some are new words that were not presented in the experiment.</p> <p>Your task is to indicate whether the word presented is an 'OLD' word (i.e., a word that was presented earlier) or a 'NEW' word (i.e., a word that was not presented earlier). </p> <p>To respond, press 'O' if you believe it's an old word or press 'N' if you believe it's a new word. </p> ")
+    $("#popUpText").html("<p>For the second part of the experiment, we will test your memory for the words you were presented.</p> <p> In the test that follows, we will present you with pairs of words. In each pair, one will be a word that was presented earlier in the experiment (OLD), while the other will be a new word, that was not presented earlier (NEW). </p> <p>Your task is to indicate which of the two words presented is an 'OLD' word (i.e., a word that was presented earlier). </p> <p>To respond, you will click the mouse on the word, you believe to be an OLD word. </p> ")
 
-    $("#reminder").html("<p>*Reminder: Press 'O' if you believe the word is an old word, press 'N' if you believe the word is a new word</p>");
+    $("#reminder").html("<p>*Reminder: Use the mouse to click on the OLD word (i.e., The word that was presented earlier)</p>");
 }
 
 
@@ -254,7 +260,7 @@ function testBlank() {
     keytest = false; /*disable keypresses */
 
     /* clear all target displays */
-    $("#up").html("");
+    $("#up", "#down").html("");
     $("#center").html("");
     $("#down").html("");
 
@@ -273,7 +279,7 @@ function testFixate() {
 /* 3. Blank 2 */
 function testBlank2() {
     /* clear all target displays */
-    $("#up").html("");
+    $("#up", "#down").html("");
     $("#center").html("");
     $("#down").html("");
 
@@ -367,7 +373,7 @@ function recordResponse(r) {
     if (trialCount != trialArray.length - 1) {
         testBlank();
     } else {
-        expEnd = convertDate();
+        expEnd = new Date();
         endExp();
     }
 
@@ -401,12 +407,13 @@ $(document).keydown(function (event) {
 
 
                 trialArray[trialCount].talkingRT = time2 - time1
-
+                trialArray[trialCount].talkingTrial = trialCount + 1
+                
                 sendData();
 
                 if (time2 - time1 < 1000) {
                     /* when response takes longer than 1 second. */
-                    $('#center').html('<p style="font-size: 40px; text-align: center; color: green">' + '#10003' + '</p>');
+                    $('#center').html('<p style="font-size: 40px; text-align: center; color: black"> great! </p>');
                     if (trialCount != trialArray.length - 1) {
                         eventTimer.setTimeout(studyBlank, 500);
                     } else {
@@ -433,16 +440,20 @@ $(document).keydown(function (event) {
 
 function sendData() {
     var t = trialArray
-
+    var eTime = (expEnd === 'incomplete')?'incomplete':expEnd.getTime() - expStart.getTime()
+    var st = convertDate(expStart);
+    var en = (expEnd === 'incomplete')?'incomplete':convertDate(expEnd);
+    
     for (i = 0; i <= t.length - 1; i++) {
-        t[i].expStart = expStart,
-            t[i].expEnd = expEnd,
-            t[i].country = $("#country").val();
-        t[i].sex = $("[name='sex']").val();
+        t[i].expStart = st;
+        t[i].expEnd = en
+        t[i].expTime = eTime;
+        t[i].country = $("#country").val();
+        t[i].sex = $("[name='sex']:checked").val();
         t[i].age = $("#age").val();
-        t[i].hand = $("[name='hand']").val();
-        t[i].vision = $("[name='vision']").val();
-        t[i].language = $("[name='language']").val();
+        t[i].hand = $("[name='hand']:checked").val();
+        t[i].vision = $("[name='vision']:checked").val();
+        t[i].language = $("[name='language']:checked").val();
     }
 
     window.opener.data = t;

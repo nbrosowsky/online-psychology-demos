@@ -33,21 +33,21 @@
         <div id="landing">
             <h2>Task Overview</h2>
             <hr>
-            <p><strong>Time:</strong> This task takes approximately 20-30 minutes.</p>
-            <p><strong>Compensation:</strong> You will be compensated $3.50 for completing the hit.</p>
-            <p><strong>Task:</strong>There are two parts. In the first, you will type a briefly presented word as quickly and as accurately as possible (105 trials). In the second, you will make judgments about single words (210 trials) </p>
+            <p><strong>Time:</strong> This task takes approximately 5 minutes.</p>
+            <p><strong>Compensation:</strong> You will be compensated $0.50 for completing the hit.</p>
+            <p><strong>Task:</strong>There are two parts. In the first, you will be presented with two words in a row. The first will be presented in green font, the second in red font. Your task is to say the second word (out loud), then when it disappears, press the spacebar as quickly as possible (30 trials). In the second, you will make judgments about single words (30 trials) </p>
             <p><strong>Preview:</strong> You can preview this hit by continuing without accepting the hit. </p>
             <p><em>To complete the hit you must accept the hit before continuing.</em> Close the practice window, then accept the hit on the main window to continue.</p>
             <hr>
             <p><strong>Instructions:</strong></p>
 
-            <p><strong>Part 1:</strong> On every trial you'll see two words presented briefly, one after the other. Your task is to type the <strong>second</strong> word as quickly and as accurately as possible. Your typing will appear below the target word. To submit your response, you will press the spacebar.
+            <p><strong>Part 1:</strong> On every trial you'll see two words presented briefly, one after the other. Your task is to say the <strong>second</strong> word out loud. The second word will only be presented for 1 second. After the word disappears, you must press the spacebar as quickly as possible. Responses must be less than 1 second, otherwise you will receive a warning about responding too slow.
             </p>
             <p> For example: </p>
             <p><img src="images/example.png" width="75%" />
             </p>
             <p>Once you submit your response (by pressing spacebar) you will automatically proceed to the next trial.</p>
-            <p><strong>Part 2:</strong> Once you've completed the first part (105 trials), you will receive instructions about the second part, where you will make judgments about single words (210 trials).</p>
+            <p><strong>Part 2:</strong> Once you've completed the first part (30 trials), you will receive instructions about the second part, where you will make judgments about single words (30 trials). You will receive more instructions after you've completed the first part.</p>
 
 
             <p><strong>This experiment requires a pop-window to be full-screen. At the end of the experiment the window will automatically close and return you to amazon where you can submit the hit.</strong></p>
@@ -96,7 +96,7 @@
                 <p><strong>Confidentiality:</strong> The only identifying information kept based on your participation in this study will be your Amazon Mechanical Turk WorkerID serial number. This is automatically recorded.</p>
 
 
-                <p><strong>Compensation:</strong> If you satisfactorily complete the study, you will receive $3.50. Payments are made via Amazon's payment system.</p>
+                <p><strong>Compensation:</strong> If you satisfactorily complete the study, you will receive $0.50. Payments are made via Amazon's payment system.</p>
 
                 <p><strong>Questions or Concerns:</strong> You can ask questions about this research study now or any time during the study by e-mailing Nick Brosowsky at
                     <a href="mailto:nbrosowsky@gradcenter.cuny.edu?Subject=Typing%20Skills%20Game" target="_top">nbrosowsky@gradcenter.cuny.edu</a></p>
@@ -133,12 +133,26 @@
                 <form id="mturk_form" method="POST" action="https://www.mturk.com/mturk/externalSubmit">
 
                     <h3>Thank you for participating in our experiment! </h3>
-                    <p class="spaceBelow">This document serves as short description of the purposes behind our experiment.</p>
+                    <p> Before submitting your HIT, we would like to know whether you read the words out loud or not. We would like you to be honest. The acceptance of your HIT will not be affected by your response here. </p>
+
+                    <div class="questions">
+                        <h4> Please indicate which response best describes how you performed the task:</h4>
+                        <input type="radio" name="talking" value="I read all the words out loud."> I read all the words out loud.<br>
+                        <input type="radio" name="talking" value="I read some of the words out loud and some of them silently."> I read some of the words out loud and some of them silently.<br>
+                        <input type="radio" name="talking" value="I read all the words silently."> I read all the words silently.<br>
+                        <input type="radio" name="talking" value="I did not read any of the words."> I did not read any of the words.<br>
+                        <input type="radio" name="talking" value="Other"> Other: <input id='other' type='text' style="width: 60%"><br>
+
+
+                    </div>
+                    <br>
+
+                    <h4>This document serves as short description of the purposes behind our experiment.</h4>
                     <p class="spaceBelow">
                         The general purpose of this study is to investigate how memory is influenced by word-meaning and the semantic relationships between words.
                     </p>
                     <p>
-                        In the first part of the experiment you completed a typing task. Each target word was preceeded by a context-word that was either the same, similar, or different than the target word. Later, your memory was tested on all the target words. Some work has shown that resolving conflicting information might help memory. Here, we were interested in examining how the relationships between the context and target words helped or hindered your later memory for the target words.
+                        In the first part of the experiment you completed a simple speaking task. Each target word was preceeded by a context-word that was either the same, similar, or different than the target word. Later, your memory was tested on all the target words. Some work has shown that resolving conflicting information might help memory. Here, we were interested in examining how the relationships between the context and target words helped or hindered your later memory for the target words.
                     </p>
 
 
@@ -149,9 +163,12 @@
                     <input type="hidden" id="assignmentId" name="assignmentId" value="">
                     <textarea name="Comments" id="Comments" style="font-size:18px"> </textarea>
 
+                 
                     <!-- always submit data to firebase -->
-                    <input id="collect" value="Submit" class="button-green" onclick="submitResponse()"> <br />
+                    <input id="collect" value="Submit" class="button-green" onclick="submitResponse()" style="text-align: center"> <br />
+
                     <input id="data" type="text" name="data" style="display: none"><br />
+
 
                 </form>
 
@@ -225,70 +242,84 @@
                 $("#debrief").show();
             }
 
+           
+
             function submitResponse() {
-                //add comments to dataframe
-                var c = $("#Comments").val().replace(/(\r\n|\n|\r)/gm, ' ')
+                    //add talking question to dataframe
+                    var talk = $("[name='talking']:checked").val();
 
-                for (i = 0; i <= data.length - 1; i++) {
-                    data[i].comments = c;
-                }
-
-                //convert data to text and add to form
-                $("#data").val(JSON.stringify(data));
-
-                var newKey = firebase.database().ref().child(userID).push().key;
-                var updates = {};
-                
-                updates["/" + userID + "/" + newKey] = data
-                
-                firebase.database().ref().update(updates).then(function() {
-                    console.log("data sent")
-
-                    if (!mTurk.turkInfo().outsideTurk) {
-                        document.getElementById("mturk_form").submit();
+                    if (talk === 'Other') {
+                        talk = 'Other: ' + $("#other").val()
+                    } else if(talk === undefined){
+                        talk = 'No response'
                     }
 
+                    //add comments to dataframe
+                    var c = $("#Comments").val().replace(/(\r\n|\n|\r)/gm, ' ')
 
-                    $("#debrief").hide();
-                    $("#success").show();
+                    for (i = 0; i <= data.length - 1; i++) {
+                        data[i].comments = c;
+                        data[i].talk = talk;
+                    }
 
-                    firebase.auth().signOut().then(function() {
-                        console.log('Signed Out');
+                    //convert data to text and add to form
+                    $("#data").val(JSON.stringify(data));
+
+                    var newKey = firebase.database().ref().child(userID).push().key;
+                    var updates = {};
+
+                    updates["/" + userID + "/" + newKey] = data
+
+                    firebase.database().ref().update(updates).then(function() {
+                        console.log("data sent")
+
+                        if (!mTurk.turkInfo().outsideTurk) {
+                            document.getElementById("mturk_form").submit();
+                        }
+
+
+                        $("#debrief").hide();
+                        $("#success").show();
+
+                        firebase.auth().signOut().then(function() {
+                            console.log('Signed Out');
+                        }, function(error) {
+                            console.error('Sign Out Error', error);
+                        });
+
                     }, function(error) {
-                        console.error('Sign Out Error', error);
-                    });
+                        console.error('data not sent to Firebas', error);
+                        if (!mTurk.turkInfo().outsideTurk) {
+                            document.getElementById("mturk_form").submit();
+                        }
+                    })
 
-                }, function(error) {
-                    console.error('data not sent to Firebas', error);
-                    if (!mTurk.turkInfo().outsideTurk) {
-                        document.getElementById("mturk_form").submit();
-                    }
-                })
-                
-                
-//                firebase.database().ref(userID + "/" + new Date().getTime()).set(data).then(function() {
-//                    console.log("data sent")
-//
-//                    if (!mTurk.turkInfo().outsideTurk) {
-//                        document.getElementById("mturk_form").submit();
-//                    }
-//
-//
-//                    $("#debrief").hide();
-//                    $("#success").show();
-//
-//                    firebase.auth().signOut().then(function() {
-//                        console.log('Signed Out');
-//                    }, function(error) {
-//                        console.error('Sign Out Error', error);
-//                    });
-//
-//                }, function(error) {
-//                    console.error('data not sent to Firebas', error);
-//                    if (!mTurk.turkInfo().outsideTurk) {
-//                        document.getElementById("mturk_form").submit();
-//                    }
-//                })
+
+                    //                firebase.database().ref(userID + "/" + new Date().getTime()).set(data).then(function() {
+                    //                    console.log("data sent")
+                    //
+                    //                    if (!mTurk.turkInfo().outsideTurk) {
+                    //                        document.getElementById("mturk_form").submit();
+                    //                    }
+                    //
+                    //
+                    //                    $("#debrief").hide();
+                    //                    $("#success").show();
+                    //
+                    //                    firebase.auth().signOut().then(function() {
+                    //                        console.log('Signed Out');
+                    //                    }, function(error) {
+                    //                        console.error('Sign Out Error', error);
+                    //                    });
+                    //
+                    //                }, function(error) {
+                    //                    console.error('data not sent to Firebas', error);
+                    //                    if (!mTurk.turkInfo().outsideTurk) {
+                    //                        document.getElementById("mturk_form").submit();
+                    //                    }
+                    //                })
+                    
+
 
             }
 

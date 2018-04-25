@@ -259,8 +259,7 @@ editDist = function (a, b) {
 };
 
 
-var convertDate = function () {
-    var today = new Date();
+var convertDate = function (today) {
     var dd = today.getDate();
     var mm = today.getMonth() + 1; //January is 0!
     var yyyy = today.getFullYear();
@@ -274,8 +273,17 @@ var convertDate = function () {
     if (mm < 10) {
         mm = '0' + mm
     }
-    
+
+    if (h < 10) {
+        h = '0' + h
+    }
+
+    if (m < 10) {
+        m = '0' + m
+    }
+
+
     today = h + ":" + m + "-" + yyyy + "-" + mm + "-" + dd
 
-return today
+    return today
 }
