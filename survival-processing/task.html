@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
+
+<head>
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="N.P. Brosowsky" content="Survival Processing" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Stylesheets
+	============================================= -->
+    <link rel="stylesheet" href="css/task.css" type="text/css" />
+
+
+    <!-- Document Title
+	============================================= -->
+    <title>Word Rating Game</title>
+
+</head>
+
+<body>
+    <!-- Header & Footer
+		============================================= -->
+    <div class="top initHidden" style="width: 100%">
+        <h1 style="float: left; width: 20%" class="countDisplay">1 /27 trials</h1>
+        <h3 style="float: left; width: 60%; text-align: center" id="reminder"></h3>
+        <div style="width: 20%; clear: left"></div>
+        <!--
+        <button id="showInstructions" class="smallButton">Show Instructions</button>
+
+        <div style="max-width: 125px">
+            <h3>Reminder:</h3>
+            <ul style="list-style-type:none; padding: 5px">
+                <li><strong>SHAPE: </strong></li>
+                <li>diamond = "Z"</li>
+                <li>square = "M"</li>
+            </ul>
+            <ul style="list-style-type:none; padding: 5px">
+                <li><strong>FILL: </strong></li>
+                <li>two = "Z"</li>
+                <li>three = "M"</li>
+            </ul>
+        </div>
+-->
+    </div>
+    <!-- Header & Footer End -->
+
+    <!-- Main Content
+		============================================= -->
+    <div class="contentDisplay flexCenter noSelect">
+        <div id="1-phase" class="container flexSpaceBetween">
+            <div id="1-instructions" class="instructionDisplay book">
+                <div id="pg1" class="page">
+                    <h2>
+                        Welcome to the experiment!
+                    </h2>
+                    <p>
+                        First, we will review the instructions for the experiment. Feel free to use the "next" and "back" buttons to move through the instructions. Once you hit "start" however, you will not be able to go back.
+                    </p>
+                    <h3>1. Instructions:</h3>
+                    <p>
+                        On every trial you'll see a word in bold capital letters with some instructions. Your task will be to rate the word based on the instructions you see.
+                    </p>
+                    <p>
+                        There will be four kinds ratings that you might be asked to give:
+                    </p>
+                    <ol>
+                        <li>How relevant the word would be for you in a survival situation</li>
+                        <li>The pleasantness of the word.</li>
+                        <li>The ease or difficulty with which it arouses a mental image</li>
+                        <li>How easily the word brings to mind an important personal experience.</li>
+                    </ol>
+
+                </div>
+                <div id="pg2" class="page initHidden">
+
+                    <h3>2. Instructions:</h3>
+                    <p>You will indicate your response by moving the slider to the appropriate number and pressing the "submit response" button</p>
+
+                    <h4>Survival Example</h4>
+                    <img src="images/eg_survival.png" style="width: 100%">
+
+
+                </div>
+                <div id="pg3" class="page initHidden">
+
+                    <h3>3. Instructions:</h3>
+                    <p>You will indicate your response by moving the slider to the appropriate number and pressing the "submit response" button</p>
+
+                    <h4>Imagery Example</h4>
+                    <img src="images/eg_imagery.png" style="width: 100%">
+
+                   
+                </div>
+                <div id="pg4" class="page initHidden">
+
+                    <h3>4. Instructions:</h3>
+                    <p>You will indicate your response by moving the slider to the appropriate number and pressing the "submit response" button</p>
+
+                    <h4>Pleasantness Example</h4>
+                    <img src="images/eg_pleasant.png" style="width: 100%">
+
+
+                </div>
+                <div id="pg5" class="page initHidden">
+
+                    <h3>5. Instructions:</h3>
+                    <p>You will indicate your response by moving the slider to the appropriate number and pressing the "submit response" button</p>
+
+                    <h4>Self-Reference Example</h4>
+                    <img src="images/eg_self.png" style="width: 100%">
+
+
+                </div>
+                <div id="pg6" class="page initHidden">
+
+                    <h3>6. Instructions:</h3>
+                    <p>That's it!</p>
+                    <p> When you are ready to begin, hit "Start"</p>
+                     <button id="beginExp" class="button-green" style="float: right">START</button>
+
+                </div>
+
+                <button id="pageDown" class="button-blue initHidden" style="float: left;">BACK</button>
+                <button id="pageUp" class="button-blue" style="float: right;">NEXT</button>
+            </div>
+
+            <div id="1-target" class="initHidden targetDisplay">
+                <div class="flexCenter">
+                    <h1 id="targetWord">HOUSE</h1>
+                </div>
+                <div id="survival" class="rating ">
+                    <div>
+                        <p><strong>Please rate how relevant this word would be for you in this survival situation</strong>.</p>
+
+                        <p>Imagine that you are stranded in the grasslands of a foreign land, without any basic survival materials. Over the next few months, you’ll need to find steady supplies of food and water and protect yourself from predators. Please rate how relevant this word would be for you in this survival situation.</p>
+
+
+                        <p>Some of the words may be relevant and others may not—it’s up to you to decide
+                        </p>
+                    </div>
+
+                    <div class="sliderContainer" class="flexCenter">
+                        <p><em>Totally Irrelevant</em></p>
+                        <div style="margin:5%">
+                            <div class="flexRow" style="justify-content: space-between; padding-left: 5px; padding-right: 5px">
+                                <div class="flexCenter">1</div>
+                                <div class="flexCenter">2</div>
+                                <div class="flexCenter">3</div>
+                                <div class="flexCenter">4</div>
+                                <div class="flexCenter">5</div>
+                            </div>
+                            <input id="survivalInput" type="range" min="1" max="5" step="1" list="ticks-1" />
+                            <datalist id="ticks-1">
+                            <option label="1">1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                        </datalist>
+                        </div>
+                        <p><em>Extremely Relevant</em></p>
+                    </div>
+
+
+                </div>
+                <div id="pleasantness" class="rating">
+                    <div>
+                        <p><strong>Please rate the pleasantness of this word. </strong></p>
+
+                        <p>Some of the words may be pleasant and others may not—it’s up to you to decide.</p>
+                    </div>
+
+
+                    <div class="sliderContainer" class="flexCenter">
+                        <p><em>Totally Unpleasant</em></p>
+                        <div style="margin:5%">
+                            <div class="flexRow" style="justify-content: space-between; padding-left: 5px; padding-right: 5px">
+                                <div class="flexCenter">1</div>
+                                <div class="flexCenter">2</div>
+                                <div class="flexCenter">3</div>
+                                <div class="flexCenter">4</div>
+                                <div class="flexCenter">5</div>
+                            </div>
+                            <input id="pleasantnessInput" type="range" min="1" max="5" step="1" list="ticks-2" />
+                            <datalist id="ticks-2">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                        </datalist>
+                        </div>
+
+                        <p><em>Extremely Pleasant</em></p>
+                    </div>
+
+
+
+
+
+                </div>
+                <div id="imagery" class="rating">
+                    <div>
+                        <p><strong>Please rate this word by the ease or difficulty with which it arouses a mental image</strong></p>
+
+
+                        <p>Nouns differ in their capacity to arouse mental images of things or events. Some words arouse a sensory experience, such as a mental picture or sound, very quickly and easily, whereas others may do so only with difficulty (i.e., after a long delay) or not at all.</p>
+
+
+                        <p>Any word which, in your estimation, arouses a mental image (i.e., a mental picture, or sound, or other sensory experience) very quickly and easily should be given a high imagery rating; a word that arouses a mental image with difficulty or not at all should be given a low imagery rating.
+                        </p>
+                    </div>
+                    <div class="sliderContainer" class="flexCenter">
+                        <p><em>Low Imagery</em></p>
+                        <div style="margin:5%">
+                            <div class="flexRow" style="justify-content: space-between; padding-left: 5px; padding-right: 5px">
+                                <div class="flexCenter">1</div>
+                                <div class="flexCenter">2</div>
+                                <div class="flexCenter">3</div>
+                                <div class="flexCenter">4</div>
+                                <div class="flexCenter">5</div>
+                            </div>
+                            <input id="imageryInput" type="range" min="1" max="5" step="1" list="ticks-3" />
+                            <datalist id="ticks-3">
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                            </datalist>
+                        </div>
+                        <p><em>High Imagery</em></p>
+                    </div>
+
+                </div>
+                <div id="selfReference" class="rating">
+                    <div>
+                        <p><strong>Please rate how easily this word brings to mind an important personal experience.</strong></p>
+
+                        <p>We would like you to think of personal experiences you have had in your life and rate how easily this word brings to mind an important personal experience. </p>
+
+                    </div>
+                    <div class="sliderContainer" class="flexCenter">
+                        <p><em>Very Difficult</em></p>
+                        <div style="margin:5%">
+                            <div class="flexRow" style="justify-content: space-between; padding-left: 5px; padding-right: 5px">
+                                <div class="flexCenter">1</div>
+                                <div class="flexCenter">2</div>
+                                <div class="flexCenter">3</div>
+                                <div class="flexCenter">4</div>
+                                <div class="flexCenter">5</div>
+                            </div>
+
+                            <input id="selfReferenceInput" type="range" min="1" max="5" step="1" list="ticks-4" />
+                            <datalist id="ticks-4">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                        </datalist>
+
+
+                        </div>
+                        <p><em>Extremely Easy</em></p>
+                    </div>
+                </div>
+
+
+
+
+                <div class="flexCenter">
+                    <button id="submitResponse" class="button-green" style="align-self: flex-end">Submit Response</button>
+                </div>
+            </div>
+        </div>
+        <div id="2-phase" class="container initHidden">
+            <div id="2-instructions" class="instructionDisplay">
+                <div>
+                    <h2>Surprise Memory Test!</h2>
+                    <p>Now we'll test your memory for all the words you just saw.</p>
+                    <p>On each trial you'll be shown two words. One will be from the list you've seen, the other will be a new word you haven't seen yet. Your task will be to pick the <strong>old word</strong></p>
+                    <p>You will make your choice by click on the word. Remember: click the <strong>old word</strong></p>
+                    <p>When you are ready, press the start button</p>
+                    <button id="beginMemory" class="button-green">START</button>
+                </div>
+            </div>
+
+            <div id="2-target" class="flexCenter flexColumn" style="margin: auto">
+                <h2>Which word is the <strong>OLD</strong> word?</h2>
+                <div>
+                    <button id="left" class="memory-btn">PSYCHOLOGISTS</button>
+                    <button id="right" class="memory-btn">PSYCHOLOGISTSS</button>
+                </div>
+
+            </div>
+        </div>
+        <div id="phase3" class="">
+            <div id="3-instructions">
+
+            </div>
+
+
+        </div>
+
+
+
+
+
+
+        <div id="resultsDisplay" class="initHidden">
+            <h2>
+                Finished!
+            </h2>
+            <div id="containerChart" class="flexCenter flexRow">
+                <div id="chart"></div>
+            </div>
+            <p>
+                Your data has been recorded and you can safely close this window.
+            </p>
+            <!--
+            <p>
+            You can download your complete data set by clicking the button below.</p>
+            <button class="smallButton" id="downloadCSV">Save Data as CSV</button>
+-->
+        </div>
+    </div>
+    <!-- #content end -->
+    <!--- Javascript on page load
+	============================================= -->
+
+    <!-- JS components -->
+    <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="js/preLoader.js"></script>
+    <script type="text/javascript" src="js/eventTimer.js"></script>
+    <script type="text/javascript" src="js/postToGoogle.js"></script>
+    <script type="text/javascript" src="js/exportToCSV.js"></script>
+    <script type="text/javascript" src="js/pagination.js"></script>
+    <script type="text/javascript" src="https://d3js.org/d3.v4.min.js"></script>
+    <script type="text/javascript" src="js/createChart.js"></script>
+
+    <!-- task-specific JS -->
+    <script type="text/javascript" src="js/task.js"></script>
+
+
+    <script>
+        pagination.setup();
+        /*Modernizr: check for flexbox */
+        function checkFlex() {
+            if (Modernizr.flexbox) {
+                $(".flexPresent").show();
+                $(".flexAbsent").hide();
+            } else {
+                $(".flexPresent").hide();
+                $(".flexAbsent").show();
+            }
+        }
+
+    </script>
+</body>
+
+</html>
